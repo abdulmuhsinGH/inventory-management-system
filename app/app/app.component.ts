@@ -7,4 +7,23 @@ import { Component } from '@angular/core';
 })
 
 
-export class AppComponent { }
+export class AppComponent { 
+
+	classBoolean = true;
+	toggleMenu(){
+		this.classBoolean = !this.classBoolean;
+
+	}
+
+	changeClass(){
+		let classes={
+			'nav-md':this.classBoolean,
+			'nav-sm':!this.classBoolean,
+		}
+
+		return classes;
+		
+	}
+
+
+}
