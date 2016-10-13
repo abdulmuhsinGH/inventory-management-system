@@ -10,8 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
-var angular2_moment_1 = require('angular2-moment');
-var ng2_daterangepicker_1 = require('ng2-daterangepicker');
 var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
 var dashboard_component_1 = require('../dashboard/dashboard.component');
@@ -23,12 +21,11 @@ var AppModule = (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 app_routing_1.AppRoutingModule,
-                angular2_moment_1.MomentModule,
             ],
             declarations: [app_component_1.AppComponent,
                 dashboard_component_1.DashboardComponent,
                 app_routing_1.routingComponents,
-                ng2_daterangepicker_1.DateRangePickerDirective],
+            ],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
