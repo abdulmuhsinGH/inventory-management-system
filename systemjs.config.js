@@ -21,8 +21,13 @@
       '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
+      'jquery':                      'npm:jquery/dist/jquery.min.js',
+      'moment':'npm:moment',
+      'angular2-moment': 'npm:angular2-moment',
       // other libraries
       'rxjs':                      'npm:rxjs',
+      'ng2-charts' : 'npm:ng2-charts/ng2-charts.js',
+
       /*'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',*/
     },
     // packages tells the System loader how to load when no filename and/or no extension
@@ -34,6 +39,14 @@
       rxjs: {
         defaultExtension: 'js'
       },
+      moment: {
+        main: './moment.js',
+        defaultExtension: 'js'
+      },
+      'angular2-moment': {
+        main: './index.js',
+        defaultExtension: 'js'
+      }
       /*'angular-in-memory-web-api': {
         main: './index.js',
         defaultExtension: 'js'

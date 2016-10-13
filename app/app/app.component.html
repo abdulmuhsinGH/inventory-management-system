@@ -30,22 +30,22 @@
 		              <div class="menu_section">
 		               
 		                <ul class="nav side-menu">
-		                  <li><a><i class="fa fa-home"></i> Dashboard </a>
+		                  <li><a routerLink="/dashboard"><i class="fa fa-home"></i> Dashboard </a>
 		                    
 		                  </li>
-		                  <li><a><i class="fa fa-edit"></i> Product</a>
+		                  <li><a routerLink=""><i class="fa fa-edit"></i> Product</a>
 		                    
 		                  </li>
-		                  <li><a><i class="fa fa-desktop"></i> Inventories </a>
+		                  <li><a routerLink=""><i class="fa fa-desktop"></i> Inventories </a>
 		                    
 		                  </li>
-		                  <li><a><i class="fa fa-table"></i> Suppliers</a>
+		                  <li><a routerLink=""><i class="fa fa-table"></i> Suppliers</a>
 		                   
 		                  </li>
-		                  <li><a><i class="fa fa-bar-chart-o"></i> Customers</a>
+		                  <li><a routerLink=""><i class="fa fa-bar-chart-o"></i> Customers</a>
 		                    
 		                  </li>
-		                  <li><a><i class="fa fa-clone"></i>Sales</a>
+		                  <li><a routerLink=""><i class="fa fa-clone"></i>Sales</a>
 		                    
 		                  </li>
 		                </ul>
@@ -53,10 +53,10 @@
 		              <div class="menu_section">
 		               
 		                <ul class="nav side-menu">
-		                  <li><a><i class="fa fa-bug"></i> Generate Reports</a>
+		                  <li><a routerLink=""><i class="fa fa-bug"></i> Generate Reports</a>
 		                    
 		                  </li>
-		                  <li><a><i class="fa fa-windows"></i> Users</a>
+		                  <li><a routerLink=""><i class="fa fa-windows"></i> Users</a>
 		                    
 		                  </li>
 		                  
@@ -167,14 +167,9 @@
 
 		        <!-- page content -->
 		        <div class="right_col menu-fixed" role="main">
-		          <div class="">
-		            <div class="page-title">
-		              <div class="title_left">
-		                <h3>Fixed Sidebar <small> Just add class <strong>menu_fixed</strong></small></h3>
-		                
-		              </div>
-		            </div>
-		          </div>
+		          <router-outlet class="">
+		           
+		          </router-outlet>
 		        </div>
 		        <!-- /page content -->
 

@@ -9,31 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var angular2_moment_1 = require('angular2-moment');
-var ng2_daterangepicker_1 = require('ng2-daterangepicker');
-var app_component_1 = require('./app.component');
-var app_routing_1 = require('./app.routing');
+var router_1 = require('@angular/router');
 var dashboard_component_1 = require('../dashboard/dashboard.component');
-var AppModule = (function () {
-    function AppModule() {
+var routes = [
+    { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+    { path: 'dashboard', component: dashboard_component_1.DashboardComponent }
+];
+var AppRoutingModule = (function () {
+    function AppRoutingModule() {
     }
-    AppModule = __decorate([
+    AppRoutingModule = __decorate([
         core_1.NgModule({
             imports: [
-                platform_browser_1.BrowserModule,
-                app_routing_1.AppRoutingModule,
-                angular2_moment_1.MomentModule,
+                router_1.RouterModule.forRoot(routes)
             ],
-            declarations: [app_component_1.AppComponent,
-                dashboard_component_1.DashboardComponent,
-                app_routing_1.routingComponents,
-                ng2_daterangepicker_1.DateRangePickerDirective],
-            bootstrap: [app_component_1.AppComponent]
+            exports: [
+                router_1.RouterModule
+            ]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
+    ], AppRoutingModule);
+    return AppRoutingModule;
 }());
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+exports.AppRoutingModule = AppRoutingModule;
+exports.routingComponents = [dashboard_component_1.DashboardComponent];
+//# sourceMappingURL=app.routing.js.map
