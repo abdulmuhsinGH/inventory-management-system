@@ -26,7 +26,10 @@
       'angular2-moment': 'npm:angular2-moment',
       // other libraries
       'rxjs':                      'npm:rxjs',
-      'ng2-charts' : 'npm:ng2-charts/ng2-charts.js',
+      'ng2-bootstrap' : 'npm:ng2-bootstrap/bundles/ng2-bootstrap.umd.js',
+      'ng2-charts' : 'npm:ng2-charts',
+      'mydaterangepicker': 'npm:mydaterangepicker',
+      'ng2-table' : 'npm:ng2-table',
 
       /*'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',*/
     },
@@ -46,6 +49,18 @@
       'angular2-moment': {
         main: './index.js',
         defaultExtension: 'js'
+      },
+      mydaterangepicker: {
+        main: './dist/index.js',
+        defaultExtension: 'js'
+      },
+      'ng2-charts': { 
+        main: 'ng2-charts.js', 
+        defaultExtension: 'js' 
+      },
+      'ng2-table': { 
+        main: 'ng2-table.js', 
+        defaultExtension: 'js' 
       }
       /*'angular-in-memory-web-api': {
         main: './index.js',
