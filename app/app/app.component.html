@@ -3,10 +3,10 @@
 	<div class="container body">
 		<!-- sidebar -->
 		<div class="main_container">
-		        <div class="col-md-3 left_col menu_fixed">
+		        <div class="col-md-3 left_col">
 		          <div class="left_col scroll-view">
 		            <div class="navbar nav_title" style="border: 0;">
-		              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Organisation</span></a>
+		              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Shop Name</span></a>
 		            </div>
 
 		            <div class="clearfix"></div>
@@ -30,33 +30,35 @@
 		              <div class="menu_section">
 		               
 		                <ul class="nav side-menu">
-		                  <li><a><i class="fa fa-home"></i> Dashboard </a>
+		                  <li><a routerLink="/dashboard"><i class="fa fa-home"></i> Dashboard </a>
 		                    
 		                  </li>
-		                  <li><a><i class="fa fa-edit"></i> Product</a>
+		                  <li><a routerLink="/product"><i class="fa fa-edit"></i> Product</a>
 		                    
 		                  </li>
-		                  <li><a><i class="fa fa-desktop"></i> Inventories </a>
+		                  <li><a routerLink="/product"><i class="fa fa-desktop"></i> Inventories </a>
 		                    
 		                  </li>
-		                  <li><a><i class="fa fa-table"></i> Suppliers</a>
+		                  <li><a routerLink="/product"><i class="fa fa-table"></i> Suppliers</a>
 		                   
 		                  </li>
-		                  <li><a><i class="fa fa-bar-chart-o"></i> Customers</a>
+		                  <li><a routerLink="/product"><i class="fa fa-bar-chart-o"></i> Customers</a>
 		                    
 		                  </li>
-		                  <li><a><i class="fa fa-clone"></i>Sales</a>
+		                  <li><a routerLink="/product"><i class="fa fa-clone"></i>Sales</a>
 		                    
 		                  </li>
+
+
 		                </ul>
 		              </div>
 		              <div class="menu_section">
 		               
 		                <ul class="nav side-menu">
-		                  <li><a><i class="fa fa-bug"></i> Generate Reports</a>
+		                  <li><a routerLink="/product"><i class="fa fa-bug"></i> Generate Reports</a>
 		                    
 		                  </li>
-		                  <li><a><i class="fa fa-windows"></i> Users</a>
+		                  <li><a routerLink="/product"><i class="fa fa-windows"></i> Users</a>
 		                    
 		                  </li>
 		                  
@@ -167,14 +169,9 @@
 
 		        <!-- page content -->
 		        <div class="right_col menu-fixed" role="main">
-		          <div class="">
-		            <div class="page-title">
-		              <div class="title_left">
-		                <h3>Fixed Sidebar <small> Just add class <strong>menu_fixed</strong></small></h3>
-		                
-		              </div>
-		            </div>
-		          </div>
+		          <router-outlet>
+		           
+		          </router-outlet>
 		        </div>
 		        <!-- /page content -->
 
