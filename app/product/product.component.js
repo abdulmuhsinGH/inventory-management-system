@@ -9,10 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var ng2_bootstrap_1 = require('ng2-bootstrap');
 var ProductComponent = (function () {
     function ProductComponent() {
         this.title = 'Product';
     }
+    ProductComponent.prototype.showChildModal = function () {
+        this.childModal.show();
+    };
+    ProductComponent.prototype.hideChildModal = function () {
+        this.childModal.hide();
+    };
+    __decorate([
+        core_1.ViewChild('childModal'), 
+        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
+    ], ProductComponent.prototype, "childModal", void 0);
     ProductComponent = __decorate([
         core_1.Component({
             /*selector: 'my-dashboard',*/

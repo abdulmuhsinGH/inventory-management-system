@@ -14,6 +14,7 @@ var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
 /*import { MyDateRangePickerModule } from 'mydaterangepicker/dist/my-date-range-picker.module';*/
 var ng2_bootstrap_1 = require('ng2-bootstrap');
+var ng2_bootstrap_2 = require('ng2-bootstrap');
 var ng2_charts_1 = require('ng2-charts/ng2-charts');
 var ng2_table_1 = require('ng2-table/ng2-table');
 var app_component_1 = require('./app.component');
@@ -33,7 +34,8 @@ var AppModule = (function () {
                 forms_1.ReactiveFormsModule,
                 ng2_charts_1.ChartsModule,
                 ng2_table_1.Ng2TableModule,
-                ng2_bootstrap_1.PaginationModule
+                ng2_bootstrap_1.PaginationModule,
+                ng2_bootstrap_2.ModalModule
             ],
             declarations: [app_component_1.AppComponent,
                 dashboard_component_1.DashboardComponent,

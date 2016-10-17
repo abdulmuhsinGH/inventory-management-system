@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 
 
 import { PaginationModule } from 'ng2-bootstrap';
+import { ModalModule } from 'ng2-bootstrap';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { Ng2TableModule } from 'ng2-table/ng2-table';
@@ -29,7 +30,8 @@ import { ProductComponent }   from '../product/product.component';
             ReactiveFormsModule,
             ChartsModule,
             Ng2TableModule,
-            PaginationModule
+            PaginationModule,
+            ModalModule
   				  
 
   				],
