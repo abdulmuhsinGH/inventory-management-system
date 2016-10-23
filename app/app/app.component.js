@@ -11,11 +11,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var AppComponent = (function () {
     function AppComponent() {
+        this.classBoolean = true;
     }
+    AppComponent.prototype.toggleMenu = function () {
+        this.classBoolean = !this.classBoolean;
+    };
+    AppComponent.prototype.changeClass = function () {
+        var classes = {
+            'nav-md': this.classBoolean,
+            'nav-sm': !this.classBoolean,
+        };
+        return classes;
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: '<h1>My First Angular App</h1>'
+            templateUrl: 'app/app/app.component.html',
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

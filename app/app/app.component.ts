@@ -3,8 +3,27 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'my-app',
-  template: '<h1>My First Angular App</h1>'
+  templateUrl: 'app/app/app.component.html',
 })
 
 
-export class AppComponent { }
+export class AppComponent { 
+
+	classBoolean = true;
+	toggleMenu(){
+		this.classBoolean = !this.classBoolean;
+
+	}
+
+	changeClass(){
+		let classes={
+			'nav-md':this.classBoolean,
+			'nav-sm':!this.classBoolean,
+		}
+
+		return classes;
+		
+	}
+
+
+}

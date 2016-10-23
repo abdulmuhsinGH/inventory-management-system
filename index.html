@@ -1,18 +1,50 @@
 <html>
   <head>
-    <title>Angular QuickStart</title>
+  <base href="./">
+    <title>Inventory Management App</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
    <!--  <link rel="stylesheet" href="styles.css"> -->
 
+    <!-- Bootstrap -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="assets/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- jQuery custom content scroller -->
+    <link href="assets/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="assets/css/ionicons.min.css" media="all">
+
+    <!-- Custom Theme Style -->
+    <link href="assets/vendors/build/css/custom.min.css" rel="stylesheet">
+
 
     <!-- jQuery -->
-	<script>window.$ = window.jQuery = require('jquery');</script>
+  	<script>window.$ = window.jQuery = require('jquery');</script>
 
-	<!-- Bootstrap -->
-	<script src="bootstrap/js/bootstrap.js"></script>
+  	<!-- Bootstrap -->
+  	<script src="assets/js/bootstrap.js"></script>
+    
+   <!-- FastClick -->
+    <!-- <script src="assets/vendors/fastclick/lib/fastclick.js"></script> -->
+    <!-- NProgress -->
+    <script src="assets/vendors/nprogress/nprogress.js"></script>
+    <!-- jQuery custom content scroller -->
+    <script src="assets/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+  
+    <!-- Custom Theme Scripts -->
+    <script src="assets/vendors/build/js/custom.min.js"></script>
 
-	
+
+     <!-- core js -->
+    <!-- <script src="node_modules/core-js/client/core.js"></script> -->
+
+    <!-- Chart js -->
+    <script src="node_modules/chart.js/dist/Chart.js"></script>
+
+	  
     <!-- 1. Load libraries -->
      <!-- Polyfill(s) for older browsers -->
     <script src="node_modules/core-js/client/shim.min.js"></script>
@@ -24,9 +56,11 @@
     <script>
       System.import('app').catch(function(err){ console.error(err); });
     </script>
+
+    
   </head>
   <!-- 3. Display the application -->
-  <body>
-    <my-app>Loading...</my-app>
+  <body >
+    <my-app >Loading...</my-app>
   </body>
 </html>
