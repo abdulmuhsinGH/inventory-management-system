@@ -10,14 +10,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
+var forms_1 = require('@angular/forms');
+var http_1 = require('@angular/http');
+/*import { MyDateRangePickerModule } from 'mydaterangepicker/dist/my-date-range-picker.module';*/
+var ng2_bootstrap_1 = require('ng2-bootstrap');
+var ng2_bootstrap_2 = require('ng2-bootstrap');
+var ng2_charts_1 = require('ng2-charts/ng2-charts');
+var ng2_table_1 = require('ng2-table/ng2-table');
 var app_component_1 = require('./app.component');
+var app_routing_1 = require('./app.routing');
+var dashboard_component_1 = require('../dashboard/dashboard.component');
+var product_component_1 = require('../product/product.component');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule],
-            declarations: [app_component_1.AppComponent],
+            imports: [
+                platform_browser_1.BrowserModule,
+                app_routing_1.AppRoutingModule,
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                forms_1.ReactiveFormsModule,
+                ng2_charts_1.ChartsModule,
+                ng2_table_1.Ng2TableModule,
+                ng2_bootstrap_1.PaginationModule,
+                ng2_bootstrap_2.ModalModule
+            ],
+            declarations: [app_component_1.AppComponent,
+                dashboard_component_1.DashboardComponent,
+                app_routing_1.routingComponents,
+                product_component_1.ProductComponent,
+            ],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
