@@ -13,11 +13,15 @@ var router_1 = require('@angular/router');
 var dashboard_component_1 = require('../dashboard/dashboard.component');
 var product_component_1 = require('../product/product.component');
 var inventory_component_1 = require('../inventory/inventory.component');
+var customer_component_1 = require('../customer/customer.component');
+var supplier_component_1 = require('../supplier/supplier.component');
 var routes = [
     { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
     { path: 'product', component: product_component_1.ProductComponent },
-    { path: 'inventory', component: inventory_component_1.InventoryComponent }
+    { path: 'inventory', component: inventory_component_1.InventoryComponent },
+    { path: 'customer', component: customer_component_1.CustomerComponent },
+    { path: 'supplier', component: supplier_component_1.SupplierComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

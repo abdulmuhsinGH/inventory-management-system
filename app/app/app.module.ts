@@ -20,6 +20,9 @@ import { AppRoutingModule,routingComponents } from './app.routing';
 import { DashboardComponent }   from '../dashboard/dashboard.component';
 import { ProductComponent }   from '../product/product.component';
 import { InventoryComponent }   from '../inventory/inventory.component';
+import { CustomerComponent }   from '../customer/customer.component';
+import { SupplierComponent }   from '../supplier/supplier.component';
+
 
 
 
@@ -43,6 +46,8 @@ import { InventoryComponent }   from '../inventory/inventory.component';
   				  routingComponents,
             ProductComponent,
             InventoryComponent,
+            CustomerComponent,
+            SupplierComponent
             
   				    ],
   bootstrap:    [ AppComponent ]
