@@ -12,10 +12,12 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var dashboard_component_1 = require('../dashboard/dashboard.component');
 var product_component_1 = require('../product/product.component');
+var inventory_component_1 = require('../inventory/inventory.component');
 var routes = [
     { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
-    { path: 'product', component: product_component_1.ProductComponent }
+    { path: 'product', component: product_component_1.ProductComponent },
+    { path: 'inventory', component: inventory_component_1.InventoryComponent }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

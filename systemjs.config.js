@@ -30,6 +30,7 @@
       'ng2-charts' : 'npm:ng2-charts',
       'mydaterangepicker': 'npm:mydaterangepicker',
       'ng2-table' : 'npm:ng2-table',
+      'ng2-bootstrap/components/typeahead/typeahead-match.class'     :        'npm:ng2-bootstrap/components/typeahead/typeahead-match.class.js'
 
       /*'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',*/
     },

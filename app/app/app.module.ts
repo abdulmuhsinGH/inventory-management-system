@@ -7,9 +7,11 @@ import { HttpModule } from '@angular/http';
 
 import { PaginationModule } from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+
+import { TypeaheadModule } from 'ng2-bootstrap';
 
 import { Ng2TableModule } from 'ng2-table/ng2-table';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { AppComponent }   from './app.component';
 import { AppRoutingModule,routingComponents } from './app.routing';
@@ -17,6 +19,7 @@ import { AppRoutingModule,routingComponents } from './app.routing';
 
 import { DashboardComponent }   from '../dashboard/dashboard.component';
 import { ProductComponent }   from '../product/product.component';
+import { InventoryComponent }   from '../inventory/inventory.component';
 
 
 
@@ -31,14 +34,15 @@ import { ProductComponent }   from '../product/product.component';
             ChartsModule,
             Ng2TableModule,
             PaginationModule,
-            ModalModule
-  				  
-
+            ModalModule,
+            TypeaheadModule
+            
   				],
   declarations: [ AppComponent,
   				  DashboardComponent,
   				  routingComponents,
             ProductComponent,
+            InventoryComponent,
             
   				    ],
   bootstrap:    [ AppComponent ]

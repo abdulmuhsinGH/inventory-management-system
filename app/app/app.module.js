@@ -15,12 +15,14 @@ var http_1 = require('@angular/http');
 /*import { MyDateRangePickerModule } from 'mydaterangepicker/dist/my-date-range-picker.module';*/
 var ng2_bootstrap_1 = require('ng2-bootstrap');
 var ng2_bootstrap_2 = require('ng2-bootstrap');
-var ng2_charts_1 = require('ng2-charts/ng2-charts');
+var ng2_bootstrap_3 = require('ng2-bootstrap');
 var ng2_table_1 = require('ng2-table/ng2-table');
+var ng2_charts_1 = require('ng2-charts/ng2-charts');
 var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
 var dashboard_component_1 = require('../dashboard/dashboard.component');
 var product_component_1 = require('../product/product.component');
+var inventory_component_1 = require('../inventory/inventory.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -35,12 +37,14 @@ var AppModule = (function () {
                 ng2_charts_1.ChartsModule,
                 ng2_table_1.Ng2TableModule,
                 ng2_bootstrap_1.PaginationModule,
-                ng2_bootstrap_2.ModalModule
+                ng2_bootstrap_2.ModalModule,
+                ng2_bootstrap_3.TypeaheadModule
             ],
             declarations: [app_component_1.AppComponent,
                 dashboard_component_1.DashboardComponent,
                 app_routing_1.routingComponents,
                 product_component_1.ProductComponent,
+                inventory_component_1.InventoryComponent,
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 
