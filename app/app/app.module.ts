@@ -22,6 +22,7 @@ import { ProductComponent }   from '../product/product.component';
 import { InventoryComponent }   from '../inventory/inventory.component';
 import { CustomerComponent }   from '../customer/customer.component';
 import { SupplierComponent }   from '../supplier/supplier.component';
+import { SaleComponent }   from '../sale/sale.component';
 
 
 
@@ -47,7 +48,8 @@ import { SupplierComponent }   from '../supplier/supplier.component';
             ProductComponent,
             InventoryComponent,
             CustomerComponent,
-            SupplierComponent
+            SupplierComponent,
+            SaleComponent,
             
   				    ],
   bootstrap:    [ AppComponent ]

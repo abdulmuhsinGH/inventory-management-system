@@ -25,6 +25,7 @@ var product_component_1 = require('../product/product.component');
 var inventory_component_1 = require('../inventory/inventory.component');
 var customer_component_1 = require('../customer/customer.component');
 var supplier_component_1 = require('../supplier/supplier.component');
+var sale_component_1 = require('../sale/sale.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -48,7 +49,8 @@ var AppModule = (function () {
                 product_component_1.ProductComponent,
                 inventory_component_1.InventoryComponent,
                 customer_component_1.CustomerComponent,
-                supplier_component_1.SupplierComponent
+                supplier_component_1.SupplierComponent,
+                sale_component_1.SaleComponent,
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 
