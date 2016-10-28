@@ -15,13 +15,15 @@ var product_component_1 = require('../product/product.component');
 var inventory_component_1 = require('../inventory/inventory.component');
 var customer_component_1 = require('../customer/customer.component');
 var supplier_component_1 = require('../supplier/supplier.component');
+var sale_component_1 = require('../sale/sale.component');
 var routes = [
     { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
     { path: 'product', component: product_component_1.ProductComponent },
     { path: 'inventory', component: inventory_component_1.InventoryComponent },
     { path: 'customer', component: customer_component_1.CustomerComponent },
-    { path: 'supplier', component: supplier_component_1.SupplierComponent }
+    { path: 'supplier', component: supplier_component_1.SupplierComponent },
+    { path: 'sale', component: sale_component_1.SaleComponent },
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

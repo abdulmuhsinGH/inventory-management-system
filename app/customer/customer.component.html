@@ -5,17 +5,79 @@
               </div>
 
               <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group top_search">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
+                    <input type="text" class="form-control" placeholder="Search for products">
                     <span class="input-group-btn">
                       <button class="btn btn-default" type="button">Go!</button>
                     </span>
                   </div>
                 </div>
+
+                <a class="btn btn-round btn-primary" (click)="newCustomerModal.show()">Add a Customer</a>
+        
               </div>
             </div>
 
+            <!--modal -->
+              <div class="modal fade" bsModal #newCustomerModal="bs-modal" [config]="{backdrop: 'static'}"
+                   tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" aria-label="Close" (click)="newCustomerModal.hide()">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <h4 class="modal-title">Add New Customer</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                          <div class="x_panel">
+                            <div class="x_content">
+                              <br />
+                              <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="product-name"> Name <span class="required">*</span>
+                                  </label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="product-name" required="required" class="form-control col-md-7 col-xs-12">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="category">Address<span class="required">*</span>
+                                  </label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="category" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label for="unit" class="control-label col-md-3 col-sm-3 col-xs-12">Phone Number</label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="unit" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+                                  </div>
+                                </div>
+                                
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <button type="submit" class="btn btn-primary" (click)="newCustomerModal.hide()">Cancel</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                  </div>
+                                </div>
+
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <!--/modal -->
             <div class="clearfix"></div>
 
             <div class="row">
@@ -39,7 +101,7 @@
                               </ul>
                             </div>
                             <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="img-circle img-responsive">
+                              <img src="images/user.png" alt="" class="avatar">
                             </div>
                           </div>
                           <div class="col-xs-12 bottom text-center">
@@ -74,7 +136,7 @@
                               </ul>
                             </div>
                             <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="img-circle img-responsive">
+                              <img src="images/user.png" alt="" class="avatar">
                             </div>
                           </div>
                           <div class="col-xs-12 bottom text-center">
@@ -109,7 +171,7 @@
                               </ul>
                             </div>
                             <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="img-circle img-responsive">
+                              <img src="images/user.png" alt="" class="avatar">
                             </div>
                           </div>
                           <div class="col-xs-12 bottom text-center">
@@ -144,7 +206,7 @@
                               </ul>
                             </div>
                             <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="img-circle img-responsive">
+                              <img src="images/user.png" alt="" class="avatar">
                             </div>
                           </div>
                           <div class="col-xs-12 bottom text-center">
@@ -179,7 +241,7 @@
                               </ul>
                             </div>
                             <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="img-circle img-responsive">
+                              <img src="images/user.png" alt="" class="avatar">
                             </div>
                           </div>
                           <div class="col-xs-12 bottom text-center">
@@ -214,7 +276,7 @@
                               </ul>
                             </div>
                             <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="img-circle img-responsive">
+                              <img src="images/user.png" alt="" class="avatar">
                             </div>
                           </div>
                           <div class="col-xs-12 bottom text-center">
@@ -249,7 +311,7 @@
                               </ul>
                             </div>
                             <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="img-circle img-responsive">
+                              <img src="images/user.png" alt="" class="avatar">
                             </div>
                           </div>
                           <div class="col-xs-12 bottom text-center">
@@ -284,7 +346,7 @@
                               </ul>
                             </div>
                             <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="img-circle img-responsive">
+                              <img src="images/user.png" alt="" class="avatar">
                             </div>
                           </div>
                           <div class="col-xs-12 bottom text-center">
@@ -319,7 +381,7 @@
                               </ul>
                             </div>
                             <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="img-circle img-responsive">
+                              <img src="images/user.png" alt="" class="avatar">
                             </div>
                           </div>
                           <div class="col-xs-12 bottom text-center">
