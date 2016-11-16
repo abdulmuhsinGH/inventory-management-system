@@ -10,21 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var dashboard_component_1 = require('../dashboard/dashboard.component');
-var inventory_component_1 = require('../inventory/inventory.component');
 var customer_component_1 = require('../customer/customer.component');
-var sale_component_1 = require('../sale/sale.component');
+var customer_details_component_1 = require('../customer/customer-details/customer-details.component');
 var routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-    { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
-    { path: 'inventory', component: inventory_component_1.InventoryComponent },
     { path: 'customer', component: customer_component_1.CustomerComponent },
-    { path: 'sale', component: sale_component_1.SaleComponent },
+    { path: 'customer-details', component: customer_details_component_1.CustomerDetailsComponent },
 ];
-var AppRoutingModule = (function () {
-    function AppRoutingModule() {
+var CustomerRoutingModule = (function () {
+    function CustomerRoutingModule() {
     }
-    AppRoutingModule = __decorate([
+    CustomerRoutingModule = __decorate([
         core_1.NgModule({
             imports: [
                 router_1.RouterModule.forRoot(routes)
@@ -34,9 +29,9 @@ var AppRoutingModule = (function () {
             ]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppRoutingModule);
-    return AppRoutingModule;
+    ], CustomerRoutingModule);
+    return CustomerRoutingModule;
 }());
-exports.AppRoutingModule = AppRoutingModule;
-exports.routingComponents = [dashboard_component_1.DashboardComponent, inventory_component_1.InventoryComponent, sale_component_1.SaleComponent];
-//# sourceMappingURL=app.routing.js.map
+exports.CustomerRoutingModule = CustomerRoutingModule;
+exports.routingComponents = [customer_component_1.CustomerComponent, customer_details_component_1.CustomerDetailsComponent];
+//# sourceMappingURL=customer.routing.js.map

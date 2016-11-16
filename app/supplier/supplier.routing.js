@@ -10,21 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var dashboard_component_1 = require('../dashboard/dashboard.component');
-var inventory_component_1 = require('../inventory/inventory.component');
-var customer_component_1 = require('../customer/customer.component');
-var sale_component_1 = require('../sale/sale.component');
+var supplier_component_1 = require('../supplier/supplier.component');
+var supplier_details_component_1 = require('../supplier/supplier-details/supplier-details.component');
 var routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-    { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
-    { path: 'inventory', component: inventory_component_1.InventoryComponent },
-    { path: 'customer', component: customer_component_1.CustomerComponent },
-    { path: 'sale', component: sale_component_1.SaleComponent },
+    { path: 'supplier', component: supplier_component_1.SupplierComponent },
+    { path: 'supplier-details', component: supplier_details_component_1.SupplierDetailsComponent },
 ];
-var AppRoutingModule = (function () {
-    function AppRoutingModule() {
+var SupplierRoutingModule = (function () {
+    function SupplierRoutingModule() {
     }
-    AppRoutingModule = __decorate([
+    SupplierRoutingModule = __decorate([
         core_1.NgModule({
             imports: [
                 router_1.RouterModule.forRoot(routes)
@@ -34,9 +29,9 @@ var AppRoutingModule = (function () {
             ]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppRoutingModule);
-    return AppRoutingModule;
+    ], SupplierRoutingModule);
+    return SupplierRoutingModule;
 }());
-exports.AppRoutingModule = AppRoutingModule;
-exports.routingComponents = [dashboard_component_1.DashboardComponent, inventory_component_1.InventoryComponent, sale_component_1.SaleComponent];
-//# sourceMappingURL=app.routing.js.map
+exports.SupplierRoutingModule = SupplierRoutingModule;
+exports.routingComponents = [supplier_component_1.SupplierComponent, supplier_details_component_1.SupplierDetailsComponent];
+//# sourceMappingURL=supplier.routing.js.map

@@ -18,10 +18,10 @@ import { AppRoutingModule,routingComponents } from './app.routing';
 
 
 import { DashboardComponent }   from '../dashboard/dashboard.component';
-import { ProductComponent }   from '../product/product.component';
+import { ProductModule }   from '../product/product.module';
 import { InventoryComponent }   from '../inventory/inventory.component';
-import { CustomerComponent }   from '../customer/customer.component';
-import { SupplierComponent }   from '../supplier/supplier.component';
+import { CustomerModule }   from '../customer/customer.module';
+import { SupplierModule }   from '../supplier/supplier.module';
 import { SaleComponent }   from '../sale/sale.component';
 
 
@@ -39,16 +39,16 @@ import { SaleComponent }   from '../sale/sale.component';
             Ng2TableModule,
             PaginationModule,
             ModalModule,
-            TypeaheadModule
+            TypeaheadModule,
+            ProductModule,
+            SupplierModule,
+            CustomerModule,
             
   				],
   declarations: [ AppComponent,
   				  DashboardComponent,
-  				  routingComponents,
-            ProductComponent,
+  				  routingComponents,            
             InventoryComponent,
-            CustomerComponent,
-            SupplierComponent,
             SaleComponent,
             
   				    ],

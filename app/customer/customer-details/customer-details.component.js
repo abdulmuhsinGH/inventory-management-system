@@ -10,28 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
-var SupplierDetailsComponent = (function () {
-    function SupplierDetailsComponent() {
-        this.title = 'Supplier Profile';
+var CustomerDetailsComponent = (function () {
+    function CustomerDetailsComponent() {
+        this.title = 'Customer Profile';
     }
-    SupplierDetailsComponent.prototype.showChildModal = function () {
+    CustomerDetailsComponent.prototype.showChildModal = function () {
         this.childModal.show();
     };
-    SupplierDetailsComponent.prototype.hideChildModal = function () {
+    CustomerDetailsComponent.prototype.hideChildModal = function () {
         this.childModal.hide();
     };
     __decorate([
         core_1.ViewChild('childModal'), 
         __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-    ], SupplierDetailsComponent.prototype, "childModal", void 0);
-    SupplierDetailsComponent = __decorate([
+    ], CustomerDetailsComponent.prototype, "childModal", void 0);
+    CustomerDetailsComponent = __decorate([
         core_1.Component({
             /*selector: 'my-app',*/
-            templateUrl: 'app/supplier/supplier-details/supplier-details.component.html',
+            templateUrl: 'app/customer/customer-details/customer-details.component.html',
         }), 
         __metadata('design:paramtypes', [])
-    ], SupplierDetailsComponent);
-    return SupplierDetailsComponent;
+    ], CustomerDetailsComponent);
+    return CustomerDetailsComponent;
 }());
-exports.SupplierDetailsComponent = SupplierDetailsComponent;
-//# sourceMappingURL=supplier-details.component.js.map
+exports.CustomerDetailsComponent = CustomerDetailsComponent;
+//# sourceMappingURL=customer-details.component.js.map

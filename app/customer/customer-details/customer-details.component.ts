@@ -7,13 +7,13 @@ import { ModalDirective } from   'ng2-bootstrap';
 
 @Component({
   /*selector: 'my-app',*/
-  templateUrl: 'app/supplier/supplier-details/supplier-details.component.html',
+  templateUrl: 'app/customer/customer-details/customer-details.component.html',
 })
 
 
-export class SupplierDetailsComponent { 
+export class CustomerDetailsComponent { 
 
-title = 'Supplier Profile';
+title = 'Customer Profile';
 
 @ViewChild('childModal') public childModal:ModalDirective;
  

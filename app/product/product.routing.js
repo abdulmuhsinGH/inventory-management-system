@@ -10,21 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var dashboard_component_1 = require('../dashboard/dashboard.component');
-var inventory_component_1 = require('../inventory/inventory.component');
-var customer_component_1 = require('../customer/customer.component');
-var sale_component_1 = require('../sale/sale.component');
+var product_component_1 = require('../product/product.component');
+var product_details_component_1 = require('../product/product-details/product-details.component');
 var routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-    { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
-    { path: 'inventory', component: inventory_component_1.InventoryComponent },
-    { path: 'customer', component: customer_component_1.CustomerComponent },
-    { path: 'sale', component: sale_component_1.SaleComponent },
+    { path: 'product', component: product_component_1.ProductComponent },
+    { path: 'product-details', component: product_details_component_1.ProductDetailsComponent },
 ];
-var AppRoutingModule = (function () {
-    function AppRoutingModule() {
+var ProductRoutingModule = (function () {
+    function ProductRoutingModule() {
     }
-    AppRoutingModule = __decorate([
+    ProductRoutingModule = __decorate([
         core_1.NgModule({
             imports: [
                 router_1.RouterModule.forRoot(routes)
@@ -34,9 +29,9 @@ var AppRoutingModule = (function () {
             ]
         }), 
         __metadata('design:paramtypes', [])
-    ], AppRoutingModule);
-    return AppRoutingModule;
+    ], ProductRoutingModule);
+    return ProductRoutingModule;
 }());
-exports.AppRoutingModule = AppRoutingModule;
-exports.routingComponents = [dashboard_component_1.DashboardComponent, inventory_component_1.InventoryComponent, sale_component_1.SaleComponent];
-//# sourceMappingURL=app.routing.js.map
+exports.ProductRoutingModule = ProductRoutingModule;
+exports.routingComponents = [product_component_1.ProductComponent, product_details_component_1.ProductDetailsComponent];
+//# sourceMappingURL=product.routing.js.map
