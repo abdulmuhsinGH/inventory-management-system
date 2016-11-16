@@ -22,10 +22,10 @@ var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
 var dashboard_component_1 = require('../dashboard/dashboard.component');
 var product_module_1 = require('../product/product.module');
-var inventory_component_1 = require('../inventory/inventory.component');
+var inventory_module_1 = require('../inventory/inventory.module');
 var customer_module_1 = require('../customer/customer.module');
 var supplier_module_1 = require('../supplier/supplier.module');
-var sale_component_1 = require('../sale/sale.component');
+var sale_module_1 = require('../sale/sale.module');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -45,12 +45,12 @@ var AppModule = (function () {
                 product_module_1.ProductModule,
                 supplier_module_1.SupplierModule,
                 customer_module_1.CustomerModule,
+                sale_module_1.SaleModule,
+                inventory_module_1.InventoryModule,
             ],
             declarations: [app_component_1.AppComponent,
                 dashboard_component_1.DashboardComponent,
                 app_routing_1.routingComponents,
-                inventory_component_1.InventoryComponent,
-                sale_component_1.SaleComponent,
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

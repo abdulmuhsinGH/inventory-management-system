@@ -40,4 +40,4 @@ const routes: Routes = [
 export class AppRoutingModule {
 }
 
-export const routingComponents = [DashboardComponent,  InventoryComponent, SaleComponent];
+export const routingComponents = [DashboardComponent];

@@ -19,10 +19,10 @@ import { AppRoutingModule,routingComponents } from './app.routing';
 
 import { DashboardComponent }   from '../dashboard/dashboard.component';
 import { ProductModule }   from '../product/product.module';
-import { InventoryComponent }   from '../inventory/inventory.component';
+import { InventoryModule }   from '../inventory/inventory.module';
 import { CustomerModule }   from '../customer/customer.module';
 import { SupplierModule }   from '../supplier/supplier.module';
-import { SaleComponent }   from '../sale/sale.component';
+import { SaleModule }   from '../sale/sale.module';
 
 
 
@@ -43,13 +43,15 @@ import { SaleComponent }   from '../sale/sale.component';
             ProductModule,
             SupplierModule,
             CustomerModule,
+            SaleModule,
+            InventoryModule,
             
   				],
   declarations: [ AppComponent,
   				  DashboardComponent,
   				  routingComponents,            
-            InventoryComponent,
-            SaleComponent,
+            
+            
             
   				    ],
   bootstrap:    [ AppComponent ]

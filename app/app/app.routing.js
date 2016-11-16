@@ -38,5 +38,5 @@ var AppRoutingModule = (function () {
     return AppRoutingModule;
 }());
 exports.AppRoutingModule = AppRoutingModule;
-exports.routingComponents = [dashboard_component_1.DashboardComponent, inventory_component_1.InventoryComponent, sale_component_1.SaleComponent];
+exports.routingComponents = [dashboard_component_1.DashboardComponent];
 //# sourceMappingURL=app.routing.js.map
