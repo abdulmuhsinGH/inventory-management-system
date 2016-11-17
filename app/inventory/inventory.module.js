@@ -19,6 +19,7 @@ var ng2_bootstrap_1 = require('ng2-bootstrap');
 var ng2_bootstrap_2 = require('ng2-bootstrap');
 var ng2_bootstrap_3 = require('ng2-bootstrap');
 var ng2_table_1 = require('ng2-table/ng2-table');
+var inventory_routing_1 = require('./inventory.routing');
 var inventory_component_1 = require('../inventory/inventory.component');
 var InventoryModule = (function () {
     function InventoryModule() {
@@ -34,9 +35,11 @@ var InventoryModule = (function () {
                 ng2_bootstrap_1.PaginationModule,
                 ng2_bootstrap_2.ModalModule,
                 ng2_bootstrap_3.TypeaheadModule,
+                inventory_routing_1.InventoryRoutingModule
             ],
             declarations: [
-                inventory_component_1.InventoryComponent
+                inventory_component_1.InventoryComponent,
+                inventory_routing_1.routingComponents
             ]
         }), 
         __metadata('design:paramtypes', [])

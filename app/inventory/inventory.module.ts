@@ -25,11 +25,13 @@ import { InventoryComponent }   from '../inventory/inventory.component';
             PaginationModule,
             ModalModule,
             TypeaheadModule,
+            InventoryRoutingModule
            
             
   				],
   declarations: [             
-            InventoryComponent
+            InventoryComponent,
+            routingComponents
   				    ]
 })
 

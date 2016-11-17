@@ -16,11 +16,13 @@ var http_1 = require('@angular/http');
 var ng2_bootstrap_1 = require('ng2-bootstrap');
 var ng2_bootstrap_2 = require('ng2-bootstrap');
 var ng2_bootstrap_3 = require('ng2-bootstrap');
+var ng2_bootstrap_4 = require('ng2-bootstrap');
 var ng2_table_1 = require('ng2-table/ng2-table');
 var ng2_charts_1 = require('ng2-charts/ng2-charts');
 var app_component_1 = require('./app.component');
 var app_routing_1 = require('./app.routing');
 var dashboard_component_1 = require('../dashboard/dashboard.component');
+var financial_report_component_1 = require('../financial-report/financial-report.component');
 var product_module_1 = require('../product/product.module');
 var inventory_module_1 = require('../inventory/inventory.module');
 var customer_module_1 = require('../customer/customer.module');
@@ -41,15 +43,17 @@ var AppModule = (function () {
                 ng2_table_1.Ng2TableModule,
                 ng2_bootstrap_1.PaginationModule,
                 ng2_bootstrap_2.ModalModule,
-                ng2_bootstrap_3.TypeaheadModule,
+                ng2_bootstrap_4.TypeaheadModule,
                 product_module_1.ProductModule,
                 supplier_module_1.SupplierModule,
                 customer_module_1.CustomerModule,
                 sale_module_1.SaleModule,
                 inventory_module_1.InventoryModule,
+                ng2_bootstrap_3.TabsModule
             ],
             declarations: [app_component_1.AppComponent,
                 dashboard_component_1.DashboardComponent,
+                financial_report_component_1.FinancialReportComponent,
                 app_routing_1.routingComponents,
             ],
             bootstrap: [app_component_1.AppComponent]

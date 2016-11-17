@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/http';
 
 import { PaginationModule } from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap';
+import { TabsModule } from 'ng2-bootstrap';
 
 import { TypeaheadModule } from 'ng2-bootstrap';
 
@@ -18,6 +19,8 @@ import { AppRoutingModule,routingComponents } from './app.routing';
 
 
 import { DashboardComponent }   from '../dashboard/dashboard.component';
+import { FinancialReportComponent }   from '../financial-report/financial-report.component';
+
 import { ProductModule }   from '../product/product.module';
 import { InventoryModule }   from '../inventory/inventory.module';
 import { CustomerModule }   from '../customer/customer.module';
@@ -45,10 +48,12 @@ import { SaleModule }   from '../sale/sale.module';
             CustomerModule,
             SaleModule,
             InventoryModule,
+            TabsModule
             
   				],
   declarations: [ AppComponent,
   				  DashboardComponent,
+            FinancialReportComponent,
   				  routingComponents,            
             
             

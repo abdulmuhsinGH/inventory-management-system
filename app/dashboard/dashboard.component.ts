@@ -1,4 +1,4 @@
-import { NgModule, Component, OnInit } from '@angular/core';
+import { NgModule, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup} from '@angular/forms';
 
 
@@ -12,6 +12,7 @@ import { PaginationModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 @Component({
   /*selector: 'my-dashboard',*/
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app/dashboard/dashboard.component.html',
 })
 
@@ -206,9 +207,19 @@ export class DashboardComponent implements OnInit{
     console.log(data);
   }
 
+  public tabs:Array<any> = [
+    {title: 'Debtors', content: 'Dynamic content 1'},
+    {title: 'Creditors', content: 'Dynamic content 2'},
+    
+  ];
 
-
-
+public setActiveTab(index:number):void {
+    this.tabs[index].active = true;
+  };
+ 
+  public removeTabHandler(/*tab:any*/):void {
+    console.log('Remove Tab handler');
+  };
 
 
 }

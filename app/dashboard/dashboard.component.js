@@ -74,6 +74,10 @@ var DashboardComponent = (function () {
             className: ['table', 'table-striped', 'table-bordered']
         };
         this.data = tableData;
+        this.tabs = [
+            { title: 'Debtors', content: 'Dynamic content 1' },
+            { title: 'Creditors', content: 'Dynamic content 2' },
+        ];
         this.length = this.data.length;
     }
     DashboardComponent.prototype.ngOnInit = function () {
@@ -172,9 +176,18 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.onCellClick = function (data) {
         console.log(data);
     };
+    DashboardComponent.prototype.setActiveTab = function (index) {
+        this.tabs[index].active = true;
+    };
+    ;
+    DashboardComponent.prototype.removeTabHandler = function () {
+        console.log('Remove Tab handler');
+    };
+    ;
     DashboardComponent = __decorate([
         core_1.Component({
             /*selector: 'my-dashboard',*/
+            changeDetection: core_1.ChangeDetectionStrategy.OnPush,
             templateUrl: './app/dashboard/dashboard.component.html',
         }), 
         __metadata('design:paramtypes', [])

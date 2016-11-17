@@ -11,15 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var dashboard_component_1 = require('../dashboard/dashboard.component');
-var inventory_component_1 = require('../inventory/inventory.component');
-var customer_component_1 = require('../customer/customer.component');
-var sale_component_1 = require('../sale/sale.component');
+var financial_report_component_1 = require('../financial-report/financial-report.component');
 var routes = [
     { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
-    { path: 'inventory', component: inventory_component_1.InventoryComponent },
-    { path: 'customer', component: customer_component_1.CustomerComponent },
-    { path: 'sale', component: sale_component_1.SaleComponent },
+    { path: 'financial-report', component: financial_report_component_1.FinancialReportComponent },
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
@@ -38,5 +34,5 @@ var AppRoutingModule = (function () {
     return AppRoutingModule;
 }());
 exports.AppRoutingModule = AppRoutingModule;
-exports.routingComponents = [dashboard_component_1.DashboardComponent];
+exports.routingComponents = [dashboard_component_1.DashboardComponent, financial_report_component_1.FinancialReportComponent];
 //# sourceMappingURL=app.routing.js.map
