@@ -14,6 +14,7 @@ var bodyParser = require('body-parser');
  //var Model = require('./api/model/notices.model.js');
 //
 var index = require('./api/routes/index');
+var product = require('./api/routes/product');
 // var api = require('./routes/api');
 //var authenticate = require('./api/routes/authenticate');
 //
@@ -29,7 +30,7 @@ var index = require('./api/routes/index');
 app.set('port', 5000);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(session({
@@ -56,6 +57,8 @@ passport.deserializeUser(Model.deserializeUser());*/
 
 
 app.use('/', index);
+
+app.use('/product', product);
 // app.use('/api', api);
 //app.use('/auth', authenticate);
 //
@@ -72,22 +75,16 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
+    res.status(err.status || 500)
+       .json(err);
   });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+  res.status(err.status || 500)
+     .json({state: 'failure', user: null, message: "Oops! Something went wrong!!"});
 });
 //
 //
