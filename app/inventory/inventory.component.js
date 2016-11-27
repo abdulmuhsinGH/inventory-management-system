@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var forms_1 = require('@angular/forms');
-var Observable_1 = require('rxjs/Observable');
-require('rxjs/add/observable/of');
-var ng2_bootstrap_1 = require('ng2-bootstrap');
+var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
+var Observable_1 = require("rxjs/Observable");
+require("rxjs/add/observable/of");
+var ng2_bootstrap_1 = require("ng2-bootstrap");
 var InventoryComponent = (function () {
     function InventoryComponent() {
         var _this = this;
@@ -65,7 +65,8 @@ var InventoryComponent = (function () {
             { id: 45, name: 'Utah', region: 'West' }, { id: 46, name: 'Vermont', region: 'Northeast' },
             { id: 47, name: 'Virginia', region: 'South' }, { id: 48, name: 'Washington', region: 'South' },
             { id: 49, name: 'West Virginia', region: 'South' }, { id: 50, name: 'Wisconsin', region: 'Midwest' },
-            { id: 51, name: 'Wyoming', region: 'West' }];
+            { id: 51, name: 'Wyoming', region: 'West' }
+        ];
         this.dataSource = Observable_1.Observable.create(function (observer) {
             // Runs on every search
             observer.next(_this.asyncSelected);
@@ -92,18 +93,18 @@ var InventoryComponent = (function () {
     InventoryComponent.prototype.typeaheadOnSelect = function (e) {
         console.log('Selected value: ', e.value);
     };
-    __decorate([
-        core_1.ViewChild('childModal'), 
-        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-    ], InventoryComponent.prototype, "childModal", void 0);
-    InventoryComponent = __decorate([
-        core_1.Component({
-            /*selector: 'my-dashboard',*/
-            templateUrl: './app/inventory/inventory.component.html',
-        }), 
-        __metadata('design:paramtypes', [])
-    ], InventoryComponent);
     return InventoryComponent;
 }());
+__decorate([
+    core_1.ViewChild('childModal'),
+    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+], InventoryComponent.prototype, "childModal", void 0);
+InventoryComponent = __decorate([
+    core_1.Component({
+        /*selector: 'my-dashboard',*/
+        templateUrl: './app/inventory/inventory.component.html',
+    }),
+    __metadata("design:paramtypes", [])
+], InventoryComponent);
 exports.InventoryComponent = InventoryComponent;
 //# sourceMappingURL=inventory.component.js.map

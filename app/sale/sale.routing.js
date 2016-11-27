@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var sale_component_1 = require('../sale/sale.component');
-var sale_invoice_component_1 = require('../sale/invoice/sale-invoice.component');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var sale_component_1 = require("../sale/sale.component");
+var sale_invoice_component_1 = require("../sale/invoice/sale-invoice.component");
 var routes = [
     { path: 'sale', component: sale_component_1.SaleComponent },
     { path: 'sale-invoice', component: sale_invoice_component_1.SaleInvoiceComponent },
@@ -19,19 +19,19 @@ var routes = [
 var SaleRoutingModule = (function () {
     function SaleRoutingModule() {
     }
-    SaleRoutingModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                router_1.RouterModule.forRoot(routes)
-            ],
-            exports: [
-                router_1.RouterModule
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], SaleRoutingModule);
     return SaleRoutingModule;
 }());
+SaleRoutingModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            router_1.RouterModule.forRoot(routes)
+        ],
+        exports: [
+            router_1.RouterModule
+        ]
+    }),
+    __metadata("design:paramtypes", [])
+], SaleRoutingModule);
 exports.SaleRoutingModule = SaleRoutingModule;
 exports.routingComponents = [sale_component_1.SaleComponent, sale_invoice_component_1.SaleInvoiceComponent];
 //# sourceMappingURL=sale.routing.js.map

@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var customer_component_1 = require('../customer/customer.component');
-var customer_details_component_1 = require('../customer/customer-details/customer-details.component');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var customer_component_1 = require("../customer/customer.component");
+var customer_details_component_1 = require("../customer/customer-details/customer-details.component");
 var routes = [
     { path: 'customer', component: customer_component_1.CustomerComponent },
     { path: 'customer-details', component: customer_details_component_1.CustomerDetailsComponent },
@@ -19,19 +19,19 @@ var routes = [
 var CustomerRoutingModule = (function () {
     function CustomerRoutingModule() {
     }
-    CustomerRoutingModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                router_1.RouterModule.forRoot(routes)
-            ],
-            exports: [
-                router_1.RouterModule
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], CustomerRoutingModule);
     return CustomerRoutingModule;
 }());
+CustomerRoutingModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            router_1.RouterModule.forRoot(routes)
+        ],
+        exports: [
+            router_1.RouterModule
+        ]
+    }),
+    __metadata("design:paramtypes", [])
+], CustomerRoutingModule);
 exports.CustomerRoutingModule = CustomerRoutingModule;
 exports.routingComponents = [customer_component_1.CustomerComponent, customer_details_component_1.CustomerDetailsComponent];
 //# sourceMappingURL=customer.routing.js.map

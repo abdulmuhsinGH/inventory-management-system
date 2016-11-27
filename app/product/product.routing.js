@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var product_component_1 = require('../product/product.component');
-var product_details_component_1 = require('../product/product-details/product-details.component');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var product_component_1 = require("../product/product.component");
+var product_details_component_1 = require("../product/product-details/product-details.component");
 var routes = [
     { path: 'product', component: product_component_1.ProductComponent },
     { path: 'product-details', component: product_details_component_1.ProductDetailsComponent },
@@ -19,19 +19,19 @@ var routes = [
 var ProductRoutingModule = (function () {
     function ProductRoutingModule() {
     }
-    ProductRoutingModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                router_1.RouterModule.forRoot(routes)
-            ],
-            exports: [
-                router_1.RouterModule
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], ProductRoutingModule);
     return ProductRoutingModule;
 }());
+ProductRoutingModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            router_1.RouterModule.forRoot(routes)
+        ],
+        exports: [
+            router_1.RouterModule
+        ]
+    }),
+    __metadata("design:paramtypes", [])
+], ProductRoutingModule);
 exports.ProductRoutingModule = ProductRoutingModule;
 exports.routingComponents = [product_component_1.ProductComponent, product_details_component_1.ProductDetailsComponent];
 //# sourceMappingURL=product.routing.js.map

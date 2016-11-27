@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var dashboard_component_1 = require('../dashboard/dashboard.component');
-var financial_report_component_1 = require('../financial-report/financial-report.component');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var dashboard_component_1 = require("../dashboard/dashboard.component");
+var financial_report_component_1 = require("../financial-report/financial-report.component");
 var routes = [
     { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
@@ -20,19 +20,19 @@ var routes = [
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
     }
-    AppRoutingModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                router_1.RouterModule.forRoot(routes)
-            ],
-            exports: [
-                router_1.RouterModule
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppRoutingModule);
     return AppRoutingModule;
 }());
+AppRoutingModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            router_1.RouterModule.forRoot(routes)
+        ],
+        exports: [
+            router_1.RouterModule
+        ]
+    }),
+    __metadata("design:paramtypes", [])
+], AppRoutingModule);
 exports.AppRoutingModule = AppRoutingModule;
 exports.routingComponents = [dashboard_component_1.DashboardComponent, financial_report_component_1.FinancialReportComponent];
 //# sourceMappingURL=app.routing.js.map

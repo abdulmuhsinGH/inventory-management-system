@@ -8,28 +8,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var inventory_component_1 = require('../inventory/inventory.component');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var inventory_component_1 = require("../inventory/inventory.component");
 var routes = [
     { path: 'inventory', component: inventory_component_1.InventoryComponent },
 ];
 var InventoryRoutingModule = (function () {
     function InventoryRoutingModule() {
     }
-    InventoryRoutingModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                router_1.RouterModule.forRoot(routes)
-            ],
-            exports: [
-                router_1.RouterModule
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], InventoryRoutingModule);
     return InventoryRoutingModule;
 }());
+InventoryRoutingModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            router_1.RouterModule.forRoot(routes)
+        ],
+        exports: [
+            router_1.RouterModule
+        ]
+    }),
+    __metadata("design:paramtypes", [])
+], InventoryRoutingModule);
 exports.InventoryRoutingModule = InventoryRoutingModule;
 exports.routingComponents = [inventory_component_1.InventoryComponent];
 //# sourceMappingURL=inventory.routing.js.map

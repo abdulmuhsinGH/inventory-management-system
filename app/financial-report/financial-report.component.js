@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var ng2_bootstrap_1 = require('ng2-bootstrap');
+var core_1 = require("@angular/core");
+var ng2_bootstrap_1 = require("ng2-bootstrap");
 var FinancialReportComponent = (function () {
     function FinancialReportComponent() {
         this.title = 'Financial Reports';
@@ -20,18 +20,18 @@ var FinancialReportComponent = (function () {
     FinancialReportComponent.prototype.hideChildModal = function () {
         this.childModal.hide();
     };
-    __decorate([
-        core_1.ViewChild('childModal'), 
-        __metadata('design:type', ng2_bootstrap_1.ModalDirective)
-    ], FinancialReportComponent.prototype, "childModal", void 0);
-    FinancialReportComponent = __decorate([
-        core_1.Component({
-            selector: 'my-app',
-            templateUrl: 'app/financial-report/financial-report.component.html',
-        }), 
-        __metadata('design:paramtypes', [])
-    ], FinancialReportComponent);
     return FinancialReportComponent;
 }());
+__decorate([
+    core_1.ViewChild('childModal'),
+    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
+], FinancialReportComponent.prototype, "childModal", void 0);
+FinancialReportComponent = __decorate([
+    core_1.Component({
+        selector: 'my-app',
+        templateUrl: 'app/financial-report/financial-report.component.html',
+    }),
+    __metadata("design:paramtypes", [])
+], FinancialReportComponent);
 exports.FinancialReportComponent = FinancialReportComponent;
 //# sourceMappingURL=financial-report.component.js.map

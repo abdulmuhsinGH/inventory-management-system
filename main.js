@@ -13,6 +13,10 @@ app.on('window-all-closed', function() {
 });
 
 app.on('ready', function() {
+
+ //Instatiate Express App
+  app.server = require(__dirname+ '/src/app')
+
   // Cria a janela do browser.
   mainWindow = new BrowserWindow({width: 1200, height: 700});
 
