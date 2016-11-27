@@ -31,7 +31,7 @@ module.exports.addProducts =function(req, res){
 	  
 	});
 
-	db.close();
+	
 }
 
 
@@ -58,12 +58,12 @@ module.exports.viewProducts = function(req, res){
   		}
        
     });   
-	db.close(); 
-
+	
 }
 
 module.exports.viewOneProduct = function(req, res){
 	var productId = req.params.productId;
+	console.log(productId);
 	db.get("SELECT name, unit_of_measurment FROM products WHERE id = "+productId+ " AND deleted_at IS NULL" , function(err, row) {  
         
 		if(err){
@@ -84,7 +84,6 @@ module.exports.viewOneProduct = function(req, res){
   		}
         
     });   
-	db.close(); 
 
 }
 
@@ -115,7 +114,7 @@ module.exports.updateProduct = function(req, res){
 	  
 	});
 
-	db.close();
+	
 
 }
 
@@ -146,7 +145,7 @@ module.exports.deleteProduct = function(req, res){
 	  
 	});
 
-	db.close();
+	
 
 }
 
@@ -178,7 +177,7 @@ module.exports.setSellingPrice = function(req, res){
 	  
 	});
 
-	db.close();
+	
 
 }
 
@@ -209,7 +208,7 @@ module.exports.setCostPrice = function(req, res){
 	  
 	});
 
-	db.close();
+
 
 }
 

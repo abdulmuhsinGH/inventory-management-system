@@ -2,6 +2,7 @@ var electron = require('electron');
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
 
+
 // referência global para manter a instância da janela até que sejam fechadas pelo usuário então ele irá ser fechado quando o JavaScript fizer Garbage collection
 var mainWindow = null;
 
@@ -28,6 +29,7 @@ app.on('ready', function() {
 
   // Evento emitido quando a janela é fechada, usado para destruir instancia.
   mainWindow.on('closed', function() {
+
     mainWindow = null;
   });
 });

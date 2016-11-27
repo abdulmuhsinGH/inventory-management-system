@@ -9,12 +9,17 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
+
+
 //
 // //initialize models
  //var Model = require('./api/model/notices.model.js');
 //
 var index = require('./api/routes/index');
 var product = require('./api/routes/product');
+var supplier = require('./api/routes/supplier');
+var customer = require('./api/routes/customer');
 // var api = require('./routes/api');
 //var authenticate = require('./api/routes/authenticate');
 //
@@ -59,6 +64,8 @@ passport.deserializeUser(Model.deserializeUser());*/
 app.use('/', index);
 
 app.use('/product', product);
+app.use('/supplier', supplier);
+app.use('/customer', customer);
 // app.use('/api', api);
 //app.use('/auth', authenticate);
 //
