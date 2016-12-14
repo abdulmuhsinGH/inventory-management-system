@@ -18,7 +18,7 @@ app.on('ready', function() {
  //Instatiate Express App
   app.server = require(__dirname+ '/src/app')
 
-  // Cria a janela do browser.
+  // Create a new browser.
   mainWindow = new BrowserWindow({width: 1200, height: 700});
 
   // Carrega o arquivo html principal.

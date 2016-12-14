@@ -12,19 +12,14 @@ var bodyParser = require('body-parser');
 
 
 
-//
-// //initialize models
- //var Model = require('./api/model/notices.model.js');
-//
+
 var index = require('./api/routes/index');
 var product = require('./api/routes/product');
 var supplier = require('./api/routes/supplier');
 var customer = require('./api/routes/customer');
-// var api = require('./routes/api');
-//var authenticate = require('./api/routes/authenticate');
-//
-//
- var app = express();
+var inventory = require('./api/routes/inventory');
+
+var app = express();
 
 // // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -66,6 +61,7 @@ app.use('/', index);
 app.use('/product', product);
 app.use('/supplier', supplier);
 app.use('/customer', customer);
+app.use('/inventory', inventory);
 // app.use('/api', api);
 //app.use('/auth', authenticate);
 //
