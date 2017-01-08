@@ -10,15 +10,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
+var product_service_1 = require("./product.service");
+var table_1 = require("../other/table");
 var ProductComponent = (function () {
-    function ProductComponent() {
+    function ProductComponent(productService) {
+        this.productService = productService;
         this.title = 'Product';
+        this.productTable = table_1.Table;
+        //configuration for table 
+        this.rows = [];
+        this.columns = [
+            { title: 'Name', name: 'name' },
+            { title: 'Unit of Measurement', className: ['office-header', 'text-success'], name: 'unit_of_measurment', sort: 'asc' }
+        ];
+        this.config = {
+            paging: true,
+            sorting: { columns: this.columns },
+            filtering: {
+                name: { filterString: '' }
+            },
+            className: ['table-striped', 'table-bordered']
+        };
     }
+    ProductComponent.prototype.ngOnInit = function () {
+        this.productTable;
+        this.getProductList();
+    };
     ProductComponent.prototype.showChildModal = function () {
         this.childModal.show();
     };
     ProductComponent.prototype.hideChildModal = function () {
         this.childModal.hide();
+    };
+    ProductComponent.prototype.getProductList = function () {
+        var _this = this;
+        this.productService.getProductList()
+            .subscribe(function (products) {
+            _this.products = products,
+                _this.productTable = new table_1.Table(_this.config, products, _this.columns);
+        }, function (error) { return _this.errorMessage = error; });
     };
     return ProductComponent;
 }());
@@ -30,8 +60,9 @@ ProductComponent = __decorate([
     core_1.Component({
         /*selector: 'my-dashboard',*/
         templateUrl: './app/product/product.component.html',
+        providers: [product_service_1.ProductService],
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [product_service_1.ProductService])
 ], ProductComponent);
 exports.ProductComponent = ProductComponent;
 //# sourceMappingURL=product.component.js.map

@@ -1,36 +1,126 @@
-import { NgModule, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl} from '@angular/forms';
+import { NgModule, Component, OnInit, ViewChild, Input, OnChanges, SimpleChange } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+//import {Control} from '@angular/common';
+
+
+import "../rxjs-extensions";
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+
  
 
 
-import * as moment from 'moment';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+/*import * as moment from 'moment';
+import { ChartsModule } from 'ng2-charts/ng2-charts';*/
 import { PaginationModule } from 'ng2-bootstrap';
 import { ModalDirective } from   'ng2-bootstrap';
 import { TypeaheadMatch } from 'ng2-bootstrap/components/typeahead/typeahead-match.class';
+import { InventoryService } from './inventory.service'; 
+import { Inventory } from './inventory.interface';
+import { SupplierService } from '../supplier/supplier.service'; 
+import { Supplier } from '../supplier/supplier.interface';
+import { InventoryRecords } from './inventory.interface';
+import { Table } from '../other/table';
 
 
 @Component({
   /*selector: 'my-dashboard',*/
   templateUrl: './app/inventory/inventory.component.html',
+  providers: [InventoryService, SupplierService]
 })
 
-export class InventoryComponent{ 
+export class InventoryComponent implements OnInit, OnChanges{ 
 
+  title = 'Inventory';
+  errorMessage:string;
+  inventories: Inventory[];
+  suppliers: Supplier[]
+  inventory: Inventory;
+  table:any;
 
-	public stateCtrl:FormControl = new FormControl();
+     // supplierComponent:SupplierComponent
+  /*Add new inventory Form Setup*/
+  addInventoryForm:FormGroup;
+  productNameFormControl:FormControl = new FormControl('', [Validators.required]);
+  productIdFormControl:FormControl = new FormControl('', [Validators.required]);
+  supplierNameFormControl:FormControl = new FormControl('', [Validators.required]);
+  supplierIdFormControl:FormControl = new FormControl('', [Validators.required]);
+  quantityFormControl:FormControl = new FormControl(0, [Validators.required, Validators.pattern('^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$')]);
+  totalCostFormControl:FormControl = new FormControl({value:0, disabled: true});
+  costPriceFormControl:FormControl = new FormControl(0, [Validators.required, Validators.pattern('^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$')]);
+/*Add new inventory Form Setup*/
 
-	public myForm:FormGroup = new FormGroup({
-	    state: this.stateCtrl
-	});
+  @ViewChild('childModal') public childModal:ModalDirective;
+  public constructor(private inventoryService: InventoryService, private supplierService:SupplierService ) {
 
+    this.dataSource = Observable.create((observer:any) => {
+      // Runs on every search
+      observer.next(this.asyncSelected);
+    }).mergeMap((token:string) => this.getProductAsObservable(token));
 
-	title = 'Inventory';
+  }
 
-	@ViewChild('childModal') public childModal:ModalDirective;
+  ngOnInit(){
+
+     this.addInventoryForm = new FormGroup({
+          name: this.productNameFormControl,
+          product_id: this.productIdFormControl,
+          supplier:this.supplierNameFormControl,
+          supplier_id: this.supplierIdFormControl,
+          quantity:this.quantityFormControl,
+          total_cost:this.totalCostFormControl,
+          cost_price:this.costPriceFormControl
+      });
+     
+     this.getInventoryList();
+
+     this.supplierService.getSupplierList()
+                          .subscribe(
+                             suppliers =>this.suppliers = suppliers,
+                             error =>  this.errorMessage = <any>error);;
+     //this.supplierComponent.suppliers;
+     this.totalCostSubcribeToCostPriceChanges();
+     this.totcalCostSubcribeToQuantityChanges();
+     
+  }
+
+  ngOnChanges(changes: any){
+    console.log('onChange fired');
+    console.log(changes);
+
+  }
+  totalCostSubcribeToCostPriceChanges() {
+      // initialize stream
+      const costPriceValueChanges$ = this.costPriceFormControl.valueChanges;
+
+      // subscribe to the stream 
+      costPriceValueChanges$.subscribe(x => this.totalCostFormControl.setValue(x * this.quantityFormControl.value));
+  }
+  totcalCostSubcribeToQuantityChanges() {
+    // initialize stream
+      const quantityValueChanges$ = this.quantityFormControl.valueChanges;
+
+      // subscribe to the stream 
+      quantityValueChanges$.subscribe(x => this.totalCostFormControl.setValue(x * this.costPriceFormControl.value));
+  }
+ //configuration for table 
+  public rows:Array<any> = [];
+  public columns:Array<any> = [
+    {title: 'Name', name: 'name'},
+    {title: 'Selling Price', className: ['office-header', 'text-success'], name: 'current_selling_price', sort: 'asc'},
+    {title: 'Cost Price.', name: 'current_cost_price', sort: 'asc'},
+    {title: 'Quantity Added', className: 'text-warning', name: 'quantity'},
+    {title: 'Total Quantity', name: 'total_quantity'}
+  ];
+
+  public config:any = {
+    paging: true,
+    sorting: {columns: this.columns},
+    filtering:{
+                name: { filterString: '' }
+              },
+    className: ['table-striped', 'table-bordered']
+  };
  
   public showChildModal():void {
     this.childModal.show();
@@ -46,75 +136,65 @@ export class InventoryComponent{
   public selected:string = '';
   public dataSource:Observable<any>;
   public asyncSelected:string = '';
-  public typeaheadLoading:boolean = false;
-  public typeaheadNoResults:boolean = false;
-  public states:Array<string> = ['Alabama', 'Alaska', 'Arizona', 'Arkansas',
-    'California', 'Colorado',
-    'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho',
-    'Illinois', 'Indiana', 'Iowa',
-    'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts',
-    'Michigan', 'Minnesota',
-    'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-    'New Jersey', 'New Mexico',
-    'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon',
-    'Pennsylvania', 'Rhode Island',
-    'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-    'Virginia', 'Washington',
-    'West Virginia', 'Wisconsin', 'Wyoming'];
-  public statesComplex:Array<any> = [
-    {id: 1, name: 'Alabama', region: 'South'}, {id: 2, name: 'Alaska', region: 'West'}, {id: 3, name: 'Arizona', region: 'West'},
-    {id: 4, name: 'Arkansas', region: 'South'}, {id: 5, name: 'California', region: 'West'},
-    {id: 6, name: 'Colorado', region: 'West'}, {id: 7, name: 'Connecticut', region: 'Northeast'},
-    {id: 8, name: 'Delaware', region: 'South'}, {id: 9, name: 'Florida', region: 'South'},
-    {id: 10, name: 'Georgia', region: 'South'}, {id: 11, name: 'Hawaii', region: 'West'},
-    {id: 12, name: 'Idaho', region: 'West'}, {id: 13, name: 'Illinois', region: 'Midwest'},
-    {id: 14, name: 'Indiana', region: 'Midwest'}, {id: 15, name: 'Iowa', region: 'Midwest'},
-    {id: 16, name: 'Kansas', region: 'Midwest'}, {id: 17, name: 'Kentucky', region: 'South'},
-    {id: 18, name: 'Louisiana', region: 'South'}, {id: 19, name: 'Maine', region: 'Northeast'},
-    {id: 21, name: 'Maryland', region: 'South'}, {id: 22, name: 'Massachusetts', region: 'Northeast'},
-    {id: 23, name: 'Michigan', region: 'Midwest'}, {id: 24, name: 'Minnesota', region: 'Midwest'},
-    {id: 25, name: 'Mississippi', region: 'South'}, {id: 26, name: 'Missouri', region: 'Midwest'},
-    {id: 27, name: 'Montana', region: 'West'}, {id: 28, name: 'Nebraska', region: 'Midwest'},
-    {id: 29, name: 'Nevada', region: 'West'}, {id: 30, name: 'New Hampshire', region: 'Northeast'},
-    {id: 31, name: 'New Jersey', region: 'Northeast'}, {id: 32, name: 'New Mexico', region: 'West'},
-    {id: 33, name: 'New York', region: 'Northeast'}, {id: 34, name: 'North Dakota', region: 'Midwest'},
-    {id: 35, name: 'North Carolina', region: 'South'}, {id: 36, name: 'Ohio', region: 'Midwest'},
-    {id: 37, name: 'Oklahoma', region: 'South'}, {id: 38, name: 'Oregon', region: 'West'},
-    {id: 39, name: 'Pennsylvania', region: 'Northeast'}, {id: 40, name: 'Rhode Island', region: 'Northeast'},
-    {id: 41, name: 'South Carolina', region: 'South'}, {id: 42, name: 'South Dakota', region: 'Midwest'},
-    {id: 43, name: 'Tennessee', region: 'South'}, {id: 44, name: 'Texas', region: 'South'},
-    {id: 45, name: 'Utah', region: 'West'}, {id: 46, name: 'Vermont', region: 'Northeast'},
-    {id: 47, name: 'Virginia', region: 'South'}, {id: 48, name: 'Washington', region: 'South'},
-    {id: 49, name: 'West Virginia', region: 'South'}, {id: 50, name: 'Wisconsin', region: 'Midwest'},
-    {id: 51, name: 'Wyoming', region: 'West'}];
+  public typeAheadLoading:boolean = false;
+  public typeAheadNoResults:boolean = false;
  
-  public constructor() {
-    this.dataSource = Observable.create((observer:any) => {
-      // Runs on every search
-      observer.next(this.asyncSelected);
-    }).mergeMap((token:string) => this.getStatesAsObservable(token));
-  }
- 
-  public getStatesAsObservable(token:string):Observable<any> {
+  public getProductAsObservable(token:string):Observable<any> {
     let query = new RegExp(token, 'ig');
- 
+     console.log(this.inventories);
     return Observable.of(
-      this.statesComplex.filter((state:any) => {
-        return query.test(state.name);
+      this.inventories.filter((inventory:any) => {  
+        return query.test(inventory.name);
       })
     );
+
   }
  
-  public changeTypeaheadLoading(e:boolean):void {
-    this.typeaheadLoading = e;
+  public changeTypeAheadLoading(e:boolean):void {
+    this.typeAheadLoading = e;
   }
  
-  public changeTypeaheadNoResults(e:boolean):void {
-    this.typeaheadNoResults = e;
+  public changeTypeAheadNoResults(e:boolean):void {
+    this.typeAheadNoResults = e;
   }
  
-  public typeaheadOnSelect(e:TypeaheadMatch):void {
-    console.log('Selected value: ', e.value);
+  public typeAheadOnSelectProduct(e:TypeaheadMatch):void {
+    this.productIdFormControl.setValue(e.item.id);
+    console.log('Selected value: ', e.item.id);
+  }
+
+  public typeAheadOnSelectSupplier(e:TypeaheadMatch):void {
+    this.supplierIdFormControl.setValue(e.item.id);
+    console.log('Selected value: ', e.item.id);
+  }
+
+
+  public getInventoryList() {
+      this.inventoryService.getInventoryList()
+                 .subscribe(
+                   inventories => {
+                                   this.inventories = inventories,
+                                   this.table = new Table(this.config, inventories, this.columns)
+                                  },
+                   error =>  this.errorMessage = <any>error);
+        
+  }
+
+
+
+  public saveInventory(inventory:Inventory, isValid:boolean) {
+      this.inventoryService.addInventory(inventory)
+                    .subscribe(
+                      status=>{console.log(status),
+                               this.getInventoryList()
+                               },
+                      error => console.log(error));
+
+
+      this.getInventoryList();
+
+      console.log(inventory, isValid);
+
   }
 
 }

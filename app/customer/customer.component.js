@@ -10,15 +10,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
+var customer_service_1 = require("./customer.service");
 var CustomerComponent = (function () {
-    function CustomerComponent() {
+    function CustomerComponent(customerService) {
+        this.customerService = customerService;
         this.title = 'Customers';
     }
+    CustomerComponent.prototype.ngOnInit = function () {
+        this.getCustomerList();
+    };
     CustomerComponent.prototype.showChildModal = function () {
         this.childModal.show();
     };
     CustomerComponent.prototype.hideChildModal = function () {
         this.childModal.hide();
+    };
+    CustomerComponent.prototype.getCustomerList = function () {
+        var _this = this;
+        this.customerService.getCustomerList()
+            .subscribe(function (customers) { return _this.customers = customers; }, function (error) { return _this.errorMessage = error; });
     };
     return CustomerComponent;
 }());
@@ -30,8 +40,9 @@ CustomerComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
         templateUrl: 'app/customer/customer.component.html',
+        providers: [customer_service_1.CustomerService],
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [customer_service_1.CustomerService])
 ], CustomerComponent);
 exports.CustomerComponent = CustomerComponent;
 //# sourceMappingURL=customer.component.js.map

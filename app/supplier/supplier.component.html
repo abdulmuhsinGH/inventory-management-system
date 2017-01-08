@@ -92,102 +92,21 @@
 
                       <div class="clearfix"></div>
 
-                      <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
+                      <div *ngFor="let supplier of suppliers" class="col-md-4 col-sm-4 col-xs-12 profile_details">
                         <div class="well profile_view">
                           <div class="col-sm-12">
-                            <h4 class="brief"><i>Supplier Name</i></h4>
-                            <div class="left col-xs-7">
+                            <h4 class="brief"><i>{{supplier.name}}</i></h4>
+                            <div class="left col-xs-9">
                               <ul class="list-unstyled">
-                                <li><i class="fa fa-building"></i> Address: </li>
-                                <li><i class="fa fa-phone"></i> Phone #: </li>
+                                <li><i class="fa fa-envelope"></i>Email Address: {{supplier.email}}</li>
+                                <li><i class="fa fa-phone"></i> Phone #: {{supplier.phone_number}}</li>
                               </ul>
-                            </div>
-                            <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="avatar img-responsive">
                             </div>
                           </div>
                           <div class="col-xs-12 bottom text-center">
                            
                             <div class="col-xs-12 col-sm-6 emphasis">
                               
-                              <a routerLink="/supplier-details"  class="btn btn-primary btn-xs">
-                                <i class="fa fa-user"> </i> View Profile
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                        <div class="well profile_view">
-                          <div class="col-sm-12">
-                            <h4 class="brief"><i>Supplier Name</i></h4>
-                            <div class="left col-xs-7">
-                              <ul class="list-unstyled">
-                                <li><i class="fa fa-building"></i> Address: </li>
-                                <li><i class="fa fa-phone"></i> Phone #: </li>
-                              </ul>
-                            </div>
-                            <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="avatar img-responsive">
-                            </div>
-                          </div>
-                          <div class="col-xs-12 bottom text-center">
-                           
-                            <div class="col-xs-12 col-sm-6 emphasis">
-                              
-                              <a routerLink="/supplier-details"  class="btn btn-primary btn-xs">
-                                <i class="fa fa-user"> </i> View Profile
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                        <div class="well profile_view">
-                          <div class="col-sm-12">
-                            <h4 class="brief"><i>Supplier Name</i></h4>
-                            <div class="left col-xs-7">
-                              <ul class="list-unstyled">
-                                <li><i class="fa fa-building"></i> Address: </li>
-                                <li><i class="fa fa-phone"></i> Phone #: </li>
-                              </ul>
-                            </div>
-                            <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="avatar img-responsive">
-                            </div>
-                          </div>
-                          <div class="col-xs-12 bottom text-center">
-                            
-                            <div class="col-xs-12 col-sm-6 emphasis">
-                              
-                              <a routerLink="/supplier-details"  class="btn btn-primary btn-xs">
-                                <i class="fa fa-user"> </i> View Profile
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                        <div class="well profile_view">
-                          <div class="col-sm-12">
-                            <h4 class="brief"><i>Supplier Name</i></h4>
-                            <div class="left col-xs-7">
-                              <ul class="list-unstyled">
-                                <li><i class="fa fa-building"></i> Address: </li>
-                                <li><i class="fa fa-phone"></i> Phone #: </li>
-                              </ul>
-                            </div>
-                            <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="avatar img-responsive">
-                            </div>
-                          </div>
-                          <div class="col-xs-12 bottom text-center">
-                            
-                            <div class="col-xs-12 col-sm-6 emphasis">
-                             
                               <a routerLink="/supplier-details"  class="btn btn-primary btn-xs">
                                 <i class="fa fa-user"> </i> View Profile
                               </a>
@@ -196,136 +115,6 @@
                         </div>
                       </div>
                       
-                      <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                        <div class="well profile_view">
-                          <div class="col-sm-12">
-                            <h4 class="brief"><i>Supplier Name</i></h4>
-                            <div class="left col-xs-7">
-                              <ul class="list-unstyled">
-                                <li><i class="fa fa-building"></i> Address: </li>
-                                <li><i class="fa fa-phone"></i> Phone #: </li>
-                              </ul>
-                            </div>
-                            <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="avatar img-responsive">
-                            </div>
-                          </div>
-                          <div class="col-xs-12 bottom text-center">
-                           
-                            <div class="col-xs-12 col-sm-6 emphasis">
-                            
-                              <a routerLink="/supplier-details"  class="btn btn-primary btn-xs">
-                                <i class="fa fa-user"> </i> View Profile
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                     <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                        <div class="well profile_view">
-                          <div class="col-sm-12">
-                            <h4 class="brief"><i>Supplier Name</i></h4>
-                            <div class="left col-xs-7">
-                              <ul class="list-unstyled">
-                                <li><i class="fa fa-building"></i> Address: </li>
-                                <li><i class="fa fa-phone"></i> Phone #: </li>
-                              </ul>
-                            </div>
-                            <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="avatar img-responsive">
-                            </div>
-                          </div>
-                          <div class="col-xs-12 bottom text-center">
-                            
-                            <div class="col-xs-12 col-sm-6 emphasis">
-                              
-                              <a routerLink="/supplier-details"  class="btn btn-primary btn-xs">
-                                <i class="fa fa-user"> </i> View Profile
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                        <div class="well profile_view">
-                          <div class="col-sm-12">
-                            <h4 class="brief"><i>Supplier Name</i></h4>
-                            <div class="left col-xs-7">
-                              <ul class="list-unstyled">
-                                <li><i class="fa fa-building"></i> Address: </li>
-                                <li><i class="fa fa-phone"></i> Phone #: </li>
-                              </ul>
-                            </div>
-                            <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="avatar img-responsive">
-                            </div>
-                          </div>
-                          <div class="col-xs-12 bottom text-center">
-                           
-                            <div class="col-xs-12 col-sm-6 emphasis">
-                             
-                              <a routerLink="/supplier-details"  class="btn btn-primary btn-xs">
-                                <i class="fa fa-user"> </i> View Profile
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                        <div class="well profile_view">
-                          <div class="col-sm-12">
-                            <h4 class="brief"><i>Supplier Name</i></h4>
-                            <div class="left col-xs-7">
-                              <ul class="list-unstyled">
-                                <li><i class="fa fa-building"></i> Address: </li>
-                                <li><i class="fa fa-phone"></i> Phone #: </li>
-                              </ul>
-                            </div>
-                            <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="avatar img-responsive">
-                            </div>
-                          </div>
-                          <div class="col-xs-12 bottom text-center">
-                           
-                            <div class="col-xs-12 col-sm-6 emphasis">
-                              
-                              <a routerLink="/supplier-details"  class="btn btn-primary btn-xs">
-                                <i class="fa fa-user"> </i> View Profile
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                       <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-                        <div class="well profile_view">
-                          <div class="col-sm-12">
-                            <h4 class="brief"><i>Supplier Name</i></h4>
-                            <div class="left col-xs-7">
-                              <ul class="list-unstyled">
-                                <li><i class="fa fa-building"></i> Address: </li>
-                                <li><i class="fa fa-phone"></i> Phone #: </li>
-                              </ul>
-                            </div>
-                            <div class="right col-xs-5 text-center">
-                              <img src="images/user.png" alt="" class="avatar img-responsive">
-                            </div>
-                          </div>
-                          <div class="col-xs-12 bottom text-center">
-                            
-                            <div class="col-xs-12 col-sm-6 emphasis">
-                             
-                              <a routerLink="/supplier-details"  class="btn btn-primary btn-xs">
-                                <i class="fa fa-user"> </i> View Profile
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
                     </div>
                   </div>
                 </div>

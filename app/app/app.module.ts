@@ -1,7 +1,9 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
+
+
 /*import { MyDateRangePickerModule } from 'mydaterangepicker/dist/my-date-range-picker.module';*/
 
 
@@ -34,6 +36,9 @@ import { SaleModule }   from '../sale/sale.module';
 @NgModule({
   imports:      [ 
   				  BrowserModule,
+            FormsModule,
+            HttpModule,
+            /*JsonpModule,*/
   				  AppRoutingModule,
             FormsModule,
             HttpModule,

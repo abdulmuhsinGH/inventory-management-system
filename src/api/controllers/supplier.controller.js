@@ -37,7 +37,7 @@ module.exports.addSupplier =function(req, res){
 
 module.exports.viewSupplier = function(req, res){
 
-	db.all("SELECT name, phone_number, email, description FROM suppliers where deleted_at IS NULL", function(err, rows) {  
+	db.all("SELECT id, name, phone_number, email, description FROM suppliers where deleted_at IS NULL", function(err, rows) {  
         
 		if(err){
 	  			res

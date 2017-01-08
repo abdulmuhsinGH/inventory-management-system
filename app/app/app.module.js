@@ -37,6 +37,9 @@ AppModule = __decorate([
     core_1.NgModule({
         imports: [
             platform_browser_1.BrowserModule,
+            forms_1.FormsModule,
+            http_1.HttpModule,
+            /*JsonpModule,*/
             app_routing_1.AppRoutingModule,
             forms_1.FormsModule,
             http_1.HttpModule,

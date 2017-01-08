@@ -13,6 +13,7 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
+var common_1 = require("@angular/common");
 /*import { MyDateRangePickerModule } from 'mydaterangepicker/dist/my-date-range-picker.module';*/
 /* Third party modules */
 var ng2_bootstrap_1 = require("ng2-bootstrap");
@@ -33,6 +34,7 @@ InventoryModule = __decorate([
             forms_1.FormsModule,
             http_1.HttpModule,
             forms_1.ReactiveFormsModule,
+            common_1.CommonModule,
             ng2_table_1.Ng2TableModule,
             ng2_bootstrap_1.PaginationModule,
             ng2_bootstrap_2.ModalModule,

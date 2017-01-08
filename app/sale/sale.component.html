@@ -37,34 +37,63 @@
                           <div class="x_panel">
                             <div class="x_content">
                               <br />
-                              <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                              <form class="form-inline" [formGroup]="recordSaleForm" novalidate (ngSubmit)="recordSale(recordSaleForm)">
+                                 
+                                <div formArrayName="sales">
 
-                                <div class="form-group">
-                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="product-name"> Name <span class="required">*</span>
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="product-name" required="required" class="form-control col-md-7 col-xs-12">
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="category">Quantity<span class="required">*</span>
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="category" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="unit" class="control-label col-md-3 col-sm-3 col-xs-12">Price</label>
-                                  <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="unit" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+                                  <div *ngFor="let sale of recordSaleForm.controls.sales.controls; let i=index">
+
+                                    <div [formGroupName]="i">
+
+                                        <div class="form-group">
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                              <input type="text"  placeholder="Product" class="form-control col-md-12 col-xs-12" formControlName="price">
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                              <input type="text" placeholder="quantity" class="form-control col-md-12 col-xs-12" formControlName="product">
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                              <input class="form-control col-md-12 col-xs-12" type="text" placeholder="qprice" formControlName="quantity">
+                                            </div>
+
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                              <ul class="list-inline">
+                                                  <li> 
+                                                    <button type="button" class="btn btn-primary btn-xs" (click)="addRecordSaleRow()"> 
+                                                      Add New Record
+                                                    </button>
+                                                  </li>
+                                                  <li>
+                                                    <button type="button" class="btn btn-danger btn-xs" *ngIf="recordSaleForm.controls.sales.controls.length > 1" (click)="removeRecordSaleRow(i)">
+                                                      Remove Record
+                                                    </button>
+                                                  </li>
+                                              </ul>
+                                             
+                                              
+                                            </div>
+                                        </div>
+                                        <!-- <div class="form-group">
+                                          
+                                        </div>
+                                        <div class="form-group">
+                                          
+                                        </div>
+                                        <div class="form-group">
+                                          
+                                        </div> -->
+                                         <div class="ln_solid"></div>
+                                    </div>
+
                                   </div>
                                 </div>
                                 
-                                <div class="ln_solid"></div>
-                                <div class="form-group">
-                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <button type="submit" class="btn btn-primary" (click)="newSaleModal.hide()">Cancel</button>
-                                    <a routerLink="/sale-sale-invoice" class="btn btn-success">Generate Invoice</a>
+                                
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                  <div class="col-md-12 col-sm-12 col-xs-12 inline pull-left">
+                                    <a class="btn btn-primary btn-sm" (click)="newSaleModal.hide()">Cancel</a>
+                                    <button class="btn btn-success btn-sm" type="submit" [disabled]="!recordSaleForm.valid">Submit</button>
+                                    <a routerLink="/sale-invoice" class="btn btn-success btn-sm">Generate Invoice</a>
                                   </div>
                                 </div>
 

@@ -1,11 +1,12 @@
 import { NgModule, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators} from '@angular/forms';
 
 
 import * as moment from 'moment';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { PaginationModule } from 'ng2-bootstrap';
 import { ModalDirective } from   'ng2-bootstrap';
+import { RecordSaleDatas } from './record-sale.interface';
 
 
 @Component({
@@ -56,6 +57,46 @@ title = 'Sales';
 
   public lineChartLegend:boolean = true;
   public lineChartType:string = 'line';
+
+  // record sale form model
+  public recordSaleForm: FormGroup;
+
+  // Formbuilder will be used to simplify syntax and validation
+  constructor(private _formBuilder: FormBuilder) { 
+      
+  }
+  //initialize form
+  ngOnInit(){
+      this.recordSaleForm = this._formBuilder.group({
+        sales: this._formBuilder.array([
+          this.initSaleForm(),
+          ])
+      });
+      
+  }
+
+  initSaleForm() {
+    return this._formBuilder.group({
+            product: ['', Validators.required],
+            quantity: ['', Validators.required],
+            price: ['', Validators.required]
+        });
+  }
+
+  addRecordSaleRow(){
+    const control = <FormArray>this.recordSaleForm.controls['sales'];
+    control.push(this.initSaleForm());
+
+  }
+
+  removeRecordSaleRow(rowNumber: number){
+    const control = <FormArray>this.recordSaleForm.controls['sales'];
+    control.removeAt(rowNumber);
+  }
+
+  recordSale(model: RecordSaleDatas){
+    console.log(model);
+  }
 
 
 }

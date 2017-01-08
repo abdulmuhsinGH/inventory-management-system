@@ -2,6 +2,8 @@ import { NgModule, Component, OnInit, ChangeDetectionStrategy } from '@angular/c
 import { FormBuilder, FormGroup} from '@angular/forms';
 
 
+
+
 import * as moment from 'moment';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { PaginationModule } from 'ng2-bootstrap/ng2-bootstrap';
@@ -187,6 +189,7 @@ export class DashboardComponent implements OnInit{
   }
 
   public onChangeTable(config:any, page:any = {page: this.page, itemsPerPage: this.itemsPerPage}):any {
+    
     if (config.filtering) {
       Object.assign(this.config.filtering, config.filtering);
     }

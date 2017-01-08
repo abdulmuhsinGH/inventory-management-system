@@ -6,7 +6,7 @@ var sqlite3 = require('sqlite3').verbose(),
 
 module.exports.viewInventories = function(req, res){
 
-	db.all("select products.name, inventory_details.total_quantity from inventory_details left outer join products, suppliers on ( inventory_details.product_id = products.id and inventory_details.supplier_id = suppliers.id) where inventory_details.deleted_at is null order by  inventory_details.created_at desc", function(err, rows) {  
+	db.all("select products.id, products.name, inventory_details.current_selling_price, inventory_details.current_cost_price, inventory_details.quantity, inventory_details.total_quantity from inventory_details left outer join products, suppliers on ( inventory_details.product_id = products.id and inventory_details.supplier_id = suppliers.id) where inventory_details.deleted_at is null order by  inventory_details.created_at desc", function(err, rows) {  
         
 		if(err){
 	  			res
@@ -16,7 +16,7 @@ module.exports.viewInventories = function(req, res){
   		else if(!rows){
   			res
 			  .status(200)
-			  .json({state: 'success', user: null, result: "No Customer Found"});
+			  .json({state: 'success', user: null, result: "No Inventory Found"});
 
   		}
   		else{
@@ -57,6 +57,7 @@ module.exports.viewInventoryDetails = function(req, res){
 
 module.exports.addInventory = function (req, res) {
 	var inventory = req.body;
+	console.log(inventory);
 	
 	_addOneInventory(req, res, inventory);
 
@@ -130,7 +131,7 @@ module.exports.deleteInventory = function(req, res){
 var _addOneInventory = function(req, res, inventory){
 	var result; 
 	
-	db.get("SELECT total_quantity FROM inventory_details WHERE product_id = "+inventory.product_id+ " AND deleted_at IS NULL ORDER BY created_at DESC LIMIT 1" , function(err, row) {  
+	db.get("SELECT total_quantity FROM inventory_details WHERE product_id = "+inventory.product_id+ " AND deleted_at IS NULL ORDER BY created_at ASC LIMIT 1" , function(err, row) {  
         
 		if(err){
 			console.log("_addOneInventory");
@@ -248,7 +249,7 @@ var _updateReorderLevel = function(req, res, reorderLevel, row){
 module.exports.setReorderLevel = function(req, res){
 		var reorderLevel = req.body;
 
-		db.get("SELECT product_id FROM reorder_levels WHERE product_id = "+reorderLevel.product_id+ " AND deleted_at IS NULL ORDER BY created_at DESC LIMIT 1" , function(err, row) {  
+		db.get("SELECT product_id FROM reorder_levels WHERE product_id = "+reorderLevel.product_id+ " AND deleted_at IS NULL ORDER BY created_at ASC LIMIT 1" , function(err, row) {  
         
 		if(err){
 			
