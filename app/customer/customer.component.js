@@ -9,15 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var customer_service_1 = require("./customer.service");
 var CustomerComponent = (function () {
+    /*Add new customer Form Setup*/
     function CustomerComponent(customerService) {
         this.customerService = customerService;
         this.title = 'Customers';
+        this.EMAIL_REGEXP = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$';
+        this.customerNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
+        this.emailAddressFormControl = new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.pattern(this.EMAIL_REGEXP)]);
+        this.phoneNumberFormControl = new forms_1.FormControl(0, [forms_1.Validators.required, forms_1.Validators.pattern('^[0-9\-\+]{9,15}$')]);
     }
     CustomerComponent.prototype.ngOnInit = function () {
         this.getCustomerList();
+        this.addCustomerForm = new forms_1.FormGroup({
+            name: this.customerNameFormControl,
+            email: this.emailAddressFormControl,
+            phone_number: this.phoneNumberFormControl
+        });
     };
     CustomerComponent.prototype.showChildModal = function () {
         this.childModal.show();
@@ -29,6 +40,15 @@ var CustomerComponent = (function () {
         var _this = this;
         this.customerService.getCustomerList()
             .subscribe(function (customers) { return _this.customers = customers; }, function (error) { return _this.errorMessage = error; });
+    };
+    CustomerComponent.prototype.saveCustomer = function (customer, isValid) {
+        var _this = this;
+        this.customerService.addCustomer(customer)
+            .subscribe(function (status) {
+            console.log(status),
+                _this.getCustomerList();
+        }, function (error) { return console.log(error); });
+        console.log(customer, isValid);
     };
     return CustomerComponent;
 }());

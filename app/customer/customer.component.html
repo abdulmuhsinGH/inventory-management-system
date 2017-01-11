@@ -36,34 +36,40 @@
                           <div class="x_panel">
                             <div class="x_content">
                               <br />
-                              <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                              <form id="demo-form2" class="form-horizontal form-label-left" [formGroup]="addCustomerForm" novalidate (ngSubmit)="saveCustomer(addCustomerForm.value, addCustomerForm.valid)">
 
                                 <div class="form-group">
-                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="product-name"> Name <span class="required">*</span>
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer-name"> Name <span class="required">*</span>
                                   </label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="product-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="customer-name" formControlName="name" class="form-control col-md-7 col-xs-12">
                                   </div>
                                 </div>
                                 <div class="form-group">
-                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="category">Address<span class="required">*</span>
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Address<span class="required">*</span>
                                   </label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="category" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input type="text" id="email" formControlName="email" class="form-control col-md-7 col-xs-12">
+                                    <small [hidden]="addCustomerForm.controls.email.valid || (addCustomerForm.controls.email.pristine && !submitted)">
+                                        Please enter a valid email address
+                                    </small>
                                   </div>
                                 </div>
                                 <div class="form-group">
-                                  <label for="unit" class="control-label col-md-3 col-sm-3 col-xs-12">Phone Number</label>
+                                  <label for="phone-number" class="control-label col-md-3 col-sm-3 col-xs-12">Phone Number</label>
                                   <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="unit" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+                                    <input id="phone-number" class="form-control col-md-7 col-xs-12" type="text" formControlName="phone_number">
+                                    <small [hidden]="addCustomerForm.controls.phone_number.valid || (addCustomerForm.controls.phone_number.pristine && !submitted)">
+                                        Please enter a valid phone number
+                                    </small>
                                   </div>
                                 </div>
                                 
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                   <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <button type="submit" class="btn btn-primary" (click)="newCustomerModal.hide()">Cancel</button>
-                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <a  class="btn btn-primary" (click)="newCustomerModal.hide()">Cancel</a>
+                                    <button type="submit" class="btn btn-success" [disabled]="!addCustomerForm.valid" (click)="newCustomerModal.hide()">Submit</button>
                                   </div>
                                 </div>
 

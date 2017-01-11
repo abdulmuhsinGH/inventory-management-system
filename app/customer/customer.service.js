@@ -21,6 +21,14 @@ var CustomerService = (function () {
             .map(this.extractData)
             .catch(this.handleError);
     };
+    CustomerService.prototype.addCustomer = function (body) {
+        var bodyString = JSON.stringify(body);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
+        return this.http.post(this.customerURLAPI + 'add/', body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
     CustomerService.prototype.extractData = function (res) {
         console.log(res.json().result);
         var body = res.json();

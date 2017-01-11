@@ -1,5 +1,5 @@
 import { NgModule, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 
 
 import * as moment from 'moment';
@@ -23,12 +23,29 @@ title = 'Customers';
 customers: Customer[];
 errorMessage:string;
 
+EMAIL_REGEXP = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$';
+
+/*Add new customer Form Setup*/
+  addCustomerForm:FormGroup;
+  customerNameFormControl:FormControl = new FormControl('', [Validators.required]);
+ 
+  emailAddressFormControl:FormControl = new FormControl('', [Validators.required, Validators.pattern(this.EMAIL_REGEXP)]);
+  
+  phoneNumberFormControl:FormControl = new FormControl(0, [Validators.required, Validators.pattern('^[0-9\-\+]{9,15}$')]);
+/*Add new customer Form Setup*/
+
 constructor( private customerService:CustomerService){
 
 }
 
 ngOnInit(){
 	this.getCustomerList();
+
+  this.addCustomerForm = new FormGroup({
+          name: this.customerNameFormControl,
+          email:this.emailAddressFormControl,
+          phone_number:this.phoneNumberFormControl
+      });
 }
 
 @ViewChild('childModal') public childModal:ModalDirective;
@@ -47,5 +64,19 @@ public getCustomerList() {
                  customers =>this.customers = customers,
                  error =>  this.errorMessage = <any>error);
 }
+
+public saveCustomer(customer:Customer, isValid:boolean) {
+      this.customerService.addCustomer(customer)
+                    .subscribe(
+                      status=>{console.log(status),
+                               this.getCustomerList()
+                               },
+                      error => console.log(error));
+
+
+     
+      console.log(customer, isValid);
+
+  }
 
 }

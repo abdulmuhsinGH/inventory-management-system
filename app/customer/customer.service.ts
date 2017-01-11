@@ -22,6 +22,18 @@ export class CustomerService {
 							.catch(this.handleError);
 	}
 
+	addCustomer(body: Object):Observable<Customer[]> {
+
+		let bodyString = JSON.stringify(body);
+		 let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options       = new RequestOptions({ headers: headers }); // Create a request option
+
+
+		return this.http.post(this.customerURLAPI + 'add/', body, options)
+								.map(this.extractData) 
+								.catch(this.handleError);
+	}
+
 	private extractData(res: Response) {
 		console.log(res.json().result);
     let body = res.json();
