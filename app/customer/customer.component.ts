@@ -10,6 +10,7 @@ import { PaginationModule } from 'ng2-bootstrap';
 import { ModalDirective } from   'ng2-bootstrap';
 import { CustomerService } from './customer.service';
 import { Customer } from './customer.interface';
+import { NotificationsService } from 'angular2-notifications';
 
 
 @Component({
@@ -24,6 +25,12 @@ export class CustomerComponent {
 title = 'Customers';
 customers: Customer[];
 errorMessage:string;
+public notificationsOptions = {
+    position: ["top", "right"],
+    timeOut: 5000,
+    lastOnBottom: true,
+    clickToClose:true
+}
 
 EMAIL_REGEXP = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$';
 
@@ -36,7 +43,7 @@ EMAIL_REGEXP = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9
   phoneNumberFormControl:FormControl = new FormControl(0, [Validators.required, Validators.pattern('^[0-9\-\+]{9,15}$')]);
 /*Add new customer Form Setup*/
 
-constructor( private customerService:CustomerService){
+constructor( private customerService:CustomerService, private angularNotificationService: NotificationsService){
 
 }
 
@@ -70,8 +77,9 @@ public getCustomerList() {
 public saveCustomer(customer:Customer, isValid:boolean) {
       this.customerService.addCustomer(customer)
                     .subscribe(
-                      status=>{console.log(status),
-                               this.getCustomerList()
+                      status=>{
+                               this.getCustomerList(),
+                               this.angularNotificationService.success(status.state,status.message)
                                },
                       error => console.log(error));
 

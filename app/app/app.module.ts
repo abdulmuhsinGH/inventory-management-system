@@ -33,6 +33,7 @@ import { SaleModule }   from '../sale/sale.module';
 
 
 
+
 @NgModule({
   imports:      [ 
   				  BrowserModule,
@@ -53,7 +54,8 @@ import { SaleModule }   from '../sale/sale.module';
             CustomerModule,
             SaleModule,
             InventoryModule,
-            TabsModule.forRoot()
+            TabsModule.forRoot(),
+           
             
   				],
   declarations: [ AppComponent,

@@ -15,6 +15,7 @@ var ng2_bootstrap_2 = require("ng2-bootstrap");
 var ng2_bootstrap_3 = require("ng2-bootstrap");
 var ng2_table_1 = require("ng2-table/ng2-table");
 var ng2_charts_1 = require("ng2-charts/ng2-charts");
+var angular2_notifications_1 = require("angular2-notifications");
 var customer_component_1 = require("./customer.component");
 var customer_details_component_1 = require("./customer-details/customer-details.component");
 var customer_routing_1 = require("./customer.routing");
@@ -35,7 +36,8 @@ CustomerModule = __decorate([
             ng2_bootstrap_1.PaginationModule.forRoot(),
             ng2_bootstrap_2.ModalModule.forRoot(),
             ng2_bootstrap_3.TypeaheadModule.forRoot(),
-            customer_routing_1.CustomerRoutingModule
+            customer_routing_1.CustomerRoutingModule,
+            angular2_notifications_1.SimpleNotificationsModule
         ],
         declarations: [
             customer_component_1.CustomerComponent,

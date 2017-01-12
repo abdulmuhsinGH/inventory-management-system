@@ -22,7 +22,7 @@ export class ProductService {
 							.catch(this.handleError);
 	}
 
-	addProduct(body: Object):Observable<Product[]> {
+	addProduct(body: Object):Observable<any> {
 
 		let bodyString = JSON.stringify(body);
 		 let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
@@ -30,14 +30,19 @@ export class ProductService {
 
 
 		return this.http.post(this.productURLAPI + 'add/', body, options)
-								.map(this.extractData) 
+								.map(this.extractResponse) 
 								.catch(this.handleError);
 	}
 
 	private extractData(res: Response) {
-		console.log(res.json().result);
+		//console.log(res.json().message);
     let body = res.json();
     return body.result as Product[];
+	}
+
+	private extractResponse(res: Response) {
+	
+       return res.json() ;
 	}
 
 	private handleError (error: Response | any) {

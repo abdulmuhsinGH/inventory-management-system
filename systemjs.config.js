@@ -31,7 +31,7 @@
       'mydaterangepicker': 'npm:mydaterangepicker',
       'ng2-table' : 'npm:ng2-table',
       'ng2-bootstrap/components/typeahead/typeahead-match.class'     :        'npm:ng2-bootstrap/components/typeahead/typeahead-match.class.js',
-     /* 'ng2-toastr' : 'npm:ng2-toastr/ng2-toastr.js',*/
+      'angular2-notifications': 'npm:angular2-notifications'
       /*'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',*/
     },
     // packages tells the System loader how to load when no filename and/or no extension
@@ -62,7 +62,8 @@
       'ng2-table': { 
         main: 'ng2-table.js', 
         defaultExtension: 'js' 
-      }
+      },
+      'angular2-notifications': { main: 'components.js', defaultExtension: 'js' }
       /*'angular-in-memory-web-api': {
         main: './index.js',
         defaultExtension: 'js'

@@ -26,13 +26,16 @@ var InventoryService = (function () {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
         var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
         return this.http.post(this.inventoryURLAPI + 'add/', body, options)
-            .map(this.extractData)
+            .map(this.extractResponse)
             .catch(this.handleError);
     };
     InventoryService.prototype.extractData = function (res) {
         console.log(res.json().result);
         var body = res.json();
         return body.result;
+    };
+    InventoryService.prototype.extractResponse = function (res) {
+        return res.json();
     };
     InventoryService.prototype.handleError = function (error) {
         var errMsg;

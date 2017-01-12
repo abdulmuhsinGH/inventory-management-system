@@ -51,7 +51,7 @@ AppModule = __decorate([
             customer_module_1.CustomerModule,
             sale_module_1.SaleModule,
             inventory_module_1.InventoryModule,
-            ng2_bootstrap_3.TabsModule.forRoot()
+            ng2_bootstrap_3.TabsModule.forRoot(),
         ],
         declarations: [app_component_1.AppComponent,
             dashboard_component_1.DashboardComponent,

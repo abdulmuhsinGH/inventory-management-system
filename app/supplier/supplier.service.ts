@@ -22,7 +22,7 @@ export class SupplierService {
 							.catch(this.handleError);
 	}
 
-	addSupplier(body: Object):Observable<Supplier[]> {
+	addSupplier(body: Object):Observable<any> {
 
 		let bodyString = JSON.stringify(body);
 		 let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
@@ -30,7 +30,7 @@ export class SupplierService {
 
 
 		return this.http.post(this.supplierURLAPI + 'add/', body, options)
-								.map(this.extractData) 
+								.map(this.extractResponse) 
 								.catch(this.handleError);
 	}
 
@@ -38,6 +38,11 @@ export class SupplierService {
 		console.log(res.json().result);
     let body = res.json();
     return body.result as Supplier[];
+	}
+
+	private extractResponse(res: Response) {
+		
+    	return res.json();
 	}
 
 	private handleError (error: Response | any) {

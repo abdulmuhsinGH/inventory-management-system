@@ -15,7 +15,7 @@ var ng2_bootstrap_2 = require("ng2-bootstrap");
 var ng2_bootstrap_3 = require("ng2-bootstrap");
 var ng2_table_1 = require("ng2-table/ng2-table");
 var ng2_charts_1 = require("ng2-charts/ng2-charts");
-//import {ToastModule} from 'ng2-toastr';
+var angular2_notifications_1 = require("angular2-notifications");
 var product_component_1 = require("./product.component");
 var product_details_component_1 = require("./product-details/product-details.component");
 var product_routing_1 = require("./product.routing");
@@ -37,6 +37,7 @@ ProductModule = __decorate([
             ng2_bootstrap_2.ModalModule,
             ng2_bootstrap_3.TypeaheadModule,
             product_routing_1.ProductRoutingModule,
+            angular2_notifications_1.SimpleNotificationsModule
         ],
         declarations: [
             product_component_1.ProductComponent,

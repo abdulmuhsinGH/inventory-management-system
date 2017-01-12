@@ -21,6 +21,7 @@ import { SupplierService } from '../supplier/supplier.service';
 import { Supplier } from '../supplier/supplier.interface';
 import { InventoryRecords } from './inventory.interface';
 import { Table } from '../other/table';
+import { NotificationsService } from 'angular2-notifications';
 
 
 @Component({
@@ -37,7 +38,12 @@ export class InventoryComponent implements OnInit, OnChanges{
   suppliers: Supplier[]
   inventory: Inventory;
   table:any;
-
+  public notificationsOptions = {
+    position: ["top", "right"],
+    timeOut: 5000,
+    lastOnBottom: true,
+    clickToClose:true
+}
      // supplierComponent:SupplierComponent
   /*Add new inventory Form Setup*/
   addInventoryForm:FormGroup;
@@ -51,7 +57,7 @@ export class InventoryComponent implements OnInit, OnChanges{
 /*Add new inventory Form Setup*/
 
   @ViewChild('childModal') public childModal:ModalDirective;
-  public constructor(private inventoryService: InventoryService, private supplierService:SupplierService ) {
+  public constructor(private inventoryService: InventoryService, private supplierService:SupplierService, private angularNotificationService: NotificationsService ) {
 
     this.dataSource = Observable.create((observer:any) => {
       // Runs on every search
@@ -185,8 +191,9 @@ export class InventoryComponent implements OnInit, OnChanges{
   public saveInventory(inventory:Inventory, isValid:boolean) {
       this.inventoryService.addInventory(inventory)
                     .subscribe(
-                      status=>{console.log(status),
-                               this.getInventoryList()
+                      status=>{
+                               this.getInventoryList(),
+                               this.angularNotificationService.success(status.state,status.message)
                                },
                       error => console.log(error));
 

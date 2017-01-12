@@ -13,11 +13,19 @@ var forms_1 = require("@angular/forms");
 require("../rxjs-extensions");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var customer_service_1 = require("./customer.service");
+var angular2_notifications_1 = require("angular2-notifications");
 var CustomerComponent = (function () {
     /*Add new customer Form Setup*/
-    function CustomerComponent(customerService) {
+    function CustomerComponent(customerService, angularNotificationService) {
         this.customerService = customerService;
+        this.angularNotificationService = angularNotificationService;
         this.title = 'Customers';
+        this.notificationsOptions = {
+            position: ["top", "right"],
+            timeOut: 5000,
+            lastOnBottom: true,
+            clickToClose: true
+        };
         this.EMAIL_REGEXP = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$';
         this.customerNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
         this.emailAddressFormControl = new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.pattern(this.EMAIL_REGEXP)]);
@@ -46,8 +54,8 @@ var CustomerComponent = (function () {
         var _this = this;
         this.customerService.addCustomer(customer)
             .subscribe(function (status) {
-            console.log(status),
-                _this.getCustomerList();
+            _this.getCustomerList(),
+                _this.angularNotificationService.success(status.state, status.message);
         }, function (error) { return console.log(error); });
         console.log(customer, isValid);
     };
@@ -63,7 +71,7 @@ CustomerComponent = __decorate([
         templateUrl: 'app/customer/customer.component.html',
         providers: [customer_service_1.CustomerService],
     }),
-    __metadata("design:paramtypes", [customer_service_1.CustomerService])
+    __metadata("design:paramtypes", [customer_service_1.CustomerService, angular2_notifications_1.NotificationsService])
 ], CustomerComponent);
 exports.CustomerComponent = CustomerComponent;
 //# sourceMappingURL=customer.component.js.map

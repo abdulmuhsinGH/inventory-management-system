@@ -9,7 +9,7 @@ import { ModalDirective } from   'ng2-bootstrap';
 import { ProductService } from './product.service'; 
 import { Product } from './product.interface';
 import { Table } from '../other/table';
-//import { ToastsManager } from 'ng2-toastr';
+import { NotificationsService } from 'angular2-notifications'
 
 @Component({
   /*selector: 'my-dashboard',*/
@@ -24,6 +24,12 @@ export class ProductComponent implements OnInit{
   errorMessage:string;
   products: Product[];
   public productTable:any = Table;
+  public notificationsOptions = {
+    position: ["top", "right"],
+    timeOut: 5000,
+    lastOnBottom: true,
+    clickToClose:true
+}
 
   /*Add new product Form Setup*/
   addProductForm:FormGroup;
@@ -54,8 +60,8 @@ export class ProductComponent implements OnInit{
 
 	@ViewChild('childModal') public childModal:ModalDirective;
 
-  public constructor(private productService: ProductService/*, public toastr: ToastsManager*/ ){
-
+  public constructor(private productService: ProductService, private angularNotificationService: NotificationsService){
+      
   }
 
   ngOnInit(){
@@ -92,8 +98,8 @@ export class ProductComponent implements OnInit{
   public saveProduct(product:Product, isValid:boolean) {
       this.productService.addProduct(product)
                     .subscribe(
-                      status=>{console.log(status),
-                               this.getProductList()
+                      status=>{this.getProductList(),
+                               this.angularNotificationService.success(status.state,status.message)
                                },
                       error => console.log(error));
 
@@ -103,25 +109,13 @@ export class ProductComponent implements OnInit{
 
   }
 
-/*  showSuccess() {
-        this.toastr.success('You are awesome!', 'Success!');
-      }
+  addToast() {
+        
 
-      showError() {
-        this.toastr.error('This is not good!', 'Oops!');
-      }
-
-      showWarning() {
-        this.toastr.warning('You are being warned.', 'Alert!');
-      }
-
-      showInfo() {
-        this.toastr.info('Just some information for you.');
-      }
-
-      showCustom() {
-        this.toastr.custom('<span style="color: red">Message in red.</span>', null, {enableHTML: true});
-      }*/
-
+        this.angularNotificationService.success(
+        'Some Title',
+        'Some Content')
+        
+    }
 
 }

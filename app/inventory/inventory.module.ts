@@ -11,6 +11,7 @@ import { PaginationModule } from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap';
 import { TypeaheadModule } from 'ng2-bootstrap';
 import { Ng2TableModule } from 'ng2-table/ng2-table';
+import {SimpleNotificationsModule} from 'angular2-notifications';
 
 
 import { InventoryRoutingModule,routingComponents } from './inventory.routing';
@@ -27,7 +28,8 @@ import { InventoryComponent }   from '../inventory/inventory.component';
             PaginationModule,
             ModalModule.forRoot(),
             TypeaheadModule.forRoot(),
-            InventoryRoutingModule
+            InventoryRoutingModule,
+            SimpleNotificationsModule
            
             
   				],

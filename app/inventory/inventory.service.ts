@@ -22,7 +22,7 @@ export class InventoryService {
 							.catch(this.handleError);
 	}
 
-	addInventory(body: Object):Observable<Inventory[]> {
+	addInventory(body: Object):Observable<any> {
 
 		let bodyString = JSON.stringify(body);
 		 let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
@@ -30,7 +30,7 @@ export class InventoryService {
 
 
 		return this.http.post(this.inventoryURLAPI + 'add/', body, options)
-								.map(this.extractData) 
+								.map(this.extractResponse) 
 								.catch(this.handleError);
 	}
 
@@ -40,6 +40,11 @@ export class InventoryService {
 		console.log(res.json().result);
     let body = res.json();
     return body.result as Inventory[];
+	}
+	
+	private extractResponse(res: Response) {
+		
+    	return res.json();
 	}
 
 	private handleError (error: Response | any) {

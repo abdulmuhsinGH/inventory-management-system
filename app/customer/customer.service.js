@@ -26,13 +26,16 @@ var CustomerService = (function () {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
         var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
         return this.http.post(this.customerURLAPI + 'add/', body, options)
-            .map(this.extractData)
+            .map(this.extractResponse)
             .catch(this.handleError);
     };
     CustomerService.prototype.extractData = function (res) {
         console.log(res.json().result);
         var body = res.json();
         return body.result;
+    };
+    CustomerService.prototype.extractResponse = function (res) {
+        return res.json();
     };
     CustomerService.prototype.handleError = function (error) {
         var errMsg;

@@ -12,9 +12,7 @@ import { TypeaheadModule } from 'ng2-bootstrap';
 
 import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-//import {ToastModule} from 'ng2-toastr';
-
-
+import {SimpleNotificationsModule} from 'angular2-notifications';
 
 import { ProductComponent }   from './product.component';
 import { ProductDetailsComponent }   from './product-details/product-details.component';
@@ -36,7 +34,7 @@ import { ProductRoutingModule,routingComponents } from './product.routing';
             ModalModule,
             TypeaheadModule,
             ProductRoutingModule,
-           /* ToastModule*/
+            SimpleNotificationsModule
             
   				],
   declarations: [

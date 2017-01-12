@@ -10,7 +10,7 @@ import { PaginationModule } from 'ng2-bootstrap';
 import { ModalDirective } from   'ng2-bootstrap';
 import { SupplierService } from './supplier.service';
 import { Supplier } from './supplier.interface';
-
+import { NotificationsService } from 'angular2-notifications';
 
 
 
@@ -26,7 +26,12 @@ export class SupplierComponent implements OnInit {
 title = 'Suppliers';
 suppliers: Supplier[];
 errorMessage:string;
-
+public notificationsOptions = {
+    position: ["top", "right"],
+    timeOut: 5000,
+    lastOnBottom: true,
+    clickToClose:true
+}
 
 
 /*Add new supplier Form Setup*/
@@ -38,7 +43,7 @@ errorMessage:string;
   phoneNumberFormControl:FormControl = new FormControl(0, [Validators.required, Validators.pattern('^[0-9\-\+]{9,15}$')]);
 /*Add new supplier Form Setup*/
 
-constructor( private supplierService:SupplierService){
+constructor( private supplierService:SupplierService, private angularNotificationService: NotificationsService){
 
 }
 
@@ -72,8 +77,9 @@ ngOnInit(){
   public saveSupplier(supplier:Supplier, isValid:boolean) {
       this.supplierService.addSupplier(supplier)
                     .subscribe(
-                      status=>{console.log(status),
-                               this.getSuppliersList()
+                      status=>{
+                               this.getSuppliersList(),
+                               this.angularNotificationService.success(status.state,status.message)
                                },
                       error => console.log(error));
 

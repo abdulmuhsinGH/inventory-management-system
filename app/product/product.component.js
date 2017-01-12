@@ -13,12 +13,19 @@ var forms_1 = require("@angular/forms");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var product_service_1 = require("./product.service");
 var table_1 = require("../other/table");
-//import { ToastsManager } from 'ng2-toastr';
+var angular2_notifications_1 = require("angular2-notifications");
 var ProductComponent = (function () {
-    function ProductComponent(productService /*, public toastr: ToastsManager*/) {
-        this.productService = productService; /*, public toastr: ToastsManager*/
+    function ProductComponent(productService, angularNotificationService) {
+        this.productService = productService;
+        this.angularNotificationService = angularNotificationService;
         this.title = 'Product';
         this.productTable = table_1.Table;
+        this.notificationsOptions = {
+            position: ["top", "right"],
+            timeOut: 5000,
+            lastOnBottom: true,
+            clickToClose: true
+        };
         this.productNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
         this.measurementFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
         //categoryFormControl:FormControl = new FormControl(0, [Validators.required, Validators.pattern('^[0-9\-\+]{9,15}$')]);
@@ -64,10 +71,13 @@ var ProductComponent = (function () {
         var _this = this;
         this.productService.addProduct(product)
             .subscribe(function (status) {
-            console.log(status),
-                _this.getProductList();
+            _this.getProductList(),
+                _this.angularNotificationService.success(status.state, status.message);
         }, function (error) { return console.log(error); });
         console.log(product, isValid);
+    };
+    ProductComponent.prototype.addToast = function () {
+        this.angularNotificationService.success('Some Title', 'Some Content');
     };
     return ProductComponent;
 }());
@@ -81,7 +91,7 @@ ProductComponent = __decorate([
         templateUrl: './app/product/product.component.html',
         providers: [product_service_1.ProductService],
     }),
-    __metadata("design:paramtypes", [product_service_1.ProductService /*, public toastr: ToastsManager*/])
+    __metadata("design:paramtypes", [product_service_1.ProductService, angular2_notifications_1.NotificationsService])
 ], ProductComponent);
 exports.ProductComponent = ProductComponent;
 //# sourceMappingURL=product.component.js.map

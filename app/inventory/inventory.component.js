@@ -17,12 +17,20 @@ var ng2_bootstrap_1 = require("ng2-bootstrap");
 var inventory_service_1 = require("./inventory.service");
 var supplier_service_1 = require("../supplier/supplier.service");
 var table_1 = require("../other/table");
+var angular2_notifications_1 = require("angular2-notifications");
 var InventoryComponent = (function () {
-    function InventoryComponent(inventoryService, supplierService) {
+    function InventoryComponent(inventoryService, supplierService, angularNotificationService) {
         var _this = this;
         this.inventoryService = inventoryService;
         this.supplierService = supplierService;
+        this.angularNotificationService = angularNotificationService;
         this.title = 'Inventory';
+        this.notificationsOptions = {
+            position: ["top", "right"],
+            timeOut: 5000,
+            lastOnBottom: true,
+            clickToClose: true
+        };
         this.productNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
         this.productIdFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
         this.supplierNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
@@ -134,8 +142,8 @@ var InventoryComponent = (function () {
         var _this = this;
         this.inventoryService.addInventory(inventory)
             .subscribe(function (status) {
-            console.log(status),
-                _this.getInventoryList();
+            _this.getInventoryList(),
+                _this.angularNotificationService.success(status.state, status.message);
         }, function (error) { return console.log(error); });
         this.getInventoryList();
         console.log(inventory, isValid);
@@ -152,7 +160,7 @@ InventoryComponent = __decorate([
         templateUrl: './app/inventory/inventory.component.html',
         providers: [inventory_service_1.InventoryService, supplier_service_1.SupplierService]
     }),
-    __metadata("design:paramtypes", [inventory_service_1.InventoryService, supplier_service_1.SupplierService])
+    __metadata("design:paramtypes", [inventory_service_1.InventoryService, supplier_service_1.SupplierService, angular2_notifications_1.NotificationsService])
 ], InventoryComponent);
 exports.InventoryComponent = InventoryComponent;
 //# sourceMappingURL=inventory.component.js.map
