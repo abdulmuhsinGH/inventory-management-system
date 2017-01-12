@@ -33,7 +33,6 @@
     "@angular/router": "~3.0.1",
     "@angular/upgrade": "~2.0.1",
     "angular2-moment": "^1.0.0-beta.4",
-    "angular2-notifications": "^0.4.49",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "latest",
     "bootstrap": "^3.3.7",
