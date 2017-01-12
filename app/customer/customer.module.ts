@@ -31,9 +31,9 @@ import { CustomerRoutingModule,routingComponents } from './customer.routing';
             ReactiveFormsModule,
             ChartsModule,
             Ng2TableModule,
-            PaginationModule,
-            ModalModule,
-            TypeaheadModule,
+            PaginationModule.forRoot(),
+            ModalModule.forRoot(),
+            TypeaheadModule.forRoot(),
             CustomerRoutingModule
             
   				],

@@ -30,8 +30,7 @@ CustomerDetailsComponent = __decorate([
     core_1.Component({
         /*selector: 'my-app',*/
         templateUrl: 'app/customer/customer-details/customer-details.component.html',
-    }),
-    __metadata("design:paramtypes", [])
+    })
 ], CustomerDetailsComponent);
 exports.CustomerDetailsComponent = CustomerDetailsComponent;
 //# sourceMappingURL=customer-details.component.js.map

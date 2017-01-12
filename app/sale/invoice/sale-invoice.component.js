@@ -30,8 +30,7 @@ SaleInvoiceComponent = __decorate([
     core_1.Component({
         /*selector: 'my-app',*/
         templateUrl: 'app/sale/invoice/sale-invoice.component.html',
-    }),
-    __metadata("design:paramtypes", [])
+    })
 ], SaleInvoiceComponent);
 exports.SaleInvoiceComponent = SaleInvoiceComponent;
 //# sourceMappingURL=sale-invoice.component.js.map

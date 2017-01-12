@@ -25,8 +25,8 @@ import { InventoryComponent }   from '../inventory/inventory.component';
             CommonModule,
             Ng2TableModule,
             PaginationModule,
-            ModalModule,
-            TypeaheadModule,
+            ModalModule.forRoot(),
+            TypeaheadModule.forRoot(),
             InventoryRoutingModule
            
             

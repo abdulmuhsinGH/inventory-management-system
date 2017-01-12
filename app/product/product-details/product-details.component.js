@@ -30,8 +30,7 @@ ProductDetailsComponent = __decorate([
     core_1.Component({
         /*selector: 'my-dashboard',*/
         templateUrl: './app/product/product-details/product-details.component.html',
-    }),
-    __metadata("design:paramtypes", [])
+    })
 ], ProductDetailsComponent);
 exports.ProductDetailsComponent = ProductDetailsComponent;
 //# sourceMappingURL=product-details.component.js.map

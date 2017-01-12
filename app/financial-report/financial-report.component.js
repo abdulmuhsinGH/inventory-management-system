@@ -30,8 +30,7 @@ FinancialReportComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
         templateUrl: 'app/financial-report/financial-report.component.html',
-    }),
-    __metadata("design:paramtypes", [])
+    })
 ], FinancialReportComponent);
 exports.FinancialReportComponent = FinancialReportComponent;
 //# sourceMappingURL=financial-report.component.js.map

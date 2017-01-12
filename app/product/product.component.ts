@@ -9,6 +9,7 @@ import { ModalDirective } from   'ng2-bootstrap';
 import { ProductService } from './product.service'; 
 import { Product } from './product.interface';
 import { Table } from '../other/table';
+//import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   /*selector: 'my-dashboard',*/
@@ -31,7 +32,7 @@ export class ProductComponent implements OnInit{
   measurementFormControl:FormControl = new FormControl('', [Validators.required]);
   
   //categoryFormControl:FormControl = new FormControl(0, [Validators.required, Validators.pattern('^[0-9\-\+]{9,15}$')]);
-  
+
 /*Add new product Form Setup*/
 
 
@@ -53,7 +54,7 @@ export class ProductComponent implements OnInit{
 
 	@ViewChild('childModal') public childModal:ModalDirective;
 
-  public constructor(private productService: ProductService ){
+  public constructor(private productService: ProductService/*, public toastr: ToastsManager*/ ){
 
   }
 
@@ -101,6 +102,26 @@ export class ProductComponent implements OnInit{
       console.log(product, isValid);
 
   }
+
+/*  showSuccess() {
+        this.toastr.success('You are awesome!', 'Success!');
+      }
+
+      showError() {
+        this.toastr.error('This is not good!', 'Oops!');
+      }
+
+      showWarning() {
+        this.toastr.warning('You are being warned.', 'Alert!');
+      }
+
+      showInfo() {
+        this.toastr.info('Just some information for you.');
+      }
+
+      showCustom() {
+        this.toastr.custom('<span style="color: red">Message in red.</span>', null, {enableHTML: true});
+      }*/
 
 
 }

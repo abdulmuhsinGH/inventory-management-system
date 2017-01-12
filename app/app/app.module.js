@@ -5,9 +5,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
@@ -46,7 +43,7 @@ AppModule = __decorate([
             forms_1.ReactiveFormsModule,
             ng2_charts_1.ChartsModule,
             ng2_table_1.Ng2TableModule,
-            ng2_bootstrap_1.PaginationModule,
+            ng2_bootstrap_1.PaginationModule.forRoot(),
             ng2_bootstrap_2.ModalModule,
             ng2_bootstrap_4.TypeaheadModule,
             product_module_1.ProductModule,
@@ -54,7 +51,7 @@ AppModule = __decorate([
             customer_module_1.CustomerModule,
             sale_module_1.SaleModule,
             inventory_module_1.InventoryModule,
-            ng2_bootstrap_3.TabsModule
+            ng2_bootstrap_3.TabsModule.forRoot()
         ],
         declarations: [app_component_1.AppComponent,
             dashboard_component_1.DashboardComponent,
@@ -62,8 +59,7 @@ AppModule = __decorate([
             app_routing_1.routingComponents,
         ],
         bootstrap: [app_component_1.AppComponent]
-    }),
-    __metadata("design:paramtypes", [])
+    })
 ], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

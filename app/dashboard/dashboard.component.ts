@@ -6,7 +6,8 @@ import { FormBuilder, FormGroup} from '@angular/forms';
 
 import * as moment from 'moment';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import { PaginationModule } from 'ng2-bootstrap/ng2-bootstrap';
+//import { TabsetConfig } from 'ng2-bootstrap';
+//import { PaginationConfig } from 'ng2-bootstrap/pagination';
 
 
 
@@ -16,6 +17,7 @@ import { PaginationModule } from 'ng2-bootstrap/ng2-bootstrap';
   /*selector: 'my-dashboard',*/
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app/dashboard/dashboard.component.html',
+  /*providers:[TabsetConfig]*/
 })
 
 export class DashboardComponent implements OnInit{ 

@@ -30,8 +30,7 @@ SupplierDetailsComponent = __decorate([
     core_1.Component({
         /*selector: 'my-app',*/
         templateUrl: 'app/supplier/supplier-details/supplier-details.component.html',
-    }),
-    __metadata("design:paramtypes", [])
+    })
 ], SupplierDetailsComponent);
 exports.SupplierDetailsComponent = SupplierDetailsComponent;
 //# sourceMappingURL=supplier-details.component.js.map

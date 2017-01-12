@@ -14,7 +14,7 @@ import { Observable } from 'rxjs/Observable';
 import { ChartsModule } from 'ng2-charts/ng2-charts';*/
 import { PaginationModule } from 'ng2-bootstrap';
 import { ModalDirective } from   'ng2-bootstrap';
-import { TypeaheadMatch } from 'ng2-bootstrap/components/typeahead/typeahead-match.class';
+import { TypeaheadMatch } from 'ng2-bootstrap';
 import { InventoryService } from './inventory.service'; 
 import { Inventory } from './inventory.interface';
 import { SupplierService } from '../supplier/supplier.service'; 

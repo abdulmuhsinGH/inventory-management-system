@@ -13,9 +13,10 @@ var forms_1 = require("@angular/forms");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var product_service_1 = require("./product.service");
 var table_1 = require("../other/table");
+//import { ToastsManager } from 'ng2-toastr';
 var ProductComponent = (function () {
-    function ProductComponent(productService) {
-        this.productService = productService;
+    function ProductComponent(productService /*, public toastr: ToastsManager*/) {
+        this.productService = productService; /*, public toastr: ToastsManager*/
         this.title = 'Product';
         this.productTable = table_1.Table;
         this.productNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
@@ -80,7 +81,7 @@ ProductComponent = __decorate([
         templateUrl: './app/product/product.component.html',
         providers: [product_service_1.ProductService],
     }),
-    __metadata("design:paramtypes", [product_service_1.ProductService])
+    __metadata("design:paramtypes", [product_service_1.ProductService /*, public toastr: ToastsManager*/])
 ], ProductComponent);
 exports.ProductComponent = ProductComponent;
 //# sourceMappingURL=product.component.js.map

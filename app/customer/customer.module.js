@@ -5,9 +5,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
@@ -35,9 +32,9 @@ CustomerModule = __decorate([
             forms_1.ReactiveFormsModule,
             ng2_charts_1.ChartsModule,
             ng2_table_1.Ng2TableModule,
-            ng2_bootstrap_1.PaginationModule,
-            ng2_bootstrap_2.ModalModule,
-            ng2_bootstrap_3.TypeaheadModule,
+            ng2_bootstrap_1.PaginationModule.forRoot(),
+            ng2_bootstrap_2.ModalModule.forRoot(),
+            ng2_bootstrap_3.TypeaheadModule.forRoot(),
             customer_routing_1.CustomerRoutingModule
         ],
         declarations: [
@@ -45,8 +42,7 @@ CustomerModule = __decorate([
             customer_details_component_1.CustomerDetailsComponent,
             customer_routing_1.routingComponents
         ]
-    }),
-    __metadata("design:paramtypes", [])
+    })
 ], CustomerModule);
 exports.CustomerModule = CustomerModule;
 //# sourceMappingURL=customer.module.js.map

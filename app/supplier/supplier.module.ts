@@ -32,8 +32,8 @@ import { SupplierRoutingModule,routingComponents } from './supplier.routing';
             ChartsModule,
             Ng2TableModule,
             PaginationModule,
-            ModalModule,
-            TypeaheadModule,
+            ModalModule.forRoot(),
+            TypeaheadModule.forRoot(),
             SupplierRoutingModule
             
   				],

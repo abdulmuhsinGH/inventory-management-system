@@ -45,7 +45,7 @@ import { SaleModule }   from '../sale/sale.module';
             ReactiveFormsModule,
             ChartsModule,
             Ng2TableModule,
-            PaginationModule,
+            PaginationModule.forRoot(),
             ModalModule,
             TypeaheadModule,
             ProductModule,
@@ -53,7 +53,7 @@ import { SaleModule }   from '../sale/sale.module';
             CustomerModule,
             SaleModule,
             InventoryModule,
-            TabsModule
+            TabsModule.forRoot()
             
   				],
   declarations: [ AppComponent,
