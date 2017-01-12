@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+require("../rxjs-extensions");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var customer_service_1 = require("./customer.service");
 var CustomerComponent = (function () {

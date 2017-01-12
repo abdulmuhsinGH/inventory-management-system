@@ -1,5 +1,5 @@
 import { NgModule, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 /*import * as moment from 'moment';
@@ -23,6 +23,18 @@ export class ProductComponent implements OnInit{
   errorMessage:string;
   products: Product[];
   public productTable:any = Table;
+
+  /*Add new product Form Setup*/
+  addProductForm:FormGroup;
+  productNameFormControl:FormControl = new FormControl('', [Validators.required]);
+ 
+  measurementFormControl:FormControl = new FormControl('', [Validators.required]);
+  
+  //categoryFormControl:FormControl = new FormControl(0, [Validators.required, Validators.pattern('^[0-9\-\+]{9,15}$')]);
+  
+/*Add new product Form Setup*/
+
+
   //configuration for table 
   public rows:Array<any> = [];
   public columns:Array<any> = [
@@ -49,6 +61,11 @@ export class ProductComponent implements OnInit{
       this.productTable;
      this.getProductList();
 
+      this.addProductForm = new FormGroup({
+          name: this.productNameFormControl,
+          unit_of_measurment:this.measurementFormControl
+      });
+
       
   }
  
@@ -70,5 +87,20 @@ export class ProductComponent implements OnInit{
                                   },
                      error =>  this.errorMessage = <any>error);
   }
+
+  public saveProduct(product:Product, isValid:boolean) {
+      this.productService.addProduct(product)
+                    .subscribe(
+                      status=>{console.log(status),
+                               this.getProductList()
+                               },
+                      error => console.log(error));
+
+
+     
+      console.log(product, isValid);
+
+  }
+
 
 }

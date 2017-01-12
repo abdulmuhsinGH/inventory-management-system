@@ -11,7 +11,7 @@ module.exports.addProducts =function(req, res){
 	  var date = new Date();  
   	  var currentDateTime = date.toLocaleString();
   	  	console.log(currentDateTime);
-	    stmt.run(req.body.name,req.body.unit_of_measurement, currentDateTime,currentDateTime);
+	    stmt.run(req.body.name,req.body.unit_of_measurment, currentDateTime,currentDateTime);
 
 	  	stmt.finalize(function(err){
 

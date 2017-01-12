@@ -59,7 +59,7 @@
                                        placeholder="Find product"
                                        class="form-control col-md-7 col-xs-12">
                                 <input type="hidden" formCOntrolName="product_id">
-                          <small [hidden]="addInventoryForm.controls.name.valid || (addInventoryForm.controls.name.pristine && !submitted)">
+                          <small class="alert alert-danger" [hidden]="addInventoryForm.controls.name.valid || (addInventoryForm.controls.name.pristine && !submitted)">
                               Name is required (minimum 5 characters).
                           </small>
                           </div>
@@ -79,7 +79,7 @@
                                        placeholder="Find supplier"
                                        class="form-control col-md-7 col-xs-12">
                                 <input type="hidden" formCOntrolName="supplier_id">
-                          <small [hidden]="addInventoryForm.controls.name.valid || (addInventoryForm.controls.name.pristine && !submitted)">
+                          <small class="alert alert-danger" [hidden]="addInventoryForm.controls.name.valid || (addInventoryForm.controls.name.pristine && !submitted)">
                               Name is required (minimum 5 characters).
                           </small>
                           </div>
@@ -89,7 +89,7 @@
                           <label for="units-to-order" class="control-label col-md-3 col-sm-3 col-xs-12">Units to order</label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
                             <input formControlName="quantity"  id="units-to-order" class="form-control col-md-7 col-xs-12" type="text">
-                              <small [hidden]="addInventoryForm.controls.quantity.valid || (addInventoryForm.controls.quantity.pristine && !submitted)">
+                              <small class="alert alert-danger" [hidden]="addInventoryForm.controls.quantity.valid || (addInventoryForm.controls.quantity.pristine && !submitted)">
                                   Quantity is required (Must be number(s)).
                               </small>
                           </div>

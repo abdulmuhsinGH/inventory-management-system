@@ -1,6 +1,8 @@
 import { NgModule, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 
+import "../rxjs-extensions";
+import { Observable } from 'rxjs/Observable';
 
 import * as moment from 'moment';
 import { ChartsModule } from 'ng2-charts/ng2-charts';

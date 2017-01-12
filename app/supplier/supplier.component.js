@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+require("../rxjs-extensions");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var supplier_service_1 = require("./supplier.service");
 var SupplierComponent = (function () {
@@ -17,9 +18,8 @@ var SupplierComponent = (function () {
     function SupplierComponent(supplierService) {
         this.supplierService = supplierService;
         this.title = 'Suppliers';
-        this.EMAIL_REGEXP = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$';
         this.supplierNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
-        this.emailAddressFormControl = new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.pattern(this.EMAIL_REGEXP)]);
+        this.emailAddressFormControl = new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')]);
         this.phoneNumberFormControl = new forms_1.FormControl(0, [forms_1.Validators.required, forms_1.Validators.pattern('^[0-9\-\+]{9,15}$')]);
     }
     SupplierComponent.prototype.ngOnInit = function () {

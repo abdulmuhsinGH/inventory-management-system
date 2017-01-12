@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var product_service_1 = require("./product.service");
 var table_1 = require("../other/table");
@@ -17,6 +18,10 @@ var ProductComponent = (function () {
         this.productService = productService;
         this.title = 'Product';
         this.productTable = table_1.Table;
+        this.productNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
+        this.measurementFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
+        //categoryFormControl:FormControl = new FormControl(0, [Validators.required, Validators.pattern('^[0-9\-\+]{9,15}$')]);
+        /*Add new product Form Setup*/
         //configuration for table 
         this.rows = [];
         this.columns = [
@@ -35,6 +40,10 @@ var ProductComponent = (function () {
     ProductComponent.prototype.ngOnInit = function () {
         this.productTable;
         this.getProductList();
+        this.addProductForm = new forms_1.FormGroup({
+            name: this.productNameFormControl,
+            unit_of_measurment: this.measurementFormControl
+        });
     };
     ProductComponent.prototype.showChildModal = function () {
         this.childModal.show();
@@ -49,6 +58,15 @@ var ProductComponent = (function () {
             _this.products = products,
                 _this.productTable = new table_1.Table(_this.config, products, _this.columns);
         }, function (error) { return _this.errorMessage = error; });
+    };
+    ProductComponent.prototype.saveProduct = function (product, isValid) {
+        var _this = this;
+        this.productService.addProduct(product)
+            .subscribe(function (status) {
+            console.log(status),
+                _this.getProductList();
+        }, function (error) { return console.log(error); });
+        console.log(product, isValid);
     };
     return ProductComponent;
 }());
