@@ -9,15 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var supplier_service_1 = require("./supplier.service");
 var SupplierComponent = (function () {
+    /*Add new supplier Form Setup*/
     function SupplierComponent(supplierService) {
         this.supplierService = supplierService;
         this.title = 'Suppliers';
+        this.EMAIL_REGEXP = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$';
+        this.supplierNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
+        this.emailAddressFormControl = new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.pattern(this.EMAIL_REGEXP)]);
+        this.phoneNumberFormControl = new forms_1.FormControl(0, [forms_1.Validators.required, forms_1.Validators.pattern('^[0-9\-\+]{9,15}$')]);
     }
     SupplierComponent.prototype.ngOnInit = function () {
         this.getSuppliersList();
+        this.addSupplierForm = new forms_1.FormGroup({
+            name: this.supplierNameFormControl,
+            email: this.emailAddressFormControl,
+            phone_number: this.phoneNumberFormControl
+        });
     };
     SupplierComponent.prototype.showChildModal = function () {
         this.childModal.show();
@@ -29,6 +40,15 @@ var SupplierComponent = (function () {
         var _this = this;
         this.supplierService.getSupplierList()
             .subscribe(function (suppliers) { return _this.suppliers = suppliers; }, function (error) { return _this.errorMessage = error; });
+    };
+    SupplierComponent.prototype.saveSupplier = function (supplier, isValid) {
+        var _this = this;
+        this.supplierService.addSupplier(supplier)
+            .subscribe(function (status) {
+            console.log(status),
+                _this.getSuppliersList();
+        }, function (error) { return console.log(error); });
+        console.log(supplier, isValid);
     };
     return SupplierComponent;
 }());

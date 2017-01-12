@@ -9,7 +9,7 @@ import { Supplier } from './supplier.interface';
 
 
 export class SupplierService {
-	private productURLAPI = 'http://localhost:5000/supplier/';
+	private supplierURLAPI = 'http://localhost:5000/supplier/';
 
 	constructor (private http: Http){
 
@@ -17,9 +17,21 @@ export class SupplierService {
 
 
 	getSupplierList () : Observable<Supplier[]> {
-			return this.http.get(this.productURLAPI + 'view/')
+			return this.http.get(this.supplierURLAPI + 'view/')
 							.map(this.extractData)
 							.catch(this.handleError);
+	}
+
+	addSupplier(body: Object):Observable<Supplier[]> {
+
+		let bodyString = JSON.stringify(body);
+		 let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options       = new RequestOptions({ headers: headers }); // Create a request option
+
+
+		return this.http.post(this.supplierURLAPI + 'add/', body, options)
+								.map(this.extractData) 
+								.catch(this.handleError);
 	}
 
 	private extractData(res: Response) {

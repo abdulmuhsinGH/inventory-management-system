@@ -14,10 +14,18 @@ var Observable_1 = require("rxjs/Observable");
 var SupplierService = (function () {
     function SupplierService(http) {
         this.http = http;
-        this.productURLAPI = 'http://localhost:5000/supplier/';
+        this.supplierURLAPI = 'http://localhost:5000/supplier/';
     }
     SupplierService.prototype.getSupplierList = function () {
-        return this.http.get(this.productURLAPI + 'view/')
+        return this.http.get(this.supplierURLAPI + 'view/')
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
+    SupplierService.prototype.addSupplier = function (body) {
+        var bodyString = JSON.stringify(body);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
+        return this.http.post(this.supplierURLAPI + 'add/', body, options)
             .map(this.extractData)
             .catch(this.handleError);
     };
