@@ -8,8 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var inventory_component_1 = require("../inventory/inventory.component");
+var add_inventory_modal_component_1 = require("../inventory/add-inventory-modal/add-inventory-modal.component");
 var routes = [
     { path: 'inventory', component: inventory_component_1.InventoryComponent },
+    { path: 'inventory/add', component: add_inventory_modal_component_1.AddInventoryModalComponent },
 ];
 var InventoryRoutingModule = (function () {
     function InventoryRoutingModule() {

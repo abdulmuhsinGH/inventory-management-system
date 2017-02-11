@@ -19,6 +19,8 @@ import { InventoryService } from './inventory.service';
 import { Inventory } from './inventory.interface';
 import { SupplierService } from '../supplier/supplier.service'; 
 import { Supplier } from '../supplier/supplier.interface';
+import { ProductService } from '../product/product.service'; 
+import { Product } from '../product/product.interface';
 import { InventoryRecords } from './inventory.interface';
 import { Table } from '../other/table';
 import { NotificationsService } from 'angular2-notifications';
@@ -27,15 +29,16 @@ import { NotificationsService } from 'angular2-notifications';
 @Component({
   /*selector: 'my-dashboard',*/
   templateUrl: './app/inventory/inventory.component.html',
-  providers: [InventoryService, SupplierService]
+  providers: [InventoryService, SupplierService, ProductService]
 })
 
-export class InventoryComponent implements OnInit, OnChanges{ 
+export class InventoryComponent implements OnInit{ 
 
   title = 'Inventory';
   errorMessage:string;
   inventories: Inventory[];
-  suppliers: Supplier[]
+  suppliers: Supplier[];
+  products: Product[]
   inventory: Inventory;
   table:any;
   public notificationsOptions = {
@@ -57,7 +60,7 @@ export class InventoryComponent implements OnInit, OnChanges{
 /*Add new inventory Form Setup*/
 
   @ViewChild('childModal') public childModal:ModalDirective;
-  public constructor(private inventoryService: InventoryService, private supplierService:SupplierService, private angularNotificationService: NotificationsService ) {
+  public constructor(private inventoryService: InventoryService,private productService: ProductService, private supplierService:SupplierService, private angularNotificationService: NotificationsService ) {
 
     this.dataSource = Observable.create((observer:any) => {
       // Runs on every search
@@ -83,18 +86,19 @@ export class InventoryComponent implements OnInit, OnChanges{
      this.supplierService.getSupplierList()
                           .subscribe(
                              suppliers =>this.suppliers = suppliers,
-                             error =>  this.errorMessage = <any>error);;
+                             error =>  this.errorMessage = <any>error);
+
+      this.productService.getProductList()
+                          .subscribe(
+                             products =>this.products = products,
+                             error =>  this.errorMessage = <any>error);
      //this.supplierComponent.suppliers;
      this.totalCostSubcribeToCostPriceChanges();
      this.totcalCostSubcribeToQuantityChanges();
      
   }
 
-  ngOnChanges(changes: any){
-    console.log('onChange fired');
-    console.log(changes);
-
-  }
+ 
   totalCostSubcribeToCostPriceChanges() {
       // initialize stream
       const costPriceValueChanges$ = this.costPriceFormControl.valueChanges;
@@ -128,15 +132,6 @@ export class InventoryComponent implements OnInit, OnChanges{
     className: ['table-striped', 'table-bordered']
   };
  
-  public showChildModal():void {
-    this.childModal.show();
-  }
- 
-  public hideChildModal():void {
-    this.childModal.hide();
-  }
-
-
   public customSelected:string = '';
   public groupSelected:string = '';
   public selected:string = '';
@@ -155,24 +150,6 @@ export class InventoryComponent implements OnInit, OnChanges{
     );
 
   }
- 
-  public changeTypeAheadLoading(e:boolean):void {
-    this.typeAheadLoading = e;
-  }
- 
-  public changeTypeAheadNoResults(e:boolean):void {
-    this.typeAheadNoResults = e;
-  }
- 
-  public typeAheadOnSelectProduct(e:TypeaheadMatch):void {
-    this.productIdFormControl.setValue(e.item.id);
-    console.log('Selected value: ', e.item.id);
-  }
-
-  public typeAheadOnSelectSupplier(e:TypeaheadMatch):void {
-    this.supplierIdFormControl.setValue(e.item.id);
-    console.log('Selected value: ', e.item.id);
-  }
 
 
   public getInventoryList() {
@@ -184,24 +161,6 @@ export class InventoryComponent implements OnInit, OnChanges{
                                   },
                    error =>  this.errorMessage = <any>error);
         
-  }
-
-
-
-  public saveInventory(inventory:Inventory, isValid:boolean) {
-      this.inventoryService.addInventory(inventory)
-                    .subscribe(
-                      status=>{
-                               this.getInventoryList(),
-                               this.angularNotificationService.success(status.state,status.message)
-                               },
-                      error => console.log(error));
-
-
-      this.getInventoryList();
-
-      console.log(inventory, isValid);
-
   }
 
 }

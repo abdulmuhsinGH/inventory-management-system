@@ -7,6 +7,7 @@ export interface Inventory {
     current_cost_price: number;
     quantity:number;
     total_quantity:number;
+    created_at:Date;
 }
 
 export interface InventoryRecords{

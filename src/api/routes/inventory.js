@@ -13,6 +13,10 @@ router
 	.get(InventoryController.viewInventories);
 
 router
+	.route('/search')
+	.get(InventoryController.searchInventories);
+
+router
 	.route('/view/:inventoryId')
 	.get(InventoryController.viewInventoryDetails);
 

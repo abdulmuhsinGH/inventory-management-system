@@ -10,29 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-//import {Control} from '@angular/common';
-require("../rxjs-extensions");
 var Observable_1 = require("rxjs/Observable");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
-var inventory_service_1 = require("./inventory.service");
-var supplier_service_1 = require("../supplier/supplier.service");
-var product_service_1 = require("../product/product.service");
-var table_1 = require("../other/table");
+var inventory_service_1 = require("../inventory.service");
 var angular2_notifications_1 = require("angular2-notifications");
-var InventoryComponent = (function () {
-    function InventoryComponent(inventoryService, productService, supplierService, angularNotificationService) {
+var AddInventoryModalComponent = (function () {
+    function AddInventoryModalComponent(inventoryService, notificationService) {
         var _this = this;
         this.inventoryService = inventoryService;
-        this.productService = productService;
-        this.supplierService = supplierService;
-        this.angularNotificationService = angularNotificationService;
-        this.title = 'Inventory';
-        this.notificationsOptions = {
-            position: ["top", "right"],
-            timeOut: 5000,
-            lastOnBottom: true,
-            clickToClose: true
-        };
+        this.notificationService = notificationService;
         this.productNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
         this.productIdFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
         this.supplierNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
@@ -40,23 +26,7 @@ var InventoryComponent = (function () {
         this.quantityFormControl = new forms_1.FormControl(0, [forms_1.Validators.required, forms_1.Validators.pattern('^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$')]);
         this.totalCostFormControl = new forms_1.FormControl({ value: 0, disabled: true });
         this.costPriceFormControl = new forms_1.FormControl(0, [forms_1.Validators.required, forms_1.Validators.pattern('^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$')]);
-        //configuration for table 
-        this.rows = [];
-        this.columns = [
-            { title: 'Name', name: 'name' },
-            { title: 'Selling Price', className: ['office-header', 'text-success'], name: 'current_selling_price', sort: 'asc' },
-            { title: 'Cost Price.', name: 'current_cost_price', sort: 'asc' },
-            { title: 'Quantity Added', className: 'text-warning', name: 'quantity' },
-            { title: 'Total Quantity', name: 'total_quantity' }
-        ];
-        this.config = {
-            paging: true,
-            sorting: { columns: this.columns },
-            filtering: {
-                name: { filterString: '' }
-            },
-            className: ['table-striped', 'table-bordered']
-        };
+        /*Add new inventory Form Setup*/
         this.customSelected = '';
         this.groupSelected = '';
         this.selected = '';
@@ -68,8 +38,7 @@ var InventoryComponent = (function () {
             observer.next(_this.asyncSelected);
         }).mergeMap(function (token) { return _this.getProductAsObservable(token); });
     }
-    InventoryComponent.prototype.ngOnInit = function () {
-        var _this = this;
+    AddInventoryModalComponent.prototype.ngOnInit = function () {
         this.addInventoryForm = new forms_1.FormGroup({
             name: this.productNameFormControl,
             product_id: this.productIdFormControl,
@@ -79,57 +48,83 @@ var InventoryComponent = (function () {
             total_cost: this.totalCostFormControl,
             cost_price: this.costPriceFormControl
         });
-        this.getInventoryList();
-        this.supplierService.getSupplierList()
-            .subscribe(function (suppliers) { return _this.suppliers = suppliers; }, function (error) { return _this.errorMessage = error; });
-        this.productService.getProductList()
-            .subscribe(function (products) { return _this.products = products; }, function (error) { return _this.errorMessage = error; });
-        //this.supplierComponent.suppliers;
         this.totalCostSubcribeToCostPriceChanges();
         this.totcalCostSubcribeToQuantityChanges();
     };
-    InventoryComponent.prototype.totalCostSubcribeToCostPriceChanges = function () {
+    AddInventoryModalComponent.prototype.totalCostSubcribeToCostPriceChanges = function () {
         var _this = this;
         // initialize stream
         var costPriceValueChanges$ = this.costPriceFormControl.valueChanges;
         // subscribe to the stream 
         costPriceValueChanges$.subscribe(function (x) { return _this.totalCostFormControl.setValue(x * _this.quantityFormControl.value); });
     };
-    InventoryComponent.prototype.totcalCostSubcribeToQuantityChanges = function () {
+    AddInventoryModalComponent.prototype.totcalCostSubcribeToQuantityChanges = function () {
         var _this = this;
         // initialize stream
         var quantityValueChanges$ = this.quantityFormControl.valueChanges;
         // subscribe to the stream 
         quantityValueChanges$.subscribe(function (x) { return _this.totalCostFormControl.setValue(x * _this.costPriceFormControl.value); });
     };
-    InventoryComponent.prototype.getProductAsObservable = function (token) {
+    AddInventoryModalComponent.prototype.showChildModal = function () {
+        this.childModal.show();
+    };
+    AddInventoryModalComponent.prototype.hideChildModal = function () {
+        this.childModal.hide();
+    };
+    AddInventoryModalComponent.prototype.getProductAsObservable = function (token) {
         var query = new RegExp(token, 'ig');
-        console.log(this.inventories);
-        return Observable_1.Observable.of(this.inventories.filter(function (inventory) {
+        console.log(this.products);
+        return Observable_1.Observable.of(this.products.filter(function (inventory) {
             return query.test(inventory.name);
         }));
     };
-    InventoryComponent.prototype.getInventoryList = function () {
-        var _this = this;
-        this.inventoryService.getInventoryList()
-            .subscribe(function (inventories) {
-            _this.inventories = inventories,
-                _this.table = new table_1.Table(_this.config, inventories, _this.columns);
-        }, function (error) { return _this.errorMessage = error; });
+    AddInventoryModalComponent.prototype.changeTypeAheadLoading = function (e) {
+        this.typeAheadLoading = e;
     };
-    return InventoryComponent;
+    AddInventoryModalComponent.prototype.changeTypeAheadNoResults = function (e) {
+        this.typeAheadNoResults = e;
+    };
+    AddInventoryModalComponent.prototype.typeAheadOnSelectProduct = function (e) {
+        this.productIdFormControl.setValue(e.item.id);
+        console.log('Selected value: ', e.item.id);
+    };
+    AddInventoryModalComponent.prototype.typeAheadOnSelectSupplier = function (e) {
+        this.supplierIdFormControl.setValue(e.item.id);
+        console.log('Selected value: ', e.item.id);
+    };
+    AddInventoryModalComponent.prototype.saveInventory = function (inventory, isValid) {
+        var _this = this;
+        this.inventoryService.addInventory(inventory)
+            .subscribe(function (status) {
+            _this.getInventoriesList(),
+                _this.notificationService.success(status.state, status.message);
+        }, function (error) { return console.log(error); });
+        console.log(inventory, isValid);
+    };
+    return AddInventoryModalComponent;
 }());
+__decorate([
+    core_1.Input('suppliers'),
+    __metadata("design:type", Array)
+], AddInventoryModalComponent.prototype, "suppliers", void 0);
+__decorate([
+    core_1.Input('products'),
+    __metadata("design:type", Array)
+], AddInventoryModalComponent.prototype, "products", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], AddInventoryModalComponent.prototype, "getInventoriesList", void 0);
 __decorate([
     core_1.ViewChild('childModal'),
     __metadata("design:type", ng2_bootstrap_1.ModalDirective)
-], InventoryComponent.prototype, "childModal", void 0);
-InventoryComponent = __decorate([
+], AddInventoryModalComponent.prototype, "childModal", void 0);
+AddInventoryModalComponent = __decorate([
     core_1.Component({
-        /*selector: 'my-dashboard',*/
-        templateUrl: './app/inventory/inventory.component.html',
-        providers: [inventory_service_1.InventoryService, supplier_service_1.SupplierService, product_service_1.ProductService]
+        selector: 'add-inventory-modal',
+        templateUrl: './app/inventory/add-inventory-modal/add-inventory-modal.component.html',
     }),
-    __metadata("design:paramtypes", [inventory_service_1.InventoryService, product_service_1.ProductService, supplier_service_1.SupplierService, angular2_notifications_1.NotificationsService])
-], InventoryComponent);
-exports.InventoryComponent = InventoryComponent;
-//# sourceMappingURL=inventory.component.js.map
+    __metadata("design:paramtypes", [inventory_service_1.InventoryService, angular2_notifications_1.NotificationsService])
+], AddInventoryModalComponent);
+exports.AddInventoryModalComponent = AddInventoryModalComponent;
+//# sourceMappingURL=add-inventory-modal.component.js.map
