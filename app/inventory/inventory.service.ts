@@ -34,12 +34,19 @@ export class InventoryService {
 								.catch(this.handleError);
 	}
 
+	search(term: string): Observable<Inventory[]> {
+	    return this.http
+	               .get(this.inventoryURLAPI+'search/?search-term='+term)
+	               .map(this.extractData)
+	               .catch(this.handleError);
+	}
+
 
 
 	private extractData(res: Response) {
 		console.log(res.json().result);
-    let body = res.json();
-    return body.result as Inventory[];
+	    let body = res.json();
+	    return body.result as Observable<Inventory[]>;
 	}
 	
 	private extractResponse(res: Response) {

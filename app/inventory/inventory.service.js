@@ -29,6 +29,12 @@ var InventoryService = (function () {
             .map(this.extractResponse)
             .catch(this.handleError);
     };
+    InventoryService.prototype.search = function (term) {
+        return this.http
+            .get(this.inventoryURLAPI + 'search/?search-term=' + term)
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
     InventoryService.prototype.extractData = function (res) {
         console.log(res.json().result);
         var body = res.json();

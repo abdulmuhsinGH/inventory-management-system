@@ -34,7 +34,8 @@ var ProductComponent = (function () {
         this.rows = [];
         this.columns = [
             { title: 'Name', name: 'name' },
-            { title: 'Unit of Measurement', className: ['office-header', 'text-success'], name: 'unit_of_measurment', sort: 'asc' }
+            { title: 'Unit of Measurement', className: ['office-header', 'text-success'], name: 'unit_of_measurment' },
+            { title: '', name: '' }
         ];
         this.config = {
             paging: true,
@@ -75,9 +76,6 @@ var ProductComponent = (function () {
                 _this.angularNotificationService.success(status.state, status.message);
         }, function (error) { return console.log(error); });
         console.log(product, isValid);
-    };
-    ProductComponent.prototype.addToast = function () {
-        this.angularNotificationService.success('Some Title', 'Some Content');
     };
     return ProductComponent;
 }());

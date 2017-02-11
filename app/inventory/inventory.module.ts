@@ -15,7 +15,8 @@ import {SimpleNotificationsModule} from 'angular2-notifications';
 
 
 import { InventoryRoutingModule,routingComponents } from './inventory.routing';
-import { InventoryComponent }   from '../inventory/inventory.component';
+import { InventoryComponent }   from './inventory.component';
+import {AddInventoryModalComponent} from './add-inventory-modal/add-inventory-modal.component';
 
 @NgModule({
   imports:      [ 
@@ -35,6 +36,7 @@ import { InventoryComponent }   from '../inventory/inventory.component';
   				],
   declarations: [             
             InventoryComponent,
+            AddInventoryModalComponent,
             routingComponents
   				    ]
 })

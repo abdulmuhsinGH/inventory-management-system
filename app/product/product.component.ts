@@ -46,7 +46,8 @@ export class ProductComponent implements OnInit{
   public rows:Array<any> = [];
   public columns:Array<any> = [
     {title: 'Name', name: 'name'},
-    {title: 'Unit of Measurement', className: ['office-header', 'text-success'], name: 'unit_of_measurment', sort: 'asc'}
+    {title: 'Unit of Measurement', className: ['office-header', 'text-success'], name: 'unit_of_measurment'},
+    {title: '', name: ''}
   ];
 
   public config:any = {
@@ -108,14 +109,5 @@ export class ProductComponent implements OnInit{
       console.log(product, isValid);
 
   }
-
-  addToast() {
-        
-
-        this.angularNotificationService.success(
-        'Some Title',
-        'Some Content')
-        
-    }
 
 }

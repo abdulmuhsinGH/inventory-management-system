@@ -4,10 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 import { InventoryComponent }   from '../inventory/inventory.component';
+import { AddInventoryModalComponent }   from '../inventory/add-inventory-modal/add-inventory-modal.component';
 
 const routes: Routes = [
    	
   { path: 'inventory', component: InventoryComponent },
+  { path: 'inventory/add', component: AddInventoryModalComponent },
   
  ];
  

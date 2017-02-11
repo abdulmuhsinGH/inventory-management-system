@@ -1,0 +1,108 @@
+<!-- add inventorymodals -->
+       <a class="btn btn-round btn-primary" (click)="addInventoryModal.show()">Order Inventory</a>
+      <div class="modal fade" bsModal #addInventoryModal="bs-modal" [config]="{backdrop: 'static'}"
+           tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" aria-label="Close" (click)="addInventoryModal.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">Order Inventory</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="x_panel">
+                    <div class="x_content">
+                      <br />
+                      <form class="form-horizontal form-label-left" [formGroup]="addInventoryForm" novalidate (ngSubmit)="saveInventory(addInventoryForm.value, addInventoryForm.valid)">
+
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="product-name">Product Name <span class="required">*</span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input formControlName="name"
+                                       id="product-name" 
+                                       [typeahead]="products"
+                                       (typeaheadOnSelect)="typeAheadOnSelectProduct($event)"
+                                       [typeaheadOptionsLimit]="7"
+                                       [typeaheadOptionField]="'name'"
+                                       [typeaheadMinLength]="0"
+                                       placeholder="Find product"
+                                       class="form-control col-md-7 col-xs-12">
+                                <input type="hidden" formCOntrolName="product_id">
+                          <small class="alert alert-danger" [hidden]="addInventoryForm.controls.name.valid || (addInventoryForm.controls.name.pristine && !submitted)">
+                              Name is required (minimum 5 characters).
+                          </small>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="product-name">Supplier <span class="required">*</span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input formControlName="supplier"
+                                       id="product-name" 
+                                       [typeahead]="suppliers"
+                                       (typeaheadOnSelect)="typeAheadOnSelectSupplier($event)"
+                                       [typeaheadOptionsLimit]="7"
+                                       [typeaheadOptionField]="'name'"
+                                       [typeaheadMinLength]="0"
+                                       placeholder="Find supplier"
+                                       class="form-control col-md-7 col-xs-12">
+                                <input type="hidden" formCOntrolName="supplier_id">
+                          <small class="alert alert-danger" [hidden]="addInventoryForm.controls.name.valid || (addInventoryForm.controls.name.pristine && !submitted)">
+                              Name is required (minimum 5 characters).
+                          </small>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="units-to-order" class="control-label col-md-3 col-sm-3 col-xs-12">Units to order</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input formControlName="quantity"  id="units-to-order" class="form-control col-md-7 col-xs-12" type="text">
+                              <small class="alert alert-danger" [hidden]="addInventoryForm.controls.quantity.valid || (addInventoryForm.controls.quantity.pristine && !submitted)">
+                                  Quantity is required (Must be number(s)).
+                              </small>
+                          </div>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label for="cost-price" class="control-label col-md-3 col-sm-3 col-xs-12">Cost Price </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="cost-price" formControlName="cost_price" class="form-control col-md-7 col-xs-12" type="text" >
+                          </div>
+                          <small [hidden]="addInventoryForm.controls.cost_price.valid || (addInventoryForm.controls.cost_price.pristine && !submitted)">
+                              Cost Price is required (Must be number(s)).
+                          </small>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="total-cost" class="control-label col-md-3 col-sm-3 col-xs-12">Total Cost</label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input formControlName="total_cost" id="total-cost" class="form-control col-md-7 col-xs-12" type="text" >
+                            <small [hidden]="addInventoryForm.controls.total_cost.valid || (addInventoryForm.controls.total_cost.pristine && !submitted)">
+                                Total Cost is required (Must be number(s)).
+                            </small>
+                          </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <a class="btn btn-primary" (click)="addInventoryModal.hide()">Cancel</a>
+                            <button type="submit" class="btn btn-success" [disabled]="!addInventoryForm.valid" (click)="addInventoryModal.hide()">Submit</button>
+                          </div>
+                        </div>
+
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /add inventory modal -->
