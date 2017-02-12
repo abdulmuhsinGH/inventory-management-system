@@ -9,11 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var product_service_1 = require("../product.service");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var ProductDetailsComponent = (function () {
-    function ProductDetailsComponent() {
+    function ProductDetailsComponent(route, router, productService) {
+        this.route = route;
+        this.router = router;
+        this.productService = productService;
         this.title = 'Product Details';
     }
+    ProductDetailsComponent.prototype.ngOnInit = function () {
+        /*this.route.params
+        // (+) converts string 'id' to a number
+        .switchMap((params: Params) => this.service.getHero(+params['id']))
+        .subscribe((hero: Hero) => this.hero = hero);*/
+    };
     ProductDetailsComponent.prototype.showChildModal = function () {
         this.childModal.show();
     };
@@ -30,7 +41,9 @@ ProductDetailsComponent = __decorate([
     core_1.Component({
         /*selector: 'my-dashboard',*/
         templateUrl: './app/product/product-details/product-details.component.html',
-    })
+    }),
+    __metadata("design:paramtypes", [router_1.ActivatedRoute,
+        router_1.Router, product_service_1.ProductService])
 ], ProductDetailsComponent);
 exports.ProductDetailsComponent = ProductDetailsComponent;
 //# sourceMappingURL=product-details.component.js.map

@@ -11,7 +11,7 @@ var product_component_1 = require("../product/product.component");
 var product_details_component_1 = require("../product/product-details/product-details.component");
 var routes = [
     { path: 'product', component: product_component_1.ProductComponent },
-    { path: 'product-details', component: product_details_component_1.ProductDetailsComponent },
+    { path: 'product-details/:productId', component: product_details_component_1.ProductDetailsComponent },
 ];
 var ProductRoutingModule = (function () {
     function ProductRoutingModule() {

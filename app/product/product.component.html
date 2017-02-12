@@ -54,6 +54,7 @@
                     <td>
                         <edit-product-modal [product]="product" (onEditProduct)="onChangeProductList()" ></edit-product-modal>
                         <delete-product-modal [product]="product" (onDeleteProduct)="onChangeProductList()" ></delete-product-modal>
+                        <a routerLink="/product-details/{{product.id}}" title="click for more details" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></a>
 
                     </td>
                     
