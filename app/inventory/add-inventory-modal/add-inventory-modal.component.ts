@@ -4,11 +4,11 @@ import { Observable } from 'rxjs/Observable';
 
 import { ModalDirective } from   'ng2-bootstrap';
 import { TypeaheadMatch } from 'ng2-bootstrap';
-import { InventoryService } from '../inventory.service'; 
-import { Inventory } from '../inventory.interface';
+import { InventoryService } from '../inventory-main-service/inventory.service'; 
+import { Inventory } from '../inventory-main-interface/inventory.interface';
 import { Supplier } from '../../supplier/supplier.interface';
 import { Product } from '../../product/product.interface';
-import { InventoryRecords } from '../inventory.interface';
+import { InventoryRecords } from '../inventory-main-interface/inventory.interface';
 import { NotificationsService } from 'angular2-notifications';
 
 

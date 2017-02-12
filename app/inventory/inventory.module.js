@@ -18,8 +18,8 @@ var ng2_bootstrap_2 = require("ng2-bootstrap");
 var ng2_bootstrap_3 = require("ng2-bootstrap");
 var ng2_table_1 = require("ng2-table/ng2-table");
 var angular2_notifications_1 = require("angular2-notifications");
-var inventory_routing_1 = require("./inventory.routing");
-var inventory_component_1 = require("./inventory.component");
+var inventory_routing_1 = require("./inventory-routing/inventory.routing");
+var inventory_component_1 = require("./inventory-main-component/inventory.component");
 var add_inventory_modal_component_1 = require("./add-inventory-modal/add-inventory-modal.component");
 var InventoryModule = (function () {
     function InventoryModule() {

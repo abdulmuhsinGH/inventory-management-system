@@ -14,8 +14,8 @@ import { Ng2TableModule } from 'ng2-table/ng2-table';
 import {SimpleNotificationsModule} from 'angular2-notifications';
 
 
-import { InventoryRoutingModule,routingComponents } from './inventory.routing';
-import { InventoryComponent }   from './inventory.component';
+import { InventoryRoutingModule,routingComponents } from './inventory-routing/inventory.routing';
+import { InventoryComponent }   from './inventory-main-component/inventory.component';
 import {AddInventoryModalComponent} from './add-inventory-modal/add-inventory-modal.component';
 
 @NgModule({

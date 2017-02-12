@@ -11,13 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 //import {Control} from '@angular/common';
-require("../rxjs-extensions");
+require("../../rxjs-extensions");
 var Observable_1 = require("rxjs/Observable");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
-var inventory_service_1 = require("./inventory.service");
-var supplier_service_1 = require("../supplier/supplier.service");
-var product_service_1 = require("../product/product.service");
-var table_1 = require("../other/table");
+var inventory_service_1 = require("../inventory-main-service/inventory.service");
+var supplier_service_1 = require("../../supplier/supplier.service");
+var product_service_1 = require("../../product/product.service");
+var table_1 = require("../../other/table");
 var angular2_notifications_1 = require("angular2-notifications");
 var InventoryComponent = (function () {
     function InventoryComponent(inventoryService, productService, supplierService, angularNotificationService) {
@@ -126,7 +126,7 @@ __decorate([
 InventoryComponent = __decorate([
     core_1.Component({
         /*selector: 'my-dashboard',*/
-        templateUrl: './app/inventory/inventory.component.html',
+        templateUrl: './app/inventory/inventory-main-component/inventory.component.html',
         providers: [inventory_service_1.InventoryService, supplier_service_1.SupplierService, product_service_1.ProductService]
     }),
     __metadata("design:paramtypes", [inventory_service_1.InventoryService, product_service_1.ProductService, supplier_service_1.SupplierService, angular2_notifications_1.NotificationsService])

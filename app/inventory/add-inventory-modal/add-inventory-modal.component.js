@@ -12,7 +12,7 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var Observable_1 = require("rxjs/Observable");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
-var inventory_service_1 = require("../inventory.service");
+var inventory_service_1 = require("../inventory-main-service/inventory.service");
 var angular2_notifications_1 = require("angular2-notifications");
 var AddInventoryModalComponent = (function () {
     function AddInventoryModalComponent(inventoryService, notificationService) {

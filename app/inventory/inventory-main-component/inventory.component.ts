@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 //import {Control} from '@angular/common';
 
 
-import "../rxjs-extensions";
+import "../../rxjs-extensions";
 
 import { Observable } from 'rxjs/Observable';
 
@@ -15,20 +15,20 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';*/
 import { PaginationModule } from 'ng2-bootstrap';
 import { ModalDirective } from   'ng2-bootstrap';
 import { TypeaheadMatch } from 'ng2-bootstrap';
-import { InventoryService } from './inventory.service'; 
-import { Inventory } from './inventory.interface';
-import { SupplierService } from '../supplier/supplier.service'; 
-import { Supplier } from '../supplier/supplier.interface';
-import { ProductService } from '../product/product.service'; 
-import { Product } from '../product/product.interface';
-import { InventoryRecords } from './inventory.interface';
-import { Table } from '../other/table';
+import { InventoryService } from '../inventory-main-service/inventory.service'; 
+import { Inventory } from '../inventory-main-interface/inventory.interface';
+import { SupplierService } from '../../supplier/supplier.service'; 
+import { Supplier } from '../../supplier/supplier.interface';
+import { ProductService } from '../../product/product.service'; 
+import { Product } from '../../product/product.interface';
+import { InventoryRecords } from '../inventory-main-interface/inventory.interface';
+import { Table } from '../../other/table';
 import { NotificationsService } from 'angular2-notifications';
 
 
 @Component({
   /*selector: 'my-dashboard',*/
-  templateUrl: './app/inventory/inventory.component.html',
+  templateUrl: './app/inventory/inventory-main-component/inventory.component.html',
   providers: [InventoryService, SupplierService, ProductService]
 })
 

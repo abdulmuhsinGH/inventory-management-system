@@ -3,7 +3,7 @@ import { Http, Response, RequestOptions, Headers} from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-import { Inventory } from './inventory.interface';
+import { Inventory } from '../inventory-main-interface/inventory.interface';
 
 @Injectable()
 
