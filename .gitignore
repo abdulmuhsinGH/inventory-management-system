@@ -35,3 +35,23 @@ node_modules
 
 #typings
 typings
+
+app/inventory/inventory\.service\.js\.map
+
+app/inventory/inventory\.service\.js
+
+app/inventory/inventory\.routing\.js\.map
+
+app/inventory/inventory\.routing\.js
+
+app/inventory/inventory\.interface\.js\.map
+
+app/inventory/inventory\.interface\.js
+
+app/inventory/inventory\.component\.js\.map
+
+app/inventory/inventory\.component\.js
+
+app/inventory/add-inventory\.component\.js\.map
+
+app/inventory/add-inventory\.component\.js

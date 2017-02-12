@@ -1,4 +1,4 @@
-import { NgModule, Component, OnInit, ViewChild, Input, OnChanges, SimpleChange } from '@angular/core';
+import { NgModule, Component, OnInit, ViewChild, Input, OnChanges, SimpleChange, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
@@ -47,8 +47,7 @@ export class AddInventoryModalComponent{
 
 	 @Input('suppliers') suppliers: Supplier[];
 	 @Input('products') products: Product[];
-	 @Input() getInventoriesList;
-
+	 @Output() onInventoryAdd = new EventEmitter<boolean>();
 
 
   	 @ViewChild('childModal') 
@@ -139,7 +138,7 @@ export class AddInventoryModalComponent{
 	      this.inventoryService.addInventory(inventory)
 	                    .subscribe(
 	                      status=>{
-	                      		   this.getInventoriesList(),
+	                      		   this.onInventoryAdd.emit(true),
 	                               this.notificationService.success(status.state,status.message)
 	                               },
 	                      error => console.log(error));

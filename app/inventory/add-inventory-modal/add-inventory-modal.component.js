@@ -33,6 +33,7 @@ var AddInventoryModalComponent = (function () {
         this.asyncSelected = '';
         this.typeAheadLoading = false;
         this.typeAheadNoResults = false;
+        this.onInventoryAdd = new core_1.EventEmitter();
         this.dataSource = Observable_1.Observable.create(function (observer) {
             // Runs on every search
             observer.next(_this.asyncSelected);
@@ -96,7 +97,7 @@ var AddInventoryModalComponent = (function () {
         var _this = this;
         this.inventoryService.addInventory(inventory)
             .subscribe(function (status) {
-            _this.getInventoriesList(),
+            _this.onInventoryAdd.emit(true),
                 _this.notificationService.success(status.state, status.message);
         }, function (error) { return console.log(error); });
         console.log(inventory, isValid);
@@ -112,9 +113,9 @@ __decorate([
     __metadata("design:type", Array)
 ], AddInventoryModalComponent.prototype, "products", void 0);
 __decorate([
-    core_1.Input(),
+    core_1.Output(),
     __metadata("design:type", Object)
-], AddInventoryModalComponent.prototype, "getInventoriesList", void 0);
+], AddInventoryModalComponent.prototype, "onInventoryAdd", void 0);
 __decorate([
     core_1.ViewChild('childModal'),
     __metadata("design:type", ng2_bootstrap_1.ModalDirective)

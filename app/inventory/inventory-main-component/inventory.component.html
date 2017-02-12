@@ -11,13 +11,11 @@
       <div class="title_right">
         <div class="col-md-5 col-sm-5 col-xs-12 form-group top_search">
           <div class="input-group">
-            <input *ngIf="config.filtering" placeholder="Search Inventory"
-           [ngTableFiltering]="config.filtering"
-           class="form-control"
-           (tableChanged)="table.onChangeTable(config)"/>
+            <input placeholder="Search Inventory" #inventorySearchBox (keyup)="search(inventorySearchBox.value)"
+           class="form-control"/>
           </div>
         </div>
-        <add-inventory-modal [suppliers]="suppliers" [products]="products" [getInventoriesList]=getInventoryList></add-inventory-modal>
+        <add-inventory-modal [suppliers]="suppliers" [products]="products" (onInventoryAdd)="onSaveInventory()"></add-inventory-modal>
         <a class="btn btn-round btn-primary" routerLink="/product">View Product List</a>
         <simple-notifications [options]="notificationsOptions"></simple-notifications>
       </div>
@@ -85,25 +83,44 @@
              
               <div class="clearfix"></div>
             </div>
-            <div *ngIf="table && inventories" class="x_content">
-             
-              <ng-table [config]="config"
-                        (tableChanged)="table.onChangeTable(config)"
-                        (cellClicked)="table.onCellClick($event)"
-                        [rows]="table.rows" [columns]="table.columns">
-              </ng-table>
-              <pagination *ngIf="config.paging && table.numPages > 1"
-                          class="pagination-sm"
-                          [(ngModel)]="table.page"
-                          [totalItems]="table.length"
-                          [itemsPerPage]="table.itemsPerPage"
-                          [maxSize]="table.maxSize"
-                          [boundaryLinks]="true"
-                          [rotate]="false"
-                          (pageChanged)="table.onChangeTable(config, $event)"
-                          (numPages)="table.numPages = $event">
-              </pagination>
-              <pre *ngIf="config.paging && table.numPages > 1" class="card card-block card-header">Page: {{table.page}} / {{table.numPages}}</pre>
+            <div *ngIf="inventories" class="x_content">
+              <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Inventory List</h2>
+                    
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Product Name</th>
+                          <th>Selling Price</th>
+                          <th>Cost Price</th>
+                          <th>Quantity Added</th>
+                          <th>Total Quantity</th>
+                           <th>Date created</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let inventory of inventories; let i = index">
+                          <th scope="row">{{i+1}}</th>
+                          <td>{{inventory.name}}</td>
+                          <td>{{inventory.current_selling_price}}</td>
+                          <td>{{inventory.current_cost_price}}</td>
+                          <td>{{inventory.quantity}}</td>
+                          <td>{{inventory.total_quantity}}</td>
+                          <td>{{inventory.created_at}}</td>
+                           <td></td>
+                        </tr>
+                       
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
             </div>
           </div>
         </div>
