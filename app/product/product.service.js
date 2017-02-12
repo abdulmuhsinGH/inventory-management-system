@@ -29,6 +29,14 @@ var ProductService = (function () {
             .map(this.extractResponse)
             .catch(this.handleError);
     };
+    ProductService.prototype.editProduct = function (productId, body) {
+        var bodyString = JSON.stringify(body);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
+        return this.http.put(this.productURLAPI + 'update/' + productId, body, options)
+            .map(this.extractResponse)
+            .catch(this.handleError);
+    };
     ProductService.prototype.deleteProduct = function (productId) {
         //let bodyString = JSON.stringify(body);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON

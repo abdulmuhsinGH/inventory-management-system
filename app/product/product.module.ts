@@ -18,6 +18,7 @@ import { ProductComponent }   from './product.component';
 import { ProductDetailsComponent }   from './product-details/product-details.component';
 import { AddProductModalComponent }   from './add-product-modal/add-product-modal.component';
 import { DeleteProductModalComponent }   from './delete-product-modal/delete-product-modal.component';
+import { EditProductModalComponent }   from './edit-product-modal/edit-product-modal-component';
 import { ProductRoutingModule,routingComponents } from './product.routing';
 
 
@@ -44,6 +45,7 @@ import { ProductRoutingModule,routingComponents } from './product.routing';
                 ProductDetailsComponent,
                 AddProductModalComponent,
                 DeleteProductModalComponent,
+                EditProductModalComponent,
                 routingComponents
 
   				    ]
