@@ -182,7 +182,7 @@ module.exports.deleteProduct = function(req, res){
 module.exports.setSellingPrice = function(req, res){
 	var inventoryId = req.params.inventoryId;
 	db.serialize(function () {
-	  var stmt = db.prepare('UPDATE inventories SET  selling_price = ?, deleted_at = ? where id='+inventoryId);
+	  var stmt = db.prepare('UPDATE inventory_details SET  selling_price = ?, deleted_at = ? where id='+inventoryId);
 	  var date = new Date();  
   	  var currentDateTime = date.toLocaleString();
   	  	console.log(currentDateTime);
