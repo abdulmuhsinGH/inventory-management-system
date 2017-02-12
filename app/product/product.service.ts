@@ -34,6 +34,25 @@ export class ProductService {
 								.catch(this.handleError);
 	}
 
+	deleteProduct(productId: number):Observable<any> {
+
+		//let bodyString = JSON.stringify(body);
+		 let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options       = new RequestOptions({ headers: headers }); // Create a request option
+
+
+		return this.http.put(this.productURLAPI + 'delete/'+productId, options)
+								.map(this.extractResponse) 
+								.catch(this.handleError);
+	}
+
+	search(term: string): Observable<Product[]> {
+	    return this.http
+	               .get(this.productURLAPI+'search/?search-term='+term)
+	               .map(this.extractData)
+	               .catch(this.handleError);
+	}
+
 	private extractData(res: Response) {
 		//console.log(res.json().message);
     let body = res.json();

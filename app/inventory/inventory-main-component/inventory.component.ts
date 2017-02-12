@@ -47,12 +47,7 @@ export class InventoryComponent implements OnInit{
   products: Product[]
   inventory: Inventory;
   private searchTerms = new Subject<string>();
-  public notificationsOptions = {
-    position: ["top", "right"],
-    timeOut: 5000,
-    lastOnBottom: true,
-    clickToClose:true
-}
+  
 
   public constructor(private inventoryService: InventoryService,private productService: ProductService, private supplierService:SupplierService, private angularNotificationService: NotificationsService ) {
 

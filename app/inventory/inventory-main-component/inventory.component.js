@@ -31,12 +31,6 @@ var InventoryComponent = (function () {
         this.angularNotificationService = angularNotificationService;
         this.title = 'Inventory';
         this.searchTerms = new Subject_1.Subject();
-        this.notificationsOptions = {
-            position: ["top", "right"],
-            timeOut: 5000,
-            lastOnBottom: true,
-            clickToClose: true
-        };
     }
     InventoryComponent.prototype.ngOnInit = function () {
         var _this = this;

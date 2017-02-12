@@ -1,6 +1,17 @@
 import { NgModule, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
+import "../rxjs-extensions";
+
+import { Observable } from 'rxjs/Observable';
+import { Subject }           from 'rxjs/Subject';
+
+ // Observable class extensions
+import 'rxjs/add/observable/of';
+// Observable operators
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 /*import * as moment from 'moment';
 import { ChartsModule } from 'ng2-charts/ng2-charts';*/
@@ -23,42 +34,9 @@ export class ProductComponent implements OnInit{
 	title = 'Product';
   errorMessage:string;
   products: Product[];
-  public productTable:any = Table;
-  public notificationsOptions = {
-    position: ["top", "right"],
-    timeOut: 5000,
-    lastOnBottom: true,
-    clickToClose:true
-}
+  private searchTerms = new Subject<string>();
 
-  /*Add new product Form Setup*/
-  addProductForm:FormGroup;
-  productNameFormControl:FormControl = new FormControl('', [Validators.required]);
- 
-  measurementFormControl:FormControl = new FormControl('', [Validators.required]);
   
-  //categoryFormControl:FormControl = new FormControl(0, [Validators.required, Validators.pattern('^[0-9\-\+]{9,15}$')]);
-
-/*Add new product Form Setup*/
-
-
-  //configuration for table 
-  public rows:Array<any> = [];
-  public columns:Array<any> = [
-    {title: 'Name', name: 'name'},
-    {title: 'Unit of Measurement', className: ['office-header', 'text-success'], name: 'unit_of_measurment'},
-    {title: '', name: ''}
-  ];
-
-  public config:any = {
-    paging: true,
-    sorting: {columns: this.columns},
-    filtering:{
-                name: { filterString: '' }
-              },
-    className: ['table-striped', 'table-bordered']
-  };
-
 	@ViewChild('childModal') public childModal:ModalDirective;
 
   public constructor(private productService: ProductService, private angularNotificationService: NotificationsService){
@@ -66,48 +44,46 @@ export class ProductComponent implements OnInit{
   }
 
   ngOnInit(){
-      this.productTable;
+
      this.getProductList();
 
-      this.addProductForm = new FormGroup({
-          name: this.productNameFormControl,
-          unit_of_measurment:this.measurementFormControl
-      });
-
+     this.searchTerms
+          .debounceTime(300)        // wait 300ms after each keystroke before considering the term
+          .distinctUntilChanged()   // ignore if next search term is same as previous
+          .switchMap(term => term   // switch to new observable each time the term changes
+            // return the http search observable
+            ? this.productService.search(term)
+            // or the observable of all products if there was no search term
+            : Observable.of<Product[]>(this.products))
+          .subscribe(
+                   products => {
+                                   this.products = products
+                                   
+                                  },
+                    error =>  this.errorMessage = <any>error);
       
   }
  
-  public showChildModal():void {
-    this.childModal.show();
-  }
- 
-  public hideChildModal():void {
-    this.childModal.hide();
-  }
 
 
   public getProductList() {
         this.productService.getProductList()
                    .subscribe(
                      products => {
-                                   this.products = products,
-                                   this.productTable = new Table(this.config, products, this.columns)
+                                   this.products = products
                                   },
                      error =>  this.errorMessage = <any>error);
   }
 
-  public saveProduct(product:Product, isValid:boolean) {
-      this.productService.addProduct(product)
-                    .subscribe(
-                      status=>{this.getProductList(),
-                               this.angularNotificationService.success(status.state,status.message)
-                               },
-                      error => console.log(error));
+  // Push a search term into the observable stream.
+  public search(term: string): void {
+    term +=" ";
+    console.log(term);
+    this.searchTerms.next(term);
+  }
 
-
-     
-      console.log(product, isValid);
-
+  public onChangeProductList(){
+    this.getProductList();
   }
 
 }

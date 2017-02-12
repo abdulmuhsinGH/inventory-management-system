@@ -61,6 +61,35 @@ module.exports.viewProducts = function(req, res){
 	
 }
 
+module.exports.searchProducts = function(req, res){
+	var query ="";
+
+  	query = "SELECT id, name, unit_of_measurment FROM products where products.name like '%"+req.query['search-term']+"%' and deleted_at IS NULL";
+
+	
+
+	db.all(query, function(err, rows) {  
+        console.log(rows);
+		if(err){
+	  			res
+				  .status(500)
+				  .json(err);
+	  		}
+  		else if(rows.length===0){
+  			res
+			  .status(200)
+			  .json({state: 'success', user: null, result: rows});
+  		}
+  		else{
+  			res
+			  .status(200)
+			  .json({state: 'success', user: null, result: rows});
+  		}
+       
+    });   
+	
+}
+
 module.exports.viewOneProduct = function(req, res){
 	var productId = req.params.productId;
 	console.log(productId);

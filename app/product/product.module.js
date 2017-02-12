@@ -18,6 +18,8 @@ var ng2_charts_1 = require("ng2-charts/ng2-charts");
 var angular2_notifications_1 = require("angular2-notifications");
 var product_component_1 = require("./product.component");
 var product_details_component_1 = require("./product-details/product-details.component");
+var add_product_modal_component_1 = require("./add-product-modal/add-product-modal.component");
+var delete_product_modal_component_1 = require("./delete-product-modal/delete-product-modal.component");
 var product_routing_1 = require("./product.routing");
 var ProductModule = (function () {
     function ProductModule() {
@@ -42,6 +44,8 @@ ProductModule = __decorate([
         declarations: [
             product_component_1.ProductComponent,
             product_details_component_1.ProductDetailsComponent,
+            add_product_modal_component_1.AddProductModalComponent,
+            delete_product_modal_component_1.DeleteProductModalComponent,
             product_routing_1.routingComponents
         ]
     })

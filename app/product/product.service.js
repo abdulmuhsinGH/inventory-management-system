@@ -29,6 +29,20 @@ var ProductService = (function () {
             .map(this.extractResponse)
             .catch(this.handleError);
     };
+    ProductService.prototype.deleteProduct = function (productId) {
+        //let bodyString = JSON.stringify(body);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
+        return this.http.put(this.productURLAPI + 'delete/' + productId, options)
+            .map(this.extractResponse)
+            .catch(this.handleError);
+    };
+    ProductService.prototype.search = function (term) {
+        return this.http
+            .get(this.productURLAPI + 'search/?search-term=' + term)
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
     ProductService.prototype.extractData = function (res) {
         //console.log(res.json().message);
         var body = res.json();

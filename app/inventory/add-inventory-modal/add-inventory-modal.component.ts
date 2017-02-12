@@ -44,6 +44,12 @@ export class AddInventoryModalComponent{
 	 asyncSelected:string = '';
 	 typeAheadLoading:boolean = false;
 	 typeAheadNoResults:boolean = false;
+	 notificationsOptions = {
+	    position: ["top", "right"],
+	    timeOut: 5000,
+	    lastOnBottom: true,
+	    clickToClose:true
+	 }
 
 	 @Input('suppliers') suppliers: Supplier[];
 	 @Input('products') products: Product[];

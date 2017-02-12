@@ -13,6 +13,10 @@ router
 	.get(ProductController.viewProducts);
 
 router
+	.route('/search')
+	.get(ProductController.searchProducts);
+
+router
 	.route('/view/:productId')
 	.get(ProductController.viewOneProduct);
 

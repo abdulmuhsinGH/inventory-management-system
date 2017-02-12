@@ -33,6 +33,12 @@ var AddInventoryModalComponent = (function () {
         this.asyncSelected = '';
         this.typeAheadLoading = false;
         this.typeAheadNoResults = false;
+        this.notificationsOptions = {
+            position: ["top", "right"],
+            timeOut: 5000,
+            lastOnBottom: true,
+            clickToClose: true
+        };
         this.onInventoryAdd = new core_1.EventEmitter();
         this.dataSource = Observable_1.Observable.create(function (observer) {
             // Runs on every search

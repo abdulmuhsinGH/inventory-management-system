@@ -9,73 +9,53 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
+require("../rxjs-extensions");
+var Observable_1 = require("rxjs/Observable");
+var Subject_1 = require("rxjs/Subject");
+// Observable class extensions
+require("rxjs/add/observable/of");
+// Observable operators
+require("rxjs/add/operator/catch");
+require("rxjs/add/operator/debounceTime");
+require("rxjs/add/operator/distinctUntilChanged");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var product_service_1 = require("./product.service");
-var table_1 = require("../other/table");
 var angular2_notifications_1 = require("angular2-notifications");
 var ProductComponent = (function () {
     function ProductComponent(productService, angularNotificationService) {
         this.productService = productService;
         this.angularNotificationService = angularNotificationService;
         this.title = 'Product';
-        this.productTable = table_1.Table;
-        this.notificationsOptions = {
-            position: ["top", "right"],
-            timeOut: 5000,
-            lastOnBottom: true,
-            clickToClose: true
-        };
-        this.productNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
-        this.measurementFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
-        //categoryFormControl:FormControl = new FormControl(0, [Validators.required, Validators.pattern('^[0-9\-\+]{9,15}$')]);
-        /*Add new product Form Setup*/
-        //configuration for table 
-        this.rows = [];
-        this.columns = [
-            { title: 'Name', name: 'name' },
-            { title: 'Unit of Measurement', className: ['office-header', 'text-success'], name: 'unit_of_measurment' },
-            { title: '', name: '' }
-        ];
-        this.config = {
-            paging: true,
-            sorting: { columns: this.columns },
-            filtering: {
-                name: { filterString: '' }
-            },
-            className: ['table-striped', 'table-bordered']
-        };
+        this.searchTerms = new Subject_1.Subject();
     }
     ProductComponent.prototype.ngOnInit = function () {
-        this.productTable;
+        var _this = this;
         this.getProductList();
-        this.addProductForm = new forms_1.FormGroup({
-            name: this.productNameFormControl,
-            unit_of_measurment: this.measurementFormControl
-        });
-    };
-    ProductComponent.prototype.showChildModal = function () {
-        this.childModal.show();
-    };
-    ProductComponent.prototype.hideChildModal = function () {
-        this.childModal.hide();
+        this.searchTerms
+            .debounceTime(300) // wait 300ms after each keystroke before considering the term
+            .distinctUntilChanged() // ignore if next search term is same as previous
+            .switchMap(function (term) { return term // switch to new observable each time the term changes
+            ? _this.productService.search(term)
+            : Observable_1.Observable.of(_this.products); })
+            .subscribe(function (products) {
+            _this.products = products;
+        }, function (error) { return _this.errorMessage = error; });
     };
     ProductComponent.prototype.getProductList = function () {
         var _this = this;
         this.productService.getProductList()
             .subscribe(function (products) {
-            _this.products = products,
-                _this.productTable = new table_1.Table(_this.config, products, _this.columns);
+            _this.products = products;
         }, function (error) { return _this.errorMessage = error; });
     };
-    ProductComponent.prototype.saveProduct = function (product, isValid) {
-        var _this = this;
-        this.productService.addProduct(product)
-            .subscribe(function (status) {
-            _this.getProductList(),
-                _this.angularNotificationService.success(status.state, status.message);
-        }, function (error) { return console.log(error); });
-        console.log(product, isValid);
+    // Push a search term into the observable stream.
+    ProductComponent.prototype.search = function (term) {
+        term += " ";
+        console.log(term);
+        this.searchTerms.next(term);
+    };
+    ProductComponent.prototype.onChangeProductList = function () {
+        this.getProductList();
     };
     return ProductComponent;
 }());
