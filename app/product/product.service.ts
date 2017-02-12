@@ -21,6 +21,11 @@ export class ProductService {
 							.map(this.extractData)
 							.catch(this.handleError);
 	}
+	getProductDetails (productId:number) : Observable<Product> {
+			return this.http.get(this.productURLAPI + 'view/'+productId)
+							.map(this.extractData)
+							.catch(this.handleError);
+	}
 
 	addProduct(body: Object):Observable<any> {
 

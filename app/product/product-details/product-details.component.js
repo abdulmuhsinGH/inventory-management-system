@@ -20,6 +20,7 @@ var ProductDetailsComponent = (function () {
         this.title = 'Product Details';
     }
     ProductDetailsComponent.prototype.ngOnInit = function () {
+        this.getProductDetails();
         /*this.route.params
         // (+) converts string 'id' to a number
         .switchMap((params: Params) => this.service.getHero(+params['id']))
@@ -31,6 +32,17 @@ var ProductDetailsComponent = (function () {
     ProductDetailsComponent.prototype.hideChildModal = function () {
         this.childModal.hide();
     };
+    ProductDetailsComponent.prototype.getProductDetails = function () {
+        var _this = this;
+        console.log(this.route.snapshot.params);
+        var productId = +this.route.snapshot.params['productId'];
+        console.log(productId);
+        this.productService.getProductDetails(productId)
+            .subscribe(function (product) {
+            _this.product = product,
+                console.log(_this.product);
+        }, function (error) { return _this.errorMessage = error; });
+    };
     return ProductDetailsComponent;
 }());
 __decorate([
@@ -41,6 +53,7 @@ ProductDetailsComponent = __decorate([
     core_1.Component({
         /*selector: 'my-dashboard',*/
         templateUrl: './app/product/product-details/product-details.component.html',
+        providers: [product_service_1.ProductService]
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         router_1.Router, product_service_1.ProductService])

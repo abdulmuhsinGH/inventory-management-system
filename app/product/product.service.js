@@ -21,6 +21,11 @@ var ProductService = (function () {
             .map(this.extractData)
             .catch(this.handleError);
     };
+    ProductService.prototype.getProductDetails = function (productId) {
+        return this.http.get(this.productURLAPI + 'view/' + productId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
     ProductService.prototype.addProduct = function (body) {
         var bodyString = JSON.stringify(body);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON

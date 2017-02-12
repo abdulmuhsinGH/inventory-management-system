@@ -14,12 +14,16 @@ import { ModalDirective } from   'ng2-bootstrap';
 @Component({
   /*selector: 'my-dashboard',*/
   templateUrl: './app/product/product-details/product-details.component.html',
+  providers:[ProductService]
 })
 
 export class ProductDetailsComponent implements OnInit{ 
 
 
 	title = 'Product Details';
+
+  product:Product;
+  errorMessage:string;
 
   public constructor(private route: ActivatedRoute,
   private router: Router,private productService:ProductService){
@@ -28,6 +32,8 @@ export class ProductDetailsComponent implements OnInit{
 
   ngOnInit(){
 
+
+    this.getProductDetails();
     /*this.route.params
     // (+) converts string 'id' to a number
     .switchMap((params: Params) => this.service.getHero(+params['id']))
@@ -44,6 +50,19 @@ export class ProductDetailsComponent implements OnInit{
  
   public hideChildModal():void {
     this.childModal.hide();
+  }
+
+  public getProductDetails(){
+    console.log(this.route.snapshot.params);
+      let productId = +this.route.snapshot.params['productId'];
+      console.log(productId);
+      this.productService.getProductDetails(productId)
+                   .subscribe(
+                     product => {
+                                   this.product = product,
+                                   console.log(this.product)
+                                  },
+                     error =>  this.errorMessage = <any>error);
   }
 
 }
