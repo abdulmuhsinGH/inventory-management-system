@@ -63,7 +63,7 @@ module.exports.viewSupplier = function(req, res){
 module.exports.viewOneSupplier = function(req, res){
 	var supplierId = req.params.supplierId;
 	console.log(supplierId);
-	db.get("SELECT name, phone_number, email, description FROM suppliers WHERE id = "+supplierId+ " AND deleted_at IS NULL" , function(err, row) {  
+	db.get("SELECT id, name, phone_number, email, description FROM suppliers WHERE id = "+supplierId+ " AND deleted_at IS NULL" , function(err, row) {  
         
 		if(err){
 	  			res
@@ -83,6 +83,35 @@ module.exports.viewOneSupplier = function(req, res){
   		}
         
     });   
+
+}
+
+module.exports.searchSuppliers = function(req, res){
+	var query ="";
+
+  	query = "SELECT id, name, phone_number, email, description FROM suppliers where suppliers.name like '%"+req.query['search-term']+"%' and deleted_at IS NULL";
+
+	
+
+	db.all(query, function(err, rows) {  
+        console.log(rows);
+		if(err){
+	  			res
+				  .status(500)
+				  .json(err);
+	  		}
+  		else if(rows.length===0){
+  			res
+			  .status(200)
+			  .json({state: 'success', user: null, result: rows});
+  		}
+  		else{
+  			res
+			  .status(200)
+			  .json({state: 'success', user: null, result: rows});
+  		}
+       
+    }); 
 
 }
 

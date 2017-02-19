@@ -18,6 +18,8 @@ var ng2_charts_1 = require("ng2-charts/ng2-charts");
 var angular2_notifications_1 = require("angular2-notifications");
 var supplier_component_1 = require("./supplier.component");
 var supplier_details_component_1 = require("./supplier-details/supplier-details.component");
+var add_supplier_modal_component_1 = require("./add-supplier-modal/add-supplier-modal.component");
+var edit_supplier_modal_component_1 = require("./edit-supplier-modal/edit-supplier-modal.component");
 var supplier_routing_1 = require("./supplier.routing");
 var SupplierModule = (function () {
     function SupplierModule() {
@@ -42,6 +44,8 @@ SupplierModule = __decorate([
         declarations: [
             supplier_component_1.SupplierComponent,
             supplier_details_component_1.SupplierDetailsComponent,
+            add_supplier_modal_component_1.AddSupplierModalComponent,
+            edit_supplier_modal_component_1.EditSupplierModalComponent,
             supplier_routing_1.routingComponents
         ]
     })

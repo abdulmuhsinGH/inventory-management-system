@@ -11,7 +11,7 @@ var supplier_component_1 = require("../supplier/supplier.component");
 var supplier_details_component_1 = require("../supplier/supplier-details/supplier-details.component");
 var routes = [
     { path: 'supplier', component: supplier_component_1.SupplierComponent },
-    { path: 'supplier-details', component: supplier_details_component_1.SupplierDetailsComponent },
+    { path: 'supplier-details/:supplierId', component: supplier_details_component_1.SupplierDetailsComponent },
 ];
 var SupplierRoutingModule = (function () {
     function SupplierRoutingModule() {

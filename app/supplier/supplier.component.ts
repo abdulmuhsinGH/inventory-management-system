@@ -3,6 +3,14 @@ import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 
 import "../rxjs-extensions";
 import { Observable } from 'rxjs/Observable';
+import { Subject }           from 'rxjs/Subject';
+
+ // Observable class extensions
+import 'rxjs/add/observable/of';
+// Observable operators
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 import * as moment from 'moment';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
@@ -26,6 +34,8 @@ export class SupplierComponent implements OnInit {
 title = 'Suppliers';
 suppliers: Supplier[];
 errorMessage:string;
+
+private searchTerms = new Subject<string>();
 public notificationsOptions = {
     position: ["top", "right"],
     timeOut: 5000,
@@ -34,15 +44,6 @@ public notificationsOptions = {
 }
 
 
-/*Add new supplier Form Setup*/
-  addSupplierForm:FormGroup;
-  supplierNameFormControl:FormControl = new FormControl('', [Validators.required]);
- 
-  emailAddressFormControl:FormControl = new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')]);
-  
-  phoneNumberFormControl:FormControl = new FormControl(0, [Validators.required, Validators.pattern('^[0-9\-\+]{9,15}$')]);
-/*Add new supplier Form Setup*/
-
 constructor( private supplierService:SupplierService, private angularNotificationService: NotificationsService){
 
 }
@@ -50,22 +51,22 @@ constructor( private supplierService:SupplierService, private angularNotificatio
 ngOnInit(){
 	this.getSuppliersList();
 
-   this.addSupplierForm = new FormGroup({
-          name: this.supplierNameFormControl,
-          email:this.emailAddressFormControl,
-          phone_number:this.phoneNumberFormControl
-      });
-}
+  this.searchTerms
+          .debounceTime(300)        // wait 300ms after each keystroke before considering the term
+          .distinctUntilChanged()   // ignore if next search term is same as previous
+          .switchMap(term => term   // switch to new observable each time the term changes
+            // return the http search observable
+            ? this.supplierService.search(term)
+            // or the observable of all products if there was no search term
+            : Observable.of<Supplier[]>(this.suppliers))
+          .subscribe(
+                   suppliers => {
+                                   this.suppliers = suppliers
+                                   
+                                  },
+                    error =>  this.errorMessage = <any>error);
 
-@ViewChild('childModal') public childModal:ModalDirective;
- 
-  public showChildModal():void {
-    this.childModal.show();
-  }
- 
-  public hideChildModal():void {
-    this.childModal.hide();
-  }
+}
 
   public getSuppliersList() {
         this.supplierService.getSupplierList()
@@ -74,19 +75,15 @@ ngOnInit(){
                      error =>  this.errorMessage = <any>error);
   }
 
-  public saveSupplier(supplier:Supplier, isValid:boolean) {
-      this.supplierService.addSupplier(supplier)
-                    .subscribe(
-                      status=>{
-                               this.getSuppliersList(),
-                               this.angularNotificationService.success(status.state,status.message)
-                               },
-                      error => console.log(error));
+  // Push a search term into the observable stream.
+  public search(term: string): void {
+    term +=" ";
+    console.log(term);
+    this.searchTerms.next(term);
+  }
 
-
-     
-      console.log(supplier, isValid);
-
+  public onChangeSupplierList(){
+    this.getSuppliersList();
   }
 
 }

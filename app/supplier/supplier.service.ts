@@ -34,6 +34,31 @@ export class SupplierService {
 								.catch(this.handleError);
 	}
 
+	editSupplier(customerId:number, body: Object):Observable<any> {
+
+		let bodyString = JSON.stringify(body);
+		 let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options       = new RequestOptions({ headers: headers }); // Create a request option
+
+
+		return this.http.put(this.supplierURLAPI + 'update/'+customerId, body, options)
+								.map(this.extractResponse) 
+								.catch(this.handleError);
+	}
+
+	search(term: string): Observable<any> {
+	    return this.http
+	               .get(this.supplierURLAPI+'search/?search-term='+term)
+	               .map(this.extractData)
+	               .catch(this.handleError);
+	}
+
+	getSupplierDetails (supplierId:number) : Observable<Supplier> {
+			return this.http.get(this.supplierURLAPI + 'view/'+supplierId)
+							.map(this.extractData)
+							.catch(this.handleError);
+	}
+
 	private extractData(res: Response) {
 		console.log(res.json().result);
     let body = res.json();

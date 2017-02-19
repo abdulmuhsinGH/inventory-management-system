@@ -17,6 +17,8 @@ import {SimpleNotificationsModule} from 'angular2-notifications';
 
 import { SupplierComponent }   from './supplier.component';
 import { SupplierDetailsComponent }   from './supplier-details/supplier-details.component';
+import {AddSupplierModalComponent} from './add-supplier-modal/add-supplier-modal.component';
+import {EditSupplierModalComponent} from './edit-supplier-modal/edit-supplier-modal.component';
 import { SupplierRoutingModule,routingComponents } from './supplier.routing';
 
 
@@ -41,6 +43,8 @@ import { SupplierRoutingModule,routingComponents } from './supplier.routing';
   declarations: [
                 SupplierComponent,
                 SupplierDetailsComponent,
+                AddSupplierModalComponent,
+                EditSupplierModalComponent,
                 routingComponents
 
   				    ]

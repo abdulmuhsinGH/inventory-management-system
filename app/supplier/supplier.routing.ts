@@ -9,7 +9,7 @@ import { SupplierDetailsComponent }   from '../supplier/supplier-details/supplie
 const routes: Routes = [
    	
 	{ path: 'supplier', component: SupplierComponent },
-  { path: 'supplier-details', component: SupplierDetailsComponent },
+  { path: 'supplier-details/:supplierId', component: SupplierDetailsComponent },
   
  ];
  

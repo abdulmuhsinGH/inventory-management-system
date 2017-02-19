@@ -13,6 +13,10 @@ router
 	.get(SupplierController.viewSupplier);
 
 router
+	.route('/search')
+	.get(SupplierController.searchSuppliers);
+
+router
 	.route('/view/:supplierId')
 	.get(SupplierController.viewOneSupplier);
 

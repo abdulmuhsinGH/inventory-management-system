@@ -11,6 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Observable_1 = require("rxjs/Observable");
+// Observable class extensions
+require("rxjs/add/observable/of");
+// Observable operators
+require("rxjs/add/operator/catch");
+require("rxjs/add/operator/debounceTime");
+require("rxjs/add/operator/distinctUntilChanged");
 var CustomerService = (function () {
     function CustomerService(http) {
         this.http = http;

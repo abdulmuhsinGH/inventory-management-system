@@ -9,61 +9,59 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
 require("../rxjs-extensions");
-var ng2_bootstrap_1 = require("ng2-bootstrap");
+var Observable_1 = require("rxjs/Observable");
+var Subject_1 = require("rxjs/Subject");
+// Observable class extensions
+require("rxjs/add/observable/of");
+// Observable operators
+require("rxjs/add/operator/catch");
+require("rxjs/add/operator/debounceTime");
+require("rxjs/add/operator/distinctUntilChanged");
 var supplier_service_1 = require("./supplier.service");
 var angular2_notifications_1 = require("angular2-notifications");
 var SupplierComponent = (function () {
-    /*Add new supplier Form Setup*/
     function SupplierComponent(supplierService, angularNotificationService) {
         this.supplierService = supplierService;
         this.angularNotificationService = angularNotificationService;
         this.title = 'Suppliers';
+        this.searchTerms = new Subject_1.Subject();
         this.notificationsOptions = {
             position: ["top", "right"],
             timeOut: 5000,
             lastOnBottom: true,
             clickToClose: true
         };
-        this.supplierNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
-        this.emailAddressFormControl = new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.pattern('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')]);
-        this.phoneNumberFormControl = new forms_1.FormControl(0, [forms_1.Validators.required, forms_1.Validators.pattern('^[0-9\-\+]{9,15}$')]);
     }
     SupplierComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.getSuppliersList();
-        this.addSupplierForm = new forms_1.FormGroup({
-            name: this.supplierNameFormControl,
-            email: this.emailAddressFormControl,
-            phone_number: this.phoneNumberFormControl
-        });
-    };
-    SupplierComponent.prototype.showChildModal = function () {
-        this.childModal.show();
-    };
-    SupplierComponent.prototype.hideChildModal = function () {
-        this.childModal.hide();
+        this.searchTerms
+            .debounceTime(300) // wait 300ms after each keystroke before considering the term
+            .distinctUntilChanged() // ignore if next search term is same as previous
+            .switchMap(function (term) { return term // switch to new observable each time the term changes
+            ? _this.supplierService.search(term)
+            : Observable_1.Observable.of(_this.suppliers); })
+            .subscribe(function (suppliers) {
+            _this.suppliers = suppliers;
+        }, function (error) { return _this.errorMessage = error; });
     };
     SupplierComponent.prototype.getSuppliersList = function () {
         var _this = this;
         this.supplierService.getSupplierList()
             .subscribe(function (suppliers) { return _this.suppliers = suppliers; }, function (error) { return _this.errorMessage = error; });
     };
-    SupplierComponent.prototype.saveSupplier = function (supplier, isValid) {
-        var _this = this;
-        this.supplierService.addSupplier(supplier)
-            .subscribe(function (status) {
-            _this.getSuppliersList(),
-                _this.angularNotificationService.success(status.state, status.message);
-        }, function (error) { return console.log(error); });
-        console.log(supplier, isValid);
+    // Push a search term into the observable stream.
+    SupplierComponent.prototype.search = function (term) {
+        term += " ";
+        console.log(term);
+        this.searchTerms.next(term);
+    };
+    SupplierComponent.prototype.onChangeSupplierList = function () {
+        this.getSuppliersList();
     };
     return SupplierComponent;
 }());
-__decorate([
-    core_1.ViewChild('childModal'),
-    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
-], SupplierComponent.prototype, "childModal", void 0);
 SupplierComponent = __decorate([
     core_1.Component({
         selector: 'my-app',

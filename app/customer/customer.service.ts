@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers} from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
+ // Observable class extensions
+import 'rxjs/add/observable/of';
+// Observable operators
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 import { Customer } from './customer.interface';
 
@@ -46,7 +52,7 @@ export class CustomerService {
 								.catch(this.handleError);
 	}
 
-	
+
 	search(term: string): Observable<any> {
 	    return this.http
 	               .get(this.customerURLAPI+'search/?search-term='+term)

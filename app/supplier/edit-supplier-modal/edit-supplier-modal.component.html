@@ -1,0 +1,72 @@
+<!-- edit-supplier-modal -->
+
+	 <button type="button" class="btn btn-primary" (click)="editSupplierModal.show()" title="Edit Supplier"><i class="fa fa-edit m-right-xs"></i>Edit Profile</button>
+	  	  <div class="modal fade" bsModal #editSupplierModal="bs-modal" [config]="{backdrop: 'editSupplier'}"
+           tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	        <div class="modal-dialog modal-lg">
+	          <div class="modal-content">
+	            <div class="modal-header">
+	              <button type="button" class="close" aria-label="Close" (click)="editSupplierModal.hide()">
+	                <span aria-hidden="true">&times;</span>
+	              </button>
+	              <h4 class="modal-title">edit Supplier</h4>
+	            </div>
+	            <div class="modal-body">
+	              <div class="row">
+	                <div class="col-md-12 col-sm-12 col-xs-12">
+	                  <div class="x_panel">
+	                    <div class="x_content">
+	                      <br />
+	                      <form id="demo-form2" class="form-horizontal form-label-left" [formGroup]="editSupplierForm" novalidate (ngSubmit)="editSupplier(editSupplierForm.value, editSupplierForm.valid)">
+
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="supplier-name"> Name <span class="required">*</span>
+                                  </label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="supplier-name" formControlName="name" class="form-control col-md-7 col-xs-12">
+                                    <small class="alert alert-danger" [hidden]="editSupplierForm.controls.name.valid || (editSupplierForm.controls.name.pristine && !submitted)">
+                                        Name is required
+                                    </small>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Address<span class="required">*</span>
+                                  </label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="email" formControlName="email" class="form-control col-md-7 col-xs-12">
+                                    <small class="alert alert-danger" [hidden]="editSupplierForm.controls.email.valid || (editSupplierForm.controls.email.pristine && !submitted)">
+                                        Please enter a valid email editress
+                                    </small>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label for="phone-number" class="control-label col-md-3 col-sm-3 col-xs-12">Phone Number</label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="phone-number" class="form-control col-md-7 col-xs-12" type="text" formControlName="phone_number">
+                                    <small class="alert alert-danger" [hidden]="editSupplierForm.controls.phone_number.valid || (editSupplierForm.controls.phone_number.pristine && !submitted)">
+                                        Please enter a valid phone number
+                                    </small>
+                                  </div>
+                                </div>
+                                
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <a  class="btn btn-primary" (click)="editSupplierModal.hide()">Cancel</a>
+                                    <button type="submit" class="btn btn-success" [disabled]="!editSupplierForm.valid" (click)="editSupplierModal.hide()">Submit</button>
+                                  </div>
+                                </div>
+
+                              </form>
+	                    </div>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+
+<!-- / edit-supplier-modal -->
+<!-- simple-toaster-notification -->
+ <simple-notifications [options]="notificationsOptions"></simple-notifications>
