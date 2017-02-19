@@ -3,6 +3,14 @@ import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 
 import "../rxjs-extensions";
 import { Observable } from 'rxjs/Observable';
+import { Subject }           from 'rxjs/Subject';
+
+ // Observable class extensions
+import 'rxjs/add/observable/of';
+// Observable operators
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 import * as moment from 'moment';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
@@ -25,23 +33,7 @@ export class CustomerComponent {
 title = 'Customers';
 customers: Customer[];
 errorMessage:string;
-public notificationsOptions = {
-    position: ["top", "right"],
-    timeOut: 5000,
-    lastOnBottom: true,
-    clickToClose:true
-}
-
-EMAIL_REGEXP = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$';
-
-/*Add new customer Form Setup*/
-  addCustomerForm:FormGroup;
-  customerNameFormControl:FormControl = new FormControl('', [Validators.required]);
- 
-  emailAddressFormControl:FormControl = new FormControl('', [Validators.required, Validators.pattern(this.EMAIL_REGEXP)]);
-  
-  phoneNumberFormControl:FormControl = new FormControl(0, [Validators.required, Validators.pattern('^[0-9\-\+]{9,15}$')]);
-/*Add new customer Form Setup*/
+private searchTerms = new Subject<string>();
 
 constructor( private customerService:CustomerService, private angularNotificationService: NotificationsService){
 
@@ -50,21 +42,22 @@ constructor( private customerService:CustomerService, private angularNotificatio
 ngOnInit(){
 	this.getCustomerList();
 
-  this.addCustomerForm = new FormGroup({
-          name: this.customerNameFormControl,
-          email:this.emailAddressFormControl,
-          phone_number:this.phoneNumberFormControl
-      });
-}
+  this.searchTerms
+          .debounceTime(300)        // wait 300ms after each keystroke before considering the term
+          .distinctUntilChanged()   // ignore if next search term is same as previous
+          .switchMap(term => term   // switch to new observable each time the term changes
+            // return the http search observable
+            ? this.customerService.search(term)
+            // or the observable of all products if there was no search term
+            : Observable.of<Customer[]>(this.customers))
+          .subscribe(
+                   customers => {
+                                   this.customers = customers
+                                   
+                                  },
+                    error =>  this.errorMessage = <any>error);
 
-@ViewChild('childModal') public childModal:ModalDirective;
  
-public showChildModal():void {
-	this.childModal.show();
-}
-
-public hideChildModal():void {
-	this.childModal.hide();
 }
 
 public getCustomerList() {
@@ -74,19 +67,15 @@ public getCustomerList() {
                  error =>  this.errorMessage = <any>error);
 }
 
-public saveCustomer(customer:Customer, isValid:boolean) {
-      this.customerService.addCustomer(customer)
-                    .subscribe(
-                      status=>{
-                               this.getCustomerList(),
-                               this.angularNotificationService.success(status.state,status.message)
-                               },
-                      error => console.log(error));
+ // Push a search term into the observable stream.
+  public search(term: string): void {
+    term +=" ";
+    console.log(term);
+    this.searchTerms.next(term);
+  }
 
-
-     
-      console.log(customer, isValid);
-
+ public onChangeCustomerList(){
+    this.getCustomerList();
   }
 
 }

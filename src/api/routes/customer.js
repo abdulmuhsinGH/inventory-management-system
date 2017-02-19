@@ -17,6 +17,10 @@ router
 	.get(CustomerController.viewOneCustomer);
 
 router
+	.route('/search')
+	.get(CustomerController.searchCustomers);
+
+router
 	.route('/update/:customerId')
 	.put(CustomerController.updateCustomer);
 

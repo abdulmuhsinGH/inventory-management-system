@@ -7,87 +7,18 @@
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group top_search">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for products">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
+                    <input type="text" class="form-control" placeholder="Search for Customers" #customerSearchBox (keyup)="search(customerSearchBox.value)">
+                    
                   </div>
                 </div>
 
-                <a class="btn btn-round btn-primary" (click)="newCustomerModal.show()">Add a Customer</a>
-                <simple-notifications [options]="notificationsOptions"></simple-notifications>
+                <add-customer-modal (onAddingNewCustomer)="onChangeCustomerList()"></add-customer-modal>
+                
         
               </div>
             </div>
 
-            <!--modal -->
-              <div class="modal fade" bsModal #newCustomerModal="bs-modal" [config]="{backdrop: 'static'}"
-                   tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" aria-label="Close" (click)="newCustomerModal.hide()">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                      <h4 class="modal-title">Add New Customer</h4>
-                    </div>
-                    <div class="modal-body">
-                      <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                          <div class="x_panel">
-                            <div class="x_content">
-                              <br />
-                              <form id="demo-form2" class="form-horizontal form-label-left" [formGroup]="addCustomerForm" novalidate (ngSubmit)="saveCustomer(addCustomerForm.value, addCustomerForm.valid)">
-
-                                <div class="form-group">
-                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="customer-name"> Name <span class="required">*</span>
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="customer-name" formControlName="name" class="form-control col-md-7 col-xs-12">
-                                    <small class="alert alert-danger" [hidden]="addCustomerForm.controls.name.valid || (addCustomerForm.controls.name.pristine && !submitted)">
-                                        Name is required
-                                    </small>
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Address<span class="required">*</span>
-                                  </label>
-                                  <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="email" formControlName="email" class="form-control col-md-7 col-xs-12">
-                                    <small class="alert alert-danger" [hidden]="addCustomerForm.controls.email.valid || (addCustomerForm.controls.email.pristine && !submitted)">
-                                        Please enter a valid email address
-                                    </small>
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="phone-number" class="control-label col-md-3 col-sm-3 col-xs-12">Phone Number</label>
-                                  <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="phone-number" class="form-control col-md-7 col-xs-12" type="text" formControlName="phone_number">
-                                    <small class="alert alert-danger" [hidden]="addCustomerForm.controls.phone_number.valid || (addCustomerForm.controls.phone_number.pristine && !submitted)">
-                                        Please enter a valid phone number
-                                    </small>
-                                  </div>
-                                </div>
-                                
-                                <div class="ln_solid"></div>
-                                <div class="form-group">
-                                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <a  class="btn btn-primary" (click)="newCustomerModal.hide()">Cancel</a>
-                                    <button type="submit" class="btn btn-success" [disabled]="!addCustomerForm.valid" (click)="newCustomerModal.hide()">Submit</button>
-                                  </div>
-                                </div>
-
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            <!--/modal -->
+          
             <div class="clearfix"></div>
 
             <div class="row">
@@ -115,7 +46,7 @@
                            
                             <div class="col-xs-12 col-sm-6 emphasis">
                               
-                              <a routerLink="/customer-details"  class="btn btn-primary btn-xs">
+                              <a routerLink="/customer-details/{{customer.id}}" class="btn btn-primary btn-xs">
                                 <i class="fa fa-user"> </i> View Profile
                               </a>
                             </div>

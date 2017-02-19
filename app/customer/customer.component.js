@@ -9,62 +9,53 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
 require("../rxjs-extensions");
-var ng2_bootstrap_1 = require("ng2-bootstrap");
+var Observable_1 = require("rxjs/Observable");
+var Subject_1 = require("rxjs/Subject");
+// Observable class extensions
+require("rxjs/add/observable/of");
+// Observable operators
+require("rxjs/add/operator/catch");
+require("rxjs/add/operator/debounceTime");
+require("rxjs/add/operator/distinctUntilChanged");
 var customer_service_1 = require("./customer.service");
 var angular2_notifications_1 = require("angular2-notifications");
 var CustomerComponent = (function () {
-    /*Add new customer Form Setup*/
     function CustomerComponent(customerService, angularNotificationService) {
         this.customerService = customerService;
         this.angularNotificationService = angularNotificationService;
         this.title = 'Customers';
-        this.notificationsOptions = {
-            position: ["top", "right"],
-            timeOut: 5000,
-            lastOnBottom: true,
-            clickToClose: true
-        };
-        this.EMAIL_REGEXP = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$';
-        this.customerNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
-        this.emailAddressFormControl = new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.pattern(this.EMAIL_REGEXP)]);
-        this.phoneNumberFormControl = new forms_1.FormControl(0, [forms_1.Validators.required, forms_1.Validators.pattern('^[0-9\-\+]{9,15}$')]);
+        this.searchTerms = new Subject_1.Subject();
     }
     CustomerComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.getCustomerList();
-        this.addCustomerForm = new forms_1.FormGroup({
-            name: this.customerNameFormControl,
-            email: this.emailAddressFormControl,
-            phone_number: this.phoneNumberFormControl
-        });
-    };
-    CustomerComponent.prototype.showChildModal = function () {
-        this.childModal.show();
-    };
-    CustomerComponent.prototype.hideChildModal = function () {
-        this.childModal.hide();
+        this.searchTerms
+            .debounceTime(300) // wait 300ms after each keystroke before considering the term
+            .distinctUntilChanged() // ignore if next search term is same as previous
+            .switchMap(function (term) { return term // switch to new observable each time the term changes
+            ? _this.customerService.search(term)
+            : Observable_1.Observable.of(_this.customers); })
+            .subscribe(function (customers) {
+            _this.customers = customers;
+        }, function (error) { return _this.errorMessage = error; });
     };
     CustomerComponent.prototype.getCustomerList = function () {
         var _this = this;
         this.customerService.getCustomerList()
             .subscribe(function (customers) { return _this.customers = customers; }, function (error) { return _this.errorMessage = error; });
     };
-    CustomerComponent.prototype.saveCustomer = function (customer, isValid) {
-        var _this = this;
-        this.customerService.addCustomer(customer)
-            .subscribe(function (status) {
-            _this.getCustomerList(),
-                _this.angularNotificationService.success(status.state, status.message);
-        }, function (error) { return console.log(error); });
-        console.log(customer, isValid);
+    // Push a search term into the observable stream.
+    CustomerComponent.prototype.search = function (term) {
+        term += " ";
+        console.log(term);
+        this.searchTerms.next(term);
+    };
+    CustomerComponent.prototype.onChangeCustomerList = function () {
+        this.getCustomerList();
     };
     return CustomerComponent;
 }());
-__decorate([
-    core_1.ViewChild('childModal'),
-    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
-], CustomerComponent.prototype, "childModal", void 0);
 CustomerComponent = __decorate([
     core_1.Component({
         selector: 'my-app',

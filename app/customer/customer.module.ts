@@ -18,6 +18,8 @@ import {SimpleNotificationsModule} from 'angular2-notifications';
 
 import { CustomerComponent }   from './customer.component';
 import { CustomerDetailsComponent }   from './customer-details/customer-details.component';
+import {AddCustomerComponent} from './add-customer-modal/add-customer-modal.component';
+import {EditCustomerModalComponent} from './edit-customer-modal/edit-customer-modal.component';
 import { CustomerRoutingModule,routingComponents } from './customer.routing';
 
 
@@ -42,6 +44,8 @@ import { CustomerRoutingModule,routingComponents } from './customer.routing';
   declarations: [
                 CustomerComponent,
                 CustomerDetailsComponent,
+                AddCustomerComponent,
+                EditCustomerModalComponent,
                 routingComponents
 
   				    ]

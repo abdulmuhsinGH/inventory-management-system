@@ -11,7 +11,7 @@ var customer_component_1 = require("../customer/customer.component");
 var customer_details_component_1 = require("../customer/customer-details/customer-details.component");
 var routes = [
     { path: 'customer', component: customer_component_1.CustomerComponent },
-    { path: 'customer-details', component: customer_details_component_1.CustomerDetailsComponent },
+    { path: 'customer-details/:customerId', component: customer_details_component_1.CustomerDetailsComponent },
 ];
 var CustomerRoutingModule = (function () {
     function CustomerRoutingModule() {

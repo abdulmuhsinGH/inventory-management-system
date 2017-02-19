@@ -18,6 +18,8 @@ var ng2_charts_1 = require("ng2-charts/ng2-charts");
 var angular2_notifications_1 = require("angular2-notifications");
 var customer_component_1 = require("./customer.component");
 var customer_details_component_1 = require("./customer-details/customer-details.component");
+var add_customer_modal_component_1 = require("./add-customer-modal/add-customer-modal.component");
+var edit_customer_modal_component_1 = require("./edit-customer-modal/edit-customer-modal.component");
 var customer_routing_1 = require("./customer.routing");
 var CustomerModule = (function () {
     function CustomerModule() {
@@ -42,6 +44,8 @@ CustomerModule = __decorate([
         declarations: [
             customer_component_1.CustomerComponent,
             customer_details_component_1.CustomerDetailsComponent,
+            add_customer_modal_component_1.AddCustomerComponent,
+            edit_customer_modal_component_1.EditCustomerModalComponent,
             customer_routing_1.routingComponents
         ]
     })

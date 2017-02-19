@@ -9,7 +9,7 @@ import { CustomerDetailsComponent }   from '../customer/customer-details/custome
 const routes: Routes = [
    	
 	{ path: 'customer', component: CustomerComponent },
-  { path: 'customer-details', component: CustomerDetailsComponent },
+  { path: 'customer-details/:customerId', component: CustomerDetailsComponent },
   
  ];
  

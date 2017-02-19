@@ -13,8 +13,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
-/*import * as moment from 'moment';
-import { ChartsModule } from 'ng2-charts/ng2-charts';*/
+/*import * as moment from 'moment';*/
 import { PaginationModule } from 'ng2-bootstrap';
 import { ModalDirective } from   'ng2-bootstrap';
 import { ProductService } from './product.service'; 

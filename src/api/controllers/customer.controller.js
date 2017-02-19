@@ -37,7 +37,7 @@ module.exports.addCustomer =function(req, res){
 
 module.exports.viewCustomer = function(req, res){
 
-	db.all("SELECT name, phone_number, email, description FROM customers where deleted_at IS NULL", function(err, rows) {  
+	db.all("SELECT id, name, phone_number, email, description FROM customers where deleted_at IS NULL", function(err, rows) {  
         
 		if(err){
 	  			res
@@ -63,7 +63,7 @@ module.exports.viewCustomer = function(req, res){
 module.exports.viewOneCustomer = function(req, res){
 	var customerId = req.params.customerId;
 	console.log(customerId);
-	db.get("SELECT name, phone_number, email, description FROM customers WHERE id = "+customerId+ " AND deleted_at IS NULL" , function(err, row) {  
+	db.get("SELECT id, name, phone_number, email, description FROM customers WHERE id = "+customerId+ " AND deleted_at IS NULL" , function(err, row) {  
         
 		if(err){
 	  			res
@@ -84,6 +84,35 @@ module.exports.viewOneCustomer = function(req, res){
         
     });   
 
+}
+
+module.exports.searchCustomers = function(req, res){
+	var query ="";
+
+  	query = "SELECT id, name, phone_number, email, description FROM customers where customers.name like '%"+req.query['search-term']+"%' and deleted_at IS NULL";
+
+	
+
+	db.all(query, function(err, rows) {  
+        console.log(rows);
+		if(err){
+	  			res
+				  .status(500)
+				  .json(err);
+	  		}
+  		else if(rows.length===0){
+  			res
+			  .status(200)
+			  .json({state: 'success', user: null, result: rows});
+  		}
+  		else{
+  			res
+			  .status(200)
+			  .json({state: 'success', user: null, result: rows});
+  		}
+       
+    });   
+	
 }
 
 module.exports.updateCustomer = function(req, res){
