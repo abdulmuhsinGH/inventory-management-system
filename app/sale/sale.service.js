@@ -6,13 +6,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
-var HeroService = (function () {
-    function HeroService() {
+var SaleService = (function () {
+    function SaleService() {
     }
-    return HeroService;
+    return SaleService;
 }());
-HeroService = __decorate([
+SaleService = __decorate([
     core_1.Injectable()
-], HeroService);
-exports.HeroService = HeroService;
+], SaleService);
+exports.SaleService = SaleService;
 //# sourceMappingURL=sale.service.js.map

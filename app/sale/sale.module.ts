@@ -17,6 +17,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { SaleComponent }   from './sale.component';
 import { SaleInvoiceComponent }   from './invoice/sale-invoice.component';
+import { RecordSaleModalComponent }   from './record-sale-modal/record-sale-modal.component';
 import { SaleRoutingModule,routingComponents } from './sale.routing';
 
 
@@ -40,6 +41,7 @@ import { SaleRoutingModule,routingComponents } from './sale.routing';
   declarations: [
                 SaleComponent,
                 SaleInvoiceComponent,
+                RecordSaleModalComponent,
                 routingComponents
 
   				    ]

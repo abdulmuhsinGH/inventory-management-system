@@ -17,6 +17,7 @@ var ng2_table_1 = require("ng2-table/ng2-table");
 var ng2_charts_1 = require("ng2-charts/ng2-charts");
 var sale_component_1 = require("./sale.component");
 var sale_invoice_component_1 = require("./invoice/sale-invoice.component");
+var record_sale_modal_component_1 = require("./record-sale-modal/record-sale-modal.component");
 var sale_routing_1 = require("./sale.routing");
 var SaleModule = (function () {
     function SaleModule() {
@@ -40,6 +41,7 @@ SaleModule = __decorate([
         declarations: [
             sale_component_1.SaleComponent,
             sale_invoice_component_1.SaleInvoiceComponent,
+            record_sale_modal_component_1.RecordSaleModalComponent,
             sale_routing_1.routingComponents
         ]
     })

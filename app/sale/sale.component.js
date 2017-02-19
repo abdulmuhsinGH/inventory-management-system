@@ -9,12 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
-var ng2_bootstrap_1 = require("ng2-bootstrap");
 var SaleComponent = (function () {
     // Formbuilder will be used to simplify syntax and validation
-    function SaleComponent(_formBuilder) {
-        this._formBuilder = _formBuilder;
+    function SaleComponent() {
         this.title = 'Sales';
         // lineChart
         this.lineChartData = [
@@ -38,50 +35,17 @@ var SaleComponent = (function () {
         this.lineChartLegend = true;
         this.lineChartType = 'line';
     }
-    SaleComponent.prototype.showChildModal = function () {
-        this.childModal.show();
-    };
-    SaleComponent.prototype.hideChildModal = function () {
-        this.childModal.hide();
-    };
     //initialize form
     SaleComponent.prototype.ngOnInit = function () {
-        this.recordSaleForm = this._formBuilder.group({
-            sales: this._formBuilder.array([
-                this.initSaleForm(),
-            ])
-        });
-    };
-    SaleComponent.prototype.initSaleForm = function () {
-        return this._formBuilder.group({
-            product: ['', forms_1.Validators.required],
-            quantity: ['', forms_1.Validators.required],
-            price: ['', forms_1.Validators.required]
-        });
-    };
-    SaleComponent.prototype.addRecordSaleRow = function () {
-        var control = this.recordSaleForm.controls['sales'];
-        control.push(this.initSaleForm());
-    };
-    SaleComponent.prototype.removeRecordSaleRow = function (rowNumber) {
-        var control = this.recordSaleForm.controls['sales'];
-        control.removeAt(rowNumber);
-    };
-    SaleComponent.prototype.recordSale = function (model) {
-        console.log(model);
     };
     return SaleComponent;
 }());
-__decorate([
-    core_1.ViewChild('childModal'),
-    __metadata("design:type", ng2_bootstrap_1.ModalDirective)
-], SaleComponent.prototype, "childModal", void 0);
 SaleComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
         templateUrl: 'app/sale/sale.component.html',
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder])
+    __metadata("design:paramtypes", [])
 ], SaleComponent);
 exports.SaleComponent = SaleComponent;
 //# sourceMappingURL=sale.component.js.map
