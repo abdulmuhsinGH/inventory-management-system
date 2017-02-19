@@ -3,8 +3,8 @@ export interface Inventory {
 	name:string;
 	product_id:number;
 	supplier_id:number;
-    current_selling_price: number; 
-    current_cost_price: number;
+    selling_price: number; 
+    cost_price: number;
     quantity:number;
     total_quantity:number;
     created_at:Date;

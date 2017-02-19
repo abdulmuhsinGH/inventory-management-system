@@ -51,6 +51,30 @@ export class ProductService {
 								.catch(this.handleError);
 	}
 
+	setSellingPrice(productId:number, body: Object):Observable<any> {
+
+		let bodyString = JSON.stringify(body);
+		 let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options       = new RequestOptions({ headers: headers }); // Create a request option
+
+
+		return this.http.put(this.productURLAPI + 'update/sellingprice/'+productId, body, options)
+								.map(this.extractResponse) 
+								.catch(this.handleError);
+	}
+
+	setCostPrice(productId:number, body: Object):Observable<any> {
+
+		let bodyString = JSON.stringify(body);
+		 let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options       = new RequestOptions({ headers: headers }); // Create a request option
+
+
+		return this.http.put(this.productURLAPI + 'update/costprice/'+productId, body, options)
+								.map(this.extractResponse) 
+								.catch(this.handleError);
+	}	
+
 	deleteProduct(productId: number):Observable<any> {
 
 		//let bodyString = JSON.stringify(body);

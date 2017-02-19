@@ -21,6 +21,8 @@ var product_details_component_1 = require("./product-details/product-details.com
 var add_product_modal_component_1 = require("./add-product-modal/add-product-modal.component");
 var delete_product_modal_component_1 = require("./delete-product-modal/delete-product-modal.component");
 var edit_product_modal_component_1 = require("./edit-product-modal/edit-product-modal-component");
+var set_selling_price_modal_component_1 = require("./set-selling-price-modal/set-selling-price-modal.component");
+var set_cost_price_modal_component_1 = require("./set-cost-price-modal/set-cost-price-modal.component");
 var product_routing_1 = require("./product.routing");
 var ProductModule = (function () {
     function ProductModule() {
@@ -48,6 +50,8 @@ ProductModule = __decorate([
             add_product_modal_component_1.AddProductModalComponent,
             delete_product_modal_component_1.DeleteProductModalComponent,
             edit_product_modal_component_1.EditProductModalComponent,
+            set_selling_price_modal_component_1.SetSellingPriceModalComponent,
+            set_cost_price_modal_component_1.SetCostPriceModalComponent,
             product_routing_1.routingComponents
         ]
     })

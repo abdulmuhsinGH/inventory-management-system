@@ -67,7 +67,7 @@ export class EditProductModalComponent{
 	    this.childModal.hide();
 	 }
 
-	  public saveProduct(product:any, isValid:boolean) {
+	  public editProduct(product:any, isValid:boolean) {
 	  	console.log(product)
       this.productService.editProduct(product.productId,product)
                     .subscribe(

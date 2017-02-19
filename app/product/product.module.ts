@@ -19,6 +19,8 @@ import { ProductDetailsComponent }   from './product-details/product-details.com
 import { AddProductModalComponent }   from './add-product-modal/add-product-modal.component';
 import { DeleteProductModalComponent }   from './delete-product-modal/delete-product-modal.component';
 import { EditProductModalComponent }   from './edit-product-modal/edit-product-modal-component';
+import {SetSellingPriceModalComponent} from './set-selling-price-modal/set-selling-price-modal.component';
+import {SetCostPriceModalComponent} from './set-cost-price-modal/set-cost-price-modal.component';
 import { ProductRoutingModule,routingComponents } from './product.routing';
 
 
@@ -46,6 +48,8 @@ import { ProductRoutingModule,routingComponents } from './product.routing';
                 AddProductModalComponent,
                 DeleteProductModalComponent,
                 EditProductModalComponent,
+                SetSellingPriceModalComponent,
+                SetCostPriceModalComponent,
                 routingComponents
 
   				    ]

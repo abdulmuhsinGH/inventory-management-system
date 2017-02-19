@@ -24,7 +24,7 @@ export class ProductDetailsComponent implements OnInit{
 
   product:Product;
   errorMessage:string;
-
+  productId:number;
   public constructor(private route: ActivatedRoute,
   private router: Router,private productService:ProductService){
 
@@ -54,15 +54,19 @@ export class ProductDetailsComponent implements OnInit{
 
   public getProductDetails(){
     console.log(this.route.snapshot.params);
-      let productId = +this.route.snapshot.params['productId'];
-      console.log(productId);
-      this.productService.getProductDetails(productId)
+       this.productId = +this.route.snapshot.params['productId'];
+     // this.product.id = productId;
+      console.log(this.productId);
+      this.productService.getProductDetails(this.productId)
                    .subscribe(
                      product => {
                                    this.product = product,
                                    console.log(this.product)
                                   },
                      error =>  this.errorMessage = <any>error);
+  }
+   public onChangeProductDetails(){
+    this.getProductDetails();
   }
 
 }

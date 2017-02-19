@@ -25,6 +25,14 @@ router
 	.put(ProductController.updateProduct);
 
 router
+	.route('/update/sellingprice/:productId')
+	.put(ProductController.setSellingPrice);
+
+router
+	.route('/update/costprice/:productId')
+	.put(ProductController.setCostPrice);
+
+router
 	.route('/delete/:productId')
 	.put(ProductController.deleteProduct);
 

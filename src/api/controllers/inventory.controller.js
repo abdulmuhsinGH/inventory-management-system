@@ -8,7 +8,7 @@ var moment = require('moment');
 
 module.exports.viewInventories = function(req, res){
 
-	db.all("select products.id, products.name, inventory_details.current_selling_price, inventory_details.current_cost_price, inventory_details.quantity, inventory_details.total_quantity,inventory_details.created_at from inventory_details left outer join products, suppliers on ( inventory_details.product_id = products.id and inventory_details.supplier_id = suppliers.id) where inventory_details.deleted_at is null and products.deleted_at is null order by  inventory_details.created_at desc", function(err, rows) {  
+	db.all("select products.id, products.name, inventory_details.selling_price, inventory_details.cost_price, inventory_details.quantity, inventory_details.total_quantity,inventory_details.created_at from inventory_details left outer join products, suppliers on ( inventory_details.product_id = products.id and inventory_details.supplier_id = suppliers.id) where inventory_details.deleted_at is null and products.deleted_at is null order by  inventory_details.created_at desc", function(err, rows) {  
         
 		if(err){
 	  			res
@@ -34,7 +34,7 @@ module.exports.viewInventories = function(req, res){
 module.exports.searchInventories = function(req, res){
 	var query ="";
 
-  	query = "select products.id, products.name, inventory_details.current_selling_price, inventory_details.current_cost_price, inventory_details.quantity, inventory_details.total_quantity,inventory_details.created_at from inventory_details left outer join products, suppliers on ( inventory_details.product_id = products.id and inventory_details.supplier_id = suppliers.id) where products.name like '%"+req.query['search-term']+"%' and inventory_details.deleted_at is null and products.deleted_at is null order by  datetime(inventory_details.created_at) desc";
+  	query = "select products.id, products.name, inventory_details.selling_price, inventory_details.cost_price, inventory_details.quantity, inventory_details.total_quantity,inventory_details.created_at from inventory_details left outer join products, suppliers on ( inventory_details.product_id = products.id and inventory_details.supplier_id = suppliers.id) where products.name like '%"+req.query['search-term']+"%' and inventory_details.deleted_at is null and products.deleted_at is null order by  datetime(inventory_details.created_at) desc";
 
 	
 
@@ -100,11 +100,11 @@ module.exports.updateInventory = function (req, res) {
 	var inventory = req.body;
 	var total_quantity =  inventory.quantity + inventory.prev_total_quantity;
 	db.serialize(function () {
-	  var stmt = db.prepare('UPDATE inventory_details SET product_id = ?, supplier_id = ?, cost_price = ?, selling_price = ?, quantity = ?, current_cost_price = ?, current_selling_price = ?, total_quantity = ?, updated_at = ? where id='+inventoryId);
+	  var stmt = db.prepare('UPDATE inventory_details SET product_id = ?, supplier_id = ?, cost_price = ?, selling_price = ?, quantity = ?, cost_price = ?, selling_price = ?, total_quantity = ?, updated_at = ? where id='+inventoryId);
 	  var date = new Date('YYYY-MM-DD HH:MM:SS');  
   	  var currentDateTime = date.toLocaleString();
   	  	console.log(currentDateTime);
-	    stmt.run(inventory.product_id, inventory.supplier_id, inventory.cost_price, inventory.selling_price, inventory.quantity, inventory.current_cost_price, inventory.current_selling_price, total_quantity, currentDateTime);
+	    stmt.run(inventory.product_id, inventory.supplier_id, inventory.cost_price, inventory.selling_price, inventory.quantity, inventory.cost_price, inventory.selling_price, total_quantity, currentDateTime);
 
 	  	stmt.finalize(function(err){
 
@@ -170,7 +170,7 @@ var _addOneInventory = function(req, res, inventory){
 				  .status(500)
 				  .json(err);
 	  		}
-  		else if(!row){
+  		else if(row.length===0){
   				console.log("hello, no rows");
   			_insertInventory(req, res, inventory, {total_quantity:0});
   		}
@@ -187,7 +187,7 @@ var _addOneInventory = function(req, res, inventory){
 var _insertInventory = function(req, res, inventory, product){
 	
 	db.serialize(function () {
-	  var stmt = db.prepare('INSERT INTO inventory_details(product_id, supplier_id, cost_price, selling_price, quantity, current_cost_price, current_selling_price, total_quantity, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+	  var stmt = db.prepare('INSERT INTO inventory_details(product_id, supplier_id, cost_price, selling_price, quantity, cost_price, selling_price, total_quantity, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
 	  var date = new Date(); 
 	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
   	  var currentDateTime = formattedDate.toLocaleString();
@@ -198,7 +198,7 @@ var _insertInventory = function(req, res, inventory, product){
   	  productTotalQuantity = parseInt(inventory.quantity) + parseInt(product.total_quantity);
 			
 
-	    stmt.run(inventory.product_id, inventory.supplier_id, inventory.cost_price, inventory.selling_price, inventory.quantity, inventory.cost_price, inventory.current_selling_price, productTotalQuantity, currentDateTime, currentDateTime);
+	    stmt.run(inventory.product_id, inventory.supplier_id, inventory.cost_price, inventory.selling_price, inventory.quantity, inventory.cost_price, inventory.selling_price, productTotalQuantity, currentDateTime, currentDateTime);
 
 	  	stmt.finalize(function(err){
 	  		console.log(err);
@@ -290,7 +290,7 @@ module.exports.setReorderLevel = function(req, res){
 				  .status(500)
 				  .json(err);
 	  		}
-  		else if(!row){
+  		else if(row.length===0){
   				_createReorderLevel(req, res, reorderLevel);
   		}
   		else{

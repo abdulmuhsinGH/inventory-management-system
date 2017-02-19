@@ -11,17 +11,17 @@ import { NotificationsService } from 'angular2-notifications';
 
 
 @Component({
-  selector: 'set-selling-price-modal',
-  templateUrl: './app/product/set-selling-price-modal/set-selling-price-modal.component.html',
+  selector: 'set-cost-price-modal',
+  templateUrl: './app/product/set-cost-price-modal/set-cost-price-modal.component.html',
 })
 
 
-export class SetSellingPriceModalComponent{
+export class SetCostPriceModalComponent{
 
 	  /*Edit new product Form Setup*/
-	 setSellingPriceForm:FormGroup;
+	 setCostPriceForm:FormGroup;
 	 
-	 sellingPriceFormControl:FormControl = new FormControl('', [Validators.required, Validators.pattern('^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$')]);
+	 costPriceFormControl:FormControl = new FormControl('', [Validators.required, Validators.pattern('^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$')]);
 	 productIdFormControl:FormControl = new FormControl('',[Validators.required] );
 	 @ViewChild('childModal') 
 	 public childModal:ModalDirective;
@@ -30,7 +30,7 @@ export class SetSellingPriceModalComponent{
 	 public productId:number;
 
 	 @Output()
-	 public onSettingSellingPrice = new EventEmitter<boolean>();
+	 public onSettingCostPrice = new EventEmitter<boolean>();
 
 	 public notificationsOptions = {
 	    position: ["top", "right"],
@@ -49,8 +49,8 @@ export class SetSellingPriceModalComponent{
 	 	this.productIdFormControl.setValue(this.productId)
 	 	
 
-	     this.setSellingPriceForm = new FormGroup({
-	          current_selling_price:this.sellingPriceFormControl,
+	     this.setCostPriceForm = new FormGroup({
+	          current_cost_price:this.costPriceFormControl,
 	          productId:this.productIdFormControl
 	     });
 
@@ -65,12 +65,12 @@ export class SetSellingPriceModalComponent{
 	    this.childModal.hide();
 	 }
 
-	  public setSellingPrice(product:any, isValid:boolean) {
+	  public setCostPrice(product:any, isValid:boolean) {
 	  	console.log(product)
-      this.productService.setSellingPrice(product.productId,product)
+      this.productService.setCostPrice(product.productId,product)
                     .subscribe(
                       status=>{
-                      		   this.onSettingSellingPrice.emit(true),
+                      		   this.onSettingCostPrice.emit(true),
                                this.notificationService.success(status.state,status.message)
                                },
                       error => console.log(error));

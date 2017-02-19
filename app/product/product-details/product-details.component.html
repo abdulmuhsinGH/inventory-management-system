@@ -141,8 +141,8 @@
                   
 
                   <div class="text-center mtop20">
-                    <a href="#" class="btn btn-sm btn-primary">Set Selling Price</a>
-                    <a href="#" class="btn btn-sm btn-primary">Set Cost Price</a>
+                    <set-selling-price-modal [productId]="productId" (onSettingSellingPrice)="onChangeProductDetails()"></set-selling-price-modal>
+                     <set-cost-price-modal [productId]="productId" (onSettingSellingPrice)="onChangeProductDetails()"></set-cost-price-modal>
                   </div>
                 </div>
 

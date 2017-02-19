@@ -35,13 +35,17 @@ var ProductDetailsComponent = (function () {
     ProductDetailsComponent.prototype.getProductDetails = function () {
         var _this = this;
         console.log(this.route.snapshot.params);
-        var productId = +this.route.snapshot.params['productId'];
-        console.log(productId);
-        this.productService.getProductDetails(productId)
+        this.productId = +this.route.snapshot.params['productId'];
+        // this.product.id = productId;
+        console.log(this.productId);
+        this.productService.getProductDetails(this.productId)
             .subscribe(function (product) {
             _this.product = product,
                 console.log(_this.product);
         }, function (error) { return _this.errorMessage = error; });
+    };
+    ProductDetailsComponent.prototype.onChangeProductDetails = function () {
+        this.getProductDetails();
     };
     return ProductDetailsComponent;
 }());

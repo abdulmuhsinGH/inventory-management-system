@@ -42,6 +42,22 @@ var ProductService = (function () {
             .map(this.extractResponse)
             .catch(this.handleError);
     };
+    ProductService.prototype.setSellingPrice = function (productId, body) {
+        var bodyString = JSON.stringify(body);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
+        return this.http.put(this.productURLAPI + 'update/sellingprice/' + productId, body, options)
+            .map(this.extractResponse)
+            .catch(this.handleError);
+    };
+    ProductService.prototype.setCostPrice = function (productId, body) {
+        var bodyString = JSON.stringify(body);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
+        return this.http.put(this.productURLAPI + 'update/costprice/' + productId, body, options)
+            .map(this.extractResponse)
+            .catch(this.handleError);
+    };
     ProductService.prototype.deleteProduct = function (productId) {
         //let bodyString = JSON.stringify(body);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON

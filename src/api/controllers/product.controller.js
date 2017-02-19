@@ -93,7 +93,7 @@ module.exports.searchProducts = function(req, res){
 module.exports.viewOneProduct = function(req, res){
 	var productId = req.params.productId;
 	console.log(productId);
-	db.get("SELECT name, unit_of_measurment FROM products WHERE id = "+productId+ " AND deleted_at IS NULL" , function(err, row) {  
+	db.get("SELECT products.name, products.unit_of_measurment, products.current_cost_price, products.current_selling_price  FROM products WHERE id = "+productId+ " AND deleted_at IS NULL" , function(err, row) {  
         
 		if(err){
 	  			res
@@ -119,9 +119,9 @@ module.exports.viewOneProduct = function(req, res){
 module.exports.updateProduct = function(req, res){
 	var productId = req.params.productId;
 	db.serialize(function () {
-	  var stmt = db.prepare('UPDATE products SET name = ?, unit_of_measurment = ?, updated_at = ? where id='+productId);
-	  var date = new Date();  
-  	  var currentDateTime = date.toLocaleString();
+	  	var stmt = db.prepare('UPDATE products SET name = ?, unit_of_measurment = ?, updated_at = ? where id='+productId);
+	  	var date = new Date();  
+  	  	var currentDateTime = date.toLocaleString();
   	  	console.log(currentDateTime);
 	    stmt.run(req.body.name, req.body.unit_of_measurment, currentDateTime);
 
@@ -180,13 +180,15 @@ module.exports.deleteProduct = function(req, res){
 
 
 module.exports.setSellingPrice = function(req, res){
-	var inventoryId = req.params.inventoryId;
+	var productId = req.params.productId;
+
+	var sellingPrice = req.body.current_selling_price;
 	db.serialize(function () {
-	  var stmt = db.prepare('UPDATE inventory_details SET  selling_price = ?, deleted_at = ? where id='+inventoryId);
+	  var stmt = db.prepare('UPDATE products SET  current_selling_price = ?, updated_at = ? where id='+productId);
 	  var date = new Date();  
   	  var currentDateTime = date.toLocaleString();
   	  	console.log(currentDateTime);
-	    stmt.run(currentDateTime);
+	    stmt.run(sellingPrice, currentDateTime);
 
 	  	stmt.finalize(function(err){
 
@@ -211,13 +213,15 @@ module.exports.setSellingPrice = function(req, res){
 }
 
 module.exports.setCostPrice = function(req, res){
-	var inventoryId = req.params.inventoryId;
+	var productId = req.params.productId;
+
+	var costPrice = req.body.current_cost_price;
 	db.serialize(function () {
-	  var stmt = db.prepare('UPDATE inventories SET  cost_price = ?, updated_at = ? where product_id='+inventoryId);
+	  var stmt = db.prepare('UPDATE products SET  current_cost_price = ?, updated_at = ? where id='+productId);
 	  var date = new Date();  
   	  var currentDateTime = date.toLocaleString();
   	  	console.log(currentDateTime);
-	    stmt.run(currentDateTime);
+	    stmt.run(costPrice,currentDateTime);
 
 	  	stmt.finalize(function(err){
 

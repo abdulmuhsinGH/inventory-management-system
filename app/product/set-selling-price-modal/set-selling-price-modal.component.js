@@ -13,14 +13,13 @@ var forms_1 = require("@angular/forms");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var product_service_1 = require("../product.service");
 var angular2_notifications_1 = require("angular2-notifications");
-var EditProductModalComponent = (function () {
-    function EditProductModalComponent(productService, notificationService) {
+var SetSellingPriceModalComponent = (function () {
+    function SetSellingPriceModalComponent(productService, notificationService) {
         this.productService = productService;
         this.notificationService = notificationService;
-        this.productNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
-        this.measurementFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
+        this.sellingPriceFormControl = new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.pattern('^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$')]);
         this.productIdFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
-        this.onEditProduct = new core_1.EventEmitter();
+        this.onSettingSellingPrice = new core_1.EventEmitter();
         this.notificationsOptions = {
             position: ["top", "right"],
             timeOut: 5000,
@@ -28,52 +27,50 @@ var EditProductModalComponent = (function () {
             clickToClose: true
         };
     }
-    EditProductModalComponent.prototype.ngOnInit = function () {
-        this.productIdFormControl.setValue(this.product.id);
-        this.productNameFormControl.setValue(this.product.name);
-        this.measurementFormControl.setValue(this.product.unit_of_measurment);
-        this.editProductForm = new forms_1.FormGroup({
-            name: this.productNameFormControl,
-            unit_of_measurment: this.measurementFormControl,
+    SetSellingPriceModalComponent.prototype.ngOnInit = function () {
+        console.log(this.productId);
+        this.productIdFormControl.setValue(this.productId);
+        this.setSellingPriceForm = new forms_1.FormGroup({
+            current_selling_price: this.sellingPriceFormControl,
             productId: this.productIdFormControl
         });
     };
-    EditProductModalComponent.prototype.showChildModal = function () {
+    SetSellingPriceModalComponent.prototype.showChildModal = function () {
         this.childModal.show();
     };
-    EditProductModalComponent.prototype.hideChildModal = function () {
+    SetSellingPriceModalComponent.prototype.hideChildModal = function () {
         this.childModal.hide();
     };
-    EditProductModalComponent.prototype.editProduct = function (product, isValid) {
+    SetSellingPriceModalComponent.prototype.setSellingPrice = function (product, isValid) {
         var _this = this;
         console.log(product);
-        this.productService.editProduct(product.productId, product)
+        this.productService.setSellingPrice(product.productId, product)
             .subscribe(function (status) {
-            _this.onEditProduct.emit(true),
+            _this.onSettingSellingPrice.emit(true),
                 _this.notificationService.success(status.state, status.message);
         }, function (error) { return console.log(error); });
         console.log(product, isValid);
     };
-    return EditProductModalComponent;
+    return SetSellingPriceModalComponent;
 }());
 __decorate([
     core_1.ViewChild('childModal'),
     __metadata("design:type", ng2_bootstrap_1.ModalDirective)
-], EditProductModalComponent.prototype, "childModal", void 0);
+], SetSellingPriceModalComponent.prototype, "childModal", void 0);
 __decorate([
     core_1.Input(),
-    __metadata("design:type", Object)
-], EditProductModalComponent.prototype, "product", void 0);
+    __metadata("design:type", Number)
+], SetSellingPriceModalComponent.prototype, "productId", void 0);
 __decorate([
     core_1.Output(),
     __metadata("design:type", Object)
-], EditProductModalComponent.prototype, "onEditProduct", void 0);
-EditProductModalComponent = __decorate([
+], SetSellingPriceModalComponent.prototype, "onSettingSellingPrice", void 0);
+SetSellingPriceModalComponent = __decorate([
     core_1.Component({
-        selector: 'edit-product-modal',
-        templateUrl: './app/product/edit-product-modal/edit-product-modal-component.html',
+        selector: 'set-selling-price-modal',
+        templateUrl: './app/product/set-selling-price-modal/set-selling-price-modal.component.html',
     }),
     __metadata("design:paramtypes", [product_service_1.ProductService, angular2_notifications_1.NotificationsService])
-], EditProductModalComponent);
-exports.EditProductModalComponent = EditProductModalComponent;
-//# sourceMappingURL=edit-product-modal-component.js.map
+], SetSellingPriceModalComponent);
+exports.SetSellingPriceModalComponent = SetSellingPriceModalComponent;
+//# sourceMappingURL=set-selling-price-modal.component.js.map
