@@ -48,7 +48,6 @@ public childModal:ModalDirective;
 public onChangeSalesList = new EventEmitter<boolean>();
 
 
- // Formbuilder will be used to simplify syntax and validation
   constructor(private _formBuilder: FormBuilder, private customerService: CustomerService, private productService: ProductService, private notificationService: NotificationsService) { 
 
       this.dataSource = Observable.create((observer:any) => {

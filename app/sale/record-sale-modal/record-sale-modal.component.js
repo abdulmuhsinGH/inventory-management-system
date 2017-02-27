@@ -17,7 +17,6 @@ var customer_service_1 = require("../../customer/customer.service");
 var product_service_1 = require("../../product/product.service");
 var angular2_notifications_1 = require("angular2-notifications");
 var RecordSaleModalComponent = (function () {
-    // Formbuilder will be used to simplify syntax and validation
     function RecordSaleModalComponent(_formBuilder, customerService, productService, notificationService) {
         var _this = this;
         this._formBuilder = _formBuilder;
