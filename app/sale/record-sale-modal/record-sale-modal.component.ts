@@ -1,5 +1,6 @@
 import { NgModule, Component, OnInit, ViewChild, Output,EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl} from '@angular/forms';
+import {Router} from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 
@@ -22,7 +23,7 @@ import { NotificationsService } from 'angular2-notifications';
 })
 
 
-export class RecordSaleModalComponent { 
+export class RecordSaleModalComponent implements OnInit { 
 
 customers: Customer[];
 products: Product[];
@@ -34,6 +35,7 @@ asyncSelected:string = '';
 typeAheadLoading:boolean = false;
 typeAheadNoResults:boolean = false;
 errorMessage:string
+recordsaleFormData:any;
 notificationsOptions = {
   position: ["top", "right"],
   timeOut: 5000,
@@ -41,14 +43,14 @@ notificationsOptions = {
   clickToClose:true
 }
 
-@ViewChild('childModal') 
+@ViewChild('childModal')
 public childModal:ModalDirective;
 
 @Output()
 public onChangeSalesList = new EventEmitter<boolean>();
 
 
-  constructor(private _formBuilder: FormBuilder, private customerService: CustomerService, private productService: ProductService, private notificationService: NotificationsService) { 
+  constructor(private _formBuilder: FormBuilder,private router:Router, private customerService: CustomerService, private productService: ProductService, private notificationService: NotificationsService) { 
 
       this.dataSource = Observable.create((observer:any) => {
         // Runs on every search
@@ -67,6 +69,7 @@ public onChangeSalesList = new EventEmitter<boolean>();
  customerNameFormControl:FormControl = new FormControl('', [Validators.required]);
  customerIdFormControl:FormControl = new FormControl('', [Validators.required]);
  productIdFormControl:FormControl = new FormControl('', [Validators.required]);
+ productPriceFormControl:FormControl = new FormControl('', [Validators.required]);
    
   // record sale form model
   public recordSaleForm: FormGroup;
@@ -100,7 +103,7 @@ public onChangeSalesList = new EventEmitter<boolean>();
             product: ['', Validators.required],
             productId:this.productIdFormControl,
             quantity: ['', Validators.required],
-            price: ['', Validators.required]
+            price: this.productPriceFormControl
         });
   }
 
@@ -117,6 +120,8 @@ public onChangeSalesList = new EventEmitter<boolean>();
 
   recordSale(model: RecordSaleDatas){
     console.log(model);
+    this.recordsaleFormData = model
+    this.router.navigateByUrl("/sale-invoice?form-data="+JSON.stringify(model));
   }
 
 
@@ -135,7 +140,8 @@ public onChangeSalesList = new EventEmitter<boolean>();
 
    typeAheadOnSelectProduct(e:TypeaheadMatch):void {
        this.productIdFormControl.patchValue(e.item.id);
-       console.log('Selected value: ', e.item.id);
+       this.productPriceFormControl.patchValue(e.item.current_selling_price);
+       console.log('Selected value: ', e.item.current_selling_price);
    }
 
    getProductAsObservable(token:string):Observable<any> {

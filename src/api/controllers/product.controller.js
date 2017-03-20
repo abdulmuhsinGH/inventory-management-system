@@ -38,7 +38,7 @@ module.exports.addProducts =function(req, res){
 
 module.exports.viewProducts = function(req, res){
 
-	db.all("SELECT id, name, unit_of_measurment FROM products where deleted_at IS NULL", function(err, rows) {  
+	db.all("SELECT id, name, unit_of_measurment, products.current_cost_price, products.current_selling_price FROM products where deleted_at IS NULL", function(err, rows) {  
         
 		if(err){
 	  			res

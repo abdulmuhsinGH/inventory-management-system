@@ -50,12 +50,13 @@
                                               [typeaheadOptionField]="'name'"
                                               [typeaheadMinLength]="0">
                                               <input type="hidden" formControlname="productId">
+                                              <input type="hidden" formControlName="price">
                                             </div>
                                             <div class="col-md-3 col-sm-3 col-xs-12">
                                               <input type="text" placeholder="quantity" class="form-control col-md-12 col-xs-12" formControlName="quantity">
                                             </div>
                                             <div class="col-md-3 col-sm-3 col-xs-12">
-                                              <input class="form-control col-md-12 col-xs-12" type="text" placeholder="qprice" formControlName="price">
+                                              <!-- <input class="form-control col-md-12 col-xs-12" type="text" placeholder="qprice" formControlName="price"> -->
                                             </div>
 
                                             <div class="col-md-3 col-sm-3 col-xs-12">
@@ -95,7 +96,8 @@
                                   <div class="col-md-12 col-sm-12 col-xs-12 inline pull-left">
                                     <a class="btn btn-primary btn-sm" (click)="newSaleModal.hide()">Cancel</a>
                                     <button class="btn btn-success btn-sm" type="submit" [disabled]="!recordSaleForm.valid" (click)="newSaleModal.hide()">Submit</button>
-                                    <a routerLink="/sale-invoice" class="btn btn-success btn-sm">Generate Invoice</a>
+                                    <a routerLink="/sale-invoice" (click)="recordSale(recordSaleForm.value)" class="btn btn-success btn-sm">Generate Invoice</a>
+                                    
                                   </div>
                                 </div>
 

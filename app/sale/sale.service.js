@@ -15,6 +15,7 @@ var SaleService = (function () {
     function SaleService(http) {
         this.http = http;
         this.productURLAPI = 'http://localhost:5000/sale/';
+        this.saleURLAPI = 'http://localhost:5000/sale/';
     }
     return SaleService;
 }());

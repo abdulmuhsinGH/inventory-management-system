@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var router_1 = require("@angular/router");
 var Observable_1 = require("rxjs/Observable");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var sale_service_1 = require("../sale.service");
@@ -17,9 +18,10 @@ var customer_service_1 = require("../../customer/customer.service");
 var product_service_1 = require("../../product/product.service");
 var angular2_notifications_1 = require("angular2-notifications");
 var RecordSaleModalComponent = (function () {
-    function RecordSaleModalComponent(_formBuilder, customerService, productService, notificationService) {
+    function RecordSaleModalComponent(_formBuilder, router, customerService, productService, notificationService) {
         var _this = this;
         this._formBuilder = _formBuilder;
+        this.router = router;
         this.customerService = customerService;
         this.productService = productService;
         this.notificationService = notificationService;
@@ -39,6 +41,7 @@ var RecordSaleModalComponent = (function () {
         this.customerNameFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
         this.customerIdFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
         this.productIdFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
+        this.productPriceFormControl = new forms_1.FormControl('', [forms_1.Validators.required]);
         this.dataSource = Observable_1.Observable.create(function (observer) {
             // Runs on every search
             observer.next(_this.asyncSelected);
@@ -70,7 +73,7 @@ var RecordSaleModalComponent = (function () {
             product: ['', forms_1.Validators.required],
             productId: this.productIdFormControl,
             quantity: ['', forms_1.Validators.required],
-            price: ['', forms_1.Validators.required]
+            price: this.productPriceFormControl
         });
     };
     RecordSaleModalComponent.prototype.addRecordSaleRow = function () {
@@ -83,6 +86,8 @@ var RecordSaleModalComponent = (function () {
     };
     RecordSaleModalComponent.prototype.recordSale = function (model) {
         console.log(model);
+        this.recordsaleFormData = model;
+        this.router.navigateByUrl("/sale-invoice?form-data=" + JSON.stringify(model));
     };
     RecordSaleModalComponent.prototype.changeTypeAheadLoading = function (e) {
         this.typeAheadLoading = e;
@@ -96,7 +101,8 @@ var RecordSaleModalComponent = (function () {
     };
     RecordSaleModalComponent.prototype.typeAheadOnSelectProduct = function (e) {
         this.productIdFormControl.patchValue(e.item.id);
-        console.log('Selected value: ', e.item.id);
+        this.productPriceFormControl.patchValue(e.item.current_selling_price);
+        console.log('Selected value: ', e.item.current_selling_price);
     };
     RecordSaleModalComponent.prototype.getProductAsObservable = function (token) {
         var query = new RegExp(token, 'ig');
@@ -121,7 +127,7 @@ RecordSaleModalComponent = __decorate([
         templateUrl: 'app/sale/record-sale-modal/record-sale-modal.component.html',
         providers: [product_service_1.ProductService, customer_service_1.CustomerService, sale_service_1.SaleService]
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder, customer_service_1.CustomerService, product_service_1.ProductService, angular2_notifications_1.NotificationsService])
+    __metadata("design:paramtypes", [forms_1.FormBuilder, router_1.Router, customer_service_1.CustomerService, product_service_1.ProductService, angular2_notifications_1.NotificationsService])
 ], RecordSaleModalComponent);
 exports.RecordSaleModalComponent = RecordSaleModalComponent;
 //# sourceMappingURL=record-sale-modal.component.js.map

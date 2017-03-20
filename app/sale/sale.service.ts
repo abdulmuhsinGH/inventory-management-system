@@ -9,8 +9,20 @@ import { Observable } from 'rxjs/Observable';
 
 
 export class SaleService {
-	private productURLAPI = 'http://localhost:5000/sale/';
+	private saleURLAPI = 'http://localhost:5000/sale/';
+
+	salesData:any;
 
 	constructor (private http: Http){
 
 	}
+
+
+
+	public setSalesData(data:any){
+		this.salesData = data;
+	}
+
+
+
+}
