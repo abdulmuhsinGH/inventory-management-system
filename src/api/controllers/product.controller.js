@@ -3,13 +3,14 @@ var sqlite3 = require('sqlite3').verbose(),
 	db = new sqlite3.Database('./inventory_db.db'),
 	bcrypt = require('bcrypt-nodejs');
 
+var moment = require('moment');
 
 module.exports.addProducts =function(req, res){
 	
 	db.serialize(function () {
 	  var stmt = db.prepare('INSERT INTO products(name,unit_of_measurment,created_at,updated_at) VALUES (?,?,?,?)');
-	  var date = new Date();  
-  	  var currentDateTime = date.toLocaleString();
+	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	  var currentDateTime = formattedDate.toLocaleString();
   	  	console.log(currentDateTime);
 	    stmt.run(req.body.name,req.body.unit_of_measurment, currentDateTime,currentDateTime);
 
@@ -120,8 +121,8 @@ module.exports.updateProduct = function(req, res){
 	var productId = req.params.productId;
 	db.serialize(function () {
 	  	var stmt = db.prepare('UPDATE products SET name = ?, unit_of_measurment = ?, updated_at = ? where id='+productId);
-	  	var date = new Date();  
-  	  	var currentDateTime = date.toLocaleString();
+	  	var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	    var currentDateTime = formattedDate.toLocaleString();
   	  	console.log(currentDateTime);
 	    stmt.run(req.body.name, req.body.unit_of_measurment, currentDateTime);
 
@@ -151,8 +152,8 @@ module.exports.deleteProduct = function(req, res){
 	var productId = req.params.productId;
 	db.serialize(function () {
 	  var stmt = db.prepare('UPDATE products SET  deleted_at = ? where id='+productId);
-	  var date = new Date();  
-  	  var currentDateTime = date.toLocaleString();
+	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	  var currentDateTime = formattedDate.toLocaleString();
   	  	console.log(currentDateTime);
 	    stmt.run(currentDateTime);
 
@@ -185,8 +186,8 @@ module.exports.setSellingPrice = function(req, res){
 	var sellingPrice = req.body.current_selling_price;
 	db.serialize(function () {
 	  var stmt = db.prepare('UPDATE products SET  current_selling_price = ?, updated_at = ? where id='+productId);
-	  var date = new Date();  
-  	  var currentDateTime = date.toLocaleString();
+	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	  var currentDateTime = formattedDate.toLocaleString();
   	  	console.log(currentDateTime);
 	    stmt.run(sellingPrice, currentDateTime);
 
@@ -218,8 +219,8 @@ module.exports.setCostPrice = function(req, res){
 	var costPrice = req.body.current_cost_price;
 	db.serialize(function () {
 	  var stmt = db.prepare('UPDATE products SET  current_cost_price = ?, updated_at = ? where id='+productId);
-	  var date = new Date();  
-  	  var currentDateTime = date.toLocaleString();
+	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	  var currentDateTime = formattedDate.toLocaleString();
   	  	console.log(currentDateTime);
 	    stmt.run(costPrice,currentDateTime);
 

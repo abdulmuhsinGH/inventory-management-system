@@ -14,9 +14,11 @@ var http_1 = require("@angular/http");
 var SaleService = (function () {
     function SaleService(http) {
         this.http = http;
-        this.productURLAPI = 'http://localhost:5000/sale/';
         this.saleURLAPI = 'http://localhost:5000/sale/';
     }
+    SaleService.prototype.setSalesData = function (data) {
+        this.salesData = data;
+    };
     return SaleService;
 }());
 SaleService = __decorate([
