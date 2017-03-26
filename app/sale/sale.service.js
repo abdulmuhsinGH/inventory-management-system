@@ -10,14 +10,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var Observable_1 = require("rxjs/Observable");
 //import { Sale } from './sale.interface';
 var SaleService = (function () {
     function SaleService(http) {
         this.http = http;
         this.saleURLAPI = 'http://localhost:5000/sale/';
     }
-    SaleService.prototype.setSalesData = function (data) {
-        this.salesData = data;
+    SaleService.prototype.addSales = function (body) {
+        var bodyString = JSON.stringify(body);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
+        return this.http.post(this.saleURLAPI + 'add/', body, options)
+            .map(this.extractResponse)
+            .catch(this.handleError);
+    };
+    /*private extractData(res: Response) {
+        //console.log(res.json().message);
+    let body = res.json();
+    return body.result as Product[];
+    }*/
+    SaleService.prototype.extractResponse = function (res) {
+        return res.json();
+    };
+    SaleService.prototype.handleError = function (error) {
+        var errMsg;
+        if (error instanceof http_1.Response) {
+            var body = error.json() || '';
+            var err = body.error || JSON.stringify(body);
+            errMsg = error.status + " - " + (error.statusText || '') + " " + err;
+        }
+        else {
+            errMsg = error.message ? error.message : error.toString();
+        }
+        console.error(errMsg);
+        return Observable_1.Observable.throw(errMsg);
     };
     return SaleService;
 }());

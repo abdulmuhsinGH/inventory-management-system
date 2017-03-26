@@ -15,6 +15,7 @@ var ng2_bootstrap_2 = require("ng2-bootstrap");
 var ng2_bootstrap_3 = require("ng2-bootstrap");
 var ng2_table_1 = require("ng2-table/ng2-table");
 var ng2_charts_1 = require("ng2-charts/ng2-charts");
+var angular2_notifications_1 = require("angular2-notifications");
 var sale_component_1 = require("./sale.component");
 var sale_invoice_component_1 = require("./invoice/sale-invoice.component");
 var record_sale_modal_component_1 = require("./record-sale-modal/record-sale-modal.component");
@@ -36,7 +37,8 @@ SaleModule = __decorate([
             ng2_bootstrap_1.PaginationModule,
             ng2_bootstrap_2.ModalModule,
             ng2_bootstrap_3.TypeaheadModule,
-            sale_routing_1.SaleRoutingModule
+            sale_routing_1.SaleRoutingModule,
+            angular2_notifications_1.SimpleNotificationsModule
         ],
         declarations: [
             sale_component_1.SaleComponent,

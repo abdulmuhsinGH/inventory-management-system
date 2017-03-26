@@ -9,6 +9,7 @@ module.exports.addCustomer =function(req, res){
 	console.log(customer.name);
 	db.serialize(function () {
 	  var stmt = db.prepare('INSERT INTO customers(name, phone_number, email, description, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)');
+	  var date = new Date(); 
 	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
   	  var currentDateTime = formattedDate.toLocaleString();
 
@@ -121,6 +122,7 @@ module.exports.updateCustomer = function(req, res){
 	var customer = req.body;
 	db.serialize(function () {
 	  var stmt = db.prepare('UPDATE customers SET name = ?, phone_number = ?, email = ?, description = ?, updated_at = ? where id='+customerId);
+	  var date = new Date(); 
 	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
   	  var currentDateTime = formattedDate.toLocaleString();
   	  	console.log(currentDateTime);
@@ -152,6 +154,7 @@ module.exports.deleteCustomer = function(req, res){
 	var customerId = req.params.customerId;
 	db.serialize(function () {
 	  var stmt = db.prepare('UPDATE customers SET  deleted_at = ? where id='+customerId);
+	  var date = new Date(); 
 	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
   	  var currentDateTime = formattedDate.toLocaleString();
   	  	console.log(currentDateTime);

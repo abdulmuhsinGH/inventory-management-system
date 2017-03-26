@@ -4,34 +4,47 @@ var sqlite3 = require('sqlite3').verbose(),
 
 var moment = require('moment');
 
+
+module.exports.viewAllSales = function(req, res){
+	res
+				  .status(200)
+				  .json({message:"Hello There Sales"});
+}
+
 module.exports.addSale =function(req, res){
 
 	var sales = req.body;
-	console.log(supplier.name);
+	console.log(sales);
+	var date = new Date(); 
+	var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	var currentDateTime = formattedDate.toLocaleString();
+  	console.log("record sales");
+		//console.log('date', currentDateTime);
+
 	db.serialize(function () {
-	  var stmt = db.prepare('INSERT INTO sales(sales_type_fk, payment_status_fk, created_at, updated_at) VALUES (?, ?, ?, ?)');
-	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
-  	  var currentDateTime = formattedDate.toLocaleString();
 
-
-	    stmt.run( 2, 3,currentDateTime, currentDateTime);
+		
+	  	var stmt = db.prepare('INSERT INTO sales(sales_type_fk, payment_status_fk, created_at, updated_at) VALUES (?, ?, ?, ?)');
+	  	
+  	  	console.log(stmt);
+	    stmt.run( sales.sales_type, sales.payment_type, currentDateTime, currentDateTime);
 
 	  	stmt.finalize(function(err){
-	  		console.log(err);
+	  		console.log();
 	  		if(err){
 	  			res
-				  .status(500)
-				  .json(err);
+				  .status(00)
+				  .json("error");
 	  		}
 	  		else{
 	  			db.get("SELECT last_insert_rowid() as id", function (err, row) {
-				     console.log('Last inserted id is: ' + row['id']);
-
+				     console.log('Last inserted id is: ', row['id']);
+/*
 				     res
-				  .status(500)
-				  .json({transaction_type: 'sale', id:row['id']});
+				  .status(200)
+				  .json({transaction_type: 'sale', id:row['id']});*/
 
-				  exports.logTransactions(sales,res, {transaction_type: 'sale', id:row['id']})
+				 exports.logTransactions(sales,res, {transaction_type: 'sale', id:row['id']})
 				});
 
 	  		}
@@ -44,7 +57,7 @@ module.exports.addSale =function(req, res){
 }
 
 module.exports.logTransactions = function(req, res, row){
-
+	var date = new Date(); 
 	var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
   	var currentDateTime = formattedDate.toLocaleString();
 
@@ -52,16 +65,16 @@ module.exports.logTransactions = function(req, res, row){
      if( row.transaction_type==="sale"){
 
      		db.serialize(function () {
-	  			var stmt = db.prepare('INSERT INTO transaction_.logs(sales_id,customer_id, transaction_details, total_sales_amount, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)');
+	  			var stmt = db.prepare('INSERT INTO transaction_logs(sales_id,customer_id, transaction_details, total_sales_amount, created_at, update_at) VALUES (?, ?, ?, ?, ?, ?)');
 		  		
-		    	stmt.run( row.id, req.customer_id, req.sales, req.total_sales_amount, currentDateTime, currentDateTime);
+		    	stmt.run( row.id, req.customerId, JSON.stringify(req.sales), req.total_sales_amount, currentDateTime, currentDateTime);
 
 		  		stmt.finalize(function(err){
-		  		console.log(err);
+		  		
 			  		if(err){
 			  			res
 						  .status(500)
-						  .json(err);
+						  .json({state:'fail', user:null, message:err});
 			  		}
 			  		else{
 			  			res
