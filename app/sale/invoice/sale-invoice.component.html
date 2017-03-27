@@ -42,7 +42,7 @@
                   </div>
                   <div class="x_content">
 
-                    <section *ngIf="recordSaleFormData" class="content invoice">
+                    <section *ngIf="recordSaleParamData" class="content invoice">
                     
                     
                       <!-- title row -->
@@ -61,8 +61,6 @@
                           From
                           <address>
                                           <strong>Iron Admin, Inc.</strong>
-                                          <br>795 Freedom Ave, Suite 600
-                                          <br>New York, CA 94107
                                           <br>Phone: 1 (804) 123-9876
                                           <br>Email: ironadmin.com
                                       </address>
@@ -71,9 +69,7 @@
                         <div class="col-sm-4 invoice-col">
                           To
                           <address>
-                                          <strong>{{recordSaleFormData.customer}}</strong>
-                                          <br>795 Freedom Ave, Suite 600
-                                          <br>New York, CA 94107
+                                          <strong>{{recordSaleParamData.customer_name}}</strong>
                                           <br>Phone: 1 (804) 123-9876
                                           <br>Email: jon@ironadmin.com
                                       </address>
@@ -108,7 +104,7 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr *ngFor="let recordSaleProductInfo of recordSaleFormData.sales">
+                              <tr *ngFor="let recordSaleProductInfo of recordSaleParamData.transaction_details">
                                 <td>{{recordSaleProductInfo.quantity}}</td>
                                 <td>{{recordSaleProductInfo.product}}</td>
                                 <td>455-981-221</td>

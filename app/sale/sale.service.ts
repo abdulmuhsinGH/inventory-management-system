@@ -3,7 +3,7 @@ import { Http, Response, RequestOptions, Headers} from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-//import { Sale } from './sale.interface';
+import { SalesTransactionLogs } from './sales-transaction-logs.interface';
 
 @Injectable()
 
@@ -31,12 +31,18 @@ export class SaleService {
 
 	}
 
+	public getSalesList() : Observable<SalesTransactionLogs[]> {
+			return this.http.get(this.saleURLAPI + 'view/')
+							.map(this.extractData)
+							.catch(this.handleError);
+	}
 
-	/*private extractData(res: Response) {
-		//console.log(res.json().message);
+
+	private extractData(res: Response) {
+		console.log(res.json().message);
     let body = res.json();
-    return body.result as Product[];
-	}*/
+    return body.result as SalesTransactionLogs[];
+	}
 
 	private extractResponse(res: Response) {
 	

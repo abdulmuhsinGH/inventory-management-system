@@ -35,8 +35,9 @@ var SaleInvoiceComponent = (function () {
         this.childModal.hide();
     };
     SaleInvoiceComponent.prototype.ngOnInit = function () {
-        this.recordSaleFormData = JSON.parse(this.route.snapshot.queryParams['form-data']);
-        this.calculateTotalSales(this.recordSaleFormData.sales);
+        this.recordSaleParamData = JSON.parse(this.route.snapshot.queryParams['form-data']);
+        console.log(this.recordSaleParamData);
+        this.calculateTotalSales(this.recordSaleParamData.transaction_details);
         this.calculateExtraCost();
     };
     SaleInvoiceComponent.prototype.calculateTotalSales = function (salesData) {
@@ -52,7 +53,7 @@ var SaleInvoiceComponent = (function () {
     };
     SaleInvoiceComponent.prototype.saveInvoice = function () {
         var _this = this;
-        var invoice = this.recordSaleFormData;
+        var invoice = this.recordSaleParamData;
         invoice.total_sales_amount = this.totalSalesAmountBeforeTax;
         invoice.sales_type = 2;
         invoice.payment_type = 3;

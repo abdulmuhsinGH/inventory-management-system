@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Observable_1 = require("rxjs/Observable");
-//import { Sale } from './sale.interface';
 var SaleService = (function () {
     function SaleService(http) {
         this.http = http;
@@ -25,11 +24,16 @@ var SaleService = (function () {
             .map(this.extractResponse)
             .catch(this.handleError);
     };
-    /*private extractData(res: Response) {
-        //console.log(res.json().message);
-    let body = res.json();
-    return body.result as Product[];
-    }*/
+    SaleService.prototype.getSalesList = function () {
+        return this.http.get(this.saleURLAPI + 'view/')
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
+    SaleService.prototype.extractData = function (res) {
+        console.log(res.json().message);
+        var body = res.json();
+        return body.result;
+    };
     SaleService.prototype.extractResponse = function (res) {
         return res.json();
     };

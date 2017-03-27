@@ -21,7 +21,7 @@
 
                                 <div class="form-group">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                          <input type="text"  placeholder="Customer" class="form-control" formControlName="customer"
+                                          <input type="text"  placeholder="Customer" class="form-control" formControlName="customer_name"
                                           [typeahead]="customers"
                                           (typeaheadOnSelect)="typeAheadOnSelectCustomer($event)"
                                           [typeaheadOptionsLimit]="7"
@@ -33,9 +33,9 @@
                                 </div>
                                 <div class="ln_solid"></div>
                                  
-                                <div formArrayName="sales">
+                                <div formArrayName="transaction_details">
 
-                                  <div *ngFor="let sale of recordSaleForm.controls.sales.controls; let i=index">
+                                  <div *ngFor="let sale of recordSaleForm.controls.transaction_details.controls; let i=index">
 
                                      
 
@@ -67,7 +67,7 @@
                                                     </button>
                                                   </li>
                                                   <li>
-                                                    <button type="button" class="btn btn-danger btn-xs" *ngIf="recordSaleForm.controls.sales.controls.length > 1" (click)="removeRecordSaleRow(i)">
+                                                    <button type="button" class="btn btn-danger btn-xs" *ngIf="recordSaleForm.controls.transaction_details.controls.length > 1" (click)="removeRecordSaleRow(i)">
                                                       Remove Record
                                                     </button>
                                                   </li>

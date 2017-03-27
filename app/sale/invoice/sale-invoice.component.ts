@@ -23,7 +23,7 @@ export class SaleInvoiceComponent implements OnInit {
 title = 'Invoice';
 
 
-public recordSaleFormData:any;
+public recordSaleParamData:any;
 public totalSalesAmountBeforeTax:number = 0;
 public tax:number
 public totalSalesAmountAftertax:number;
@@ -60,8 +60,9 @@ public notificationsOptions = {
   }
   public ngOnInit(){
 
-  	this.recordSaleFormData = JSON.parse(this.route.snapshot.queryParams['form-data']);
-    this.calculateTotalSales(this.recordSaleFormData.sales);
+  	this.recordSaleParamData = JSON.parse(this.route.snapshot.queryParams['form-data']);
+    console.log(this.recordSaleParamData);
+    this.calculateTotalSales(this.recordSaleParamData.transaction_details);
     this.calculateExtraCost();
 
 
@@ -89,7 +90,7 @@ public notificationsOptions = {
 
   public saveInvoice(){
 
-    let invoice = this.recordSaleFormData;
+    let invoice = this.recordSaleParamData;
     invoice.total_sales_amount = this.totalSalesAmountBeforeTax;
 
     invoice.sales_type = 2;

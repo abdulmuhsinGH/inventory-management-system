@@ -6,9 +6,35 @@ var moment = require('moment');
 
 
 module.exports.viewAllSales = function(req, res){
-	res
+
+	var query = "select transaction_logs.id as transaction_logs_id, transaction_logs.customer_id, customers.name as customer_name, transaction_logs.transaction_details,transaction_logs.total_sales_amount, transaction_logs.created_at from transaction_logs left outer join sales, customers on (transaction_logs.sales_id = sales.id and transaction_logs.customer_id = customers.id) where customers.deleted_at is null order by datetime(transaction_logs.created_at) desc"
+
+	db.all(query, function(err, rows) {  
+        
+		if(err){
+	  			res
+				  .status(500)
+				  .json(err);
+	  		}
+  		else if(!rows){
+  			res
+			  .status(200)
+			  .json({state: 'success', user: null, result: "No Sale Records Found"});
+
+  		}
+  		else{
+  			res
+			  .status(200)
+			  .json({state: 'success', user: null, message:"Sale Records found", result: rows});
+  		}
+       
+    }); 
+
+
+
+	/*res
 				  .status(200)
-				  .json({message:"Hello There Sales"});
+				  .json({message:"Hello There Sales"});*/
 }
 
 module.exports.addSale =function(req, res){
@@ -67,7 +93,7 @@ module.exports.logTransactions = function(req, res, row){
      		db.serialize(function () {
 	  			var stmt = db.prepare('INSERT INTO transaction_logs(sales_id,customer_id, transaction_details, total_sales_amount, created_at, update_at) VALUES (?, ?, ?, ?, ?, ?)');
 		  		
-		    	stmt.run( row.id, req.customerId, JSON.stringify(req.sales), req.total_sales_amount, currentDateTime, currentDateTime);
+		    	stmt.run( row.id, req.customerId, JSON.stringify(req.transaction_details), req.total_sales_amount, currentDateTime, currentDateTime);
 
 		  		stmt.finalize(function(err){
 		  		
