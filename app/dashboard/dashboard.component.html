@@ -156,11 +156,11 @@
           </div>
           <div class="x_content">
             <div class="card-box table-responsive">
-            <ng-table [config]="config"
-                        (tableChanged)="onChangeTable(config)"
-                        (cellClicked)="onCellClick($event)"
-                        [rows]="rows" [columns]="columns">
-            </ng-table>
+              <ng-table [config]="config"
+                          (tableChanged)="onChangeTable(config)"
+                          (cellClicked)="onCellClick($event)"
+                          [rows]="rows" [columns]="columns">
+              </ng-table>
               <pagination *ngIf="config.paging"
                           class="pagination-sm"
                           [(ngModel)]="page"
@@ -181,60 +181,241 @@
       <div class="col-md-6 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Product Orders </h2>
+            <h2>Debtors &amp; Creditors</h2>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-            <article class="media event">
-              <a class="pull-left date">
-                <p class="month">April</p>
-                <p class="day">23</p>
-              </a>
-              <div class="media-body">
-                <a class="title" href="#">Item One Title</a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </div>
-            </article>
-            <article class="media event">
-              <a class="pull-left date">
-                <p class="month">April</p>
-                <p class="day">23</p>
-              </a>
-              <div class="media-body">
-                <a class="title" href="#">Item Two Title</a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </div>
-            </article>
-            <article class="media event">
-              <a class="pull-left date">
-                <p class="month">April</p>
-                <p class="day">23</p>
-              </a>
-              <div class="media-body">
-                <a class="title" href="#">Item Two Title</a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </div>
-            </article>
-            <article class="media event">
-              <a class="pull-left date">
-                <p class="month">April</p>
-                <p class="day">23</p>
-              </a>
-              <div class="media-body">
-                <a class="title" href="#">Item Two Title</a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </div>
-            </article>
-            <article class="media event">
-              <a class="pull-left date">
-                <p class="month">April</p>
-                <p class="day">23</p>
-              </a>
-              <div class="media-body">
-                <a class="title" href="#">Item Three Title</a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </div>
-            </article>
+
+          <tabset>
+          <tab heading="Debtors">
+             <!-- start debtors list -->
+                    <table class="table table-striped projects">
+                      <thead>
+                        <tr>
+                          <th style="width: 1%">#</th>
+                          <th style="width: 20%"> Name</th>
+                          <th>Total Debt</th>
+                          <th>Paid</th>
+                          <th>Status</th>
+                          <th style="width: 20%">Remainder</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>#</td>
+                          <td>
+                            <a>Ms Mary Jane</a>
+                            
+                          </td>
+                          <td>
+                            1111
+                          </td>
+                          <td class="project_progress">
+                            
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-xs">Success</button>
+                          </td>
+                          <td>
+                           100
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>#</td>
+                          <td>
+                            <a>Ms Mary Jane</a>
+                            
+                          </td>
+                          <td>
+                            1111
+                          </td>
+                          <td class="project_progress">
+                            
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-xs">Success</button>
+                          </td>
+                          <td>
+                           100
+                          </td>
+                        </tr>
+                       <tr>
+                          <td>#</td>
+                          <td>
+                            <a>Ms Mary Jane</a>
+                            
+                          </td>
+                          <td>
+                            1111
+                          </td>
+                          <td class="project_progress">
+                            
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-xs">Success</button>
+                          </td>
+                          <td>
+                           100
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>#</td>
+                          <td>
+                            <a>Ms Mary Jane</a>
+                            
+                          </td>
+                          <td>
+                            1111
+                          </td>
+                          <td class="project_progress">
+                            
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-xs">Success</button>
+                          </td>
+                          <td>
+                           100
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>#</td>
+                          <td>
+                            <a>Ms Mary Jane</a>
+                            
+                          </td>
+                          <td>
+                            1111
+                          </td>
+                          <td class="project_progress">
+                            
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-xs">Success</button>
+                          </td>
+                          <td>
+                           100
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- end debtors list -->
+
+          </tab>
+          <tab heading="Creditors">
+             <!-- start creditors list -->
+                    <table class="table table-striped projects">
+                      <thead>
+                        <tr>
+                          <th style="width: 1%">#</th>
+                          <th style="width: 20%"> Name</th>
+                          <th>Total Debt</th>
+                          <th>Paid</th>
+                          <th>Status</th>
+                          <th style="width: 20%">Remainder</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>#</td>
+                          <td>
+                            <a>Ms Mary Janet</a>
+                            
+                          </td>
+                          <td>
+                            1111
+                          </td>
+                          <td class="project_progress">
+                            
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-xs">Success</button>
+                          </td>
+                          <td>
+                           100
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>#</td>
+                          <td>
+                            <a>Ms Mary Jane</a>
+                            
+                          </td>
+                          <td>
+                            1111
+                          </td>
+                          <td class="project_progress">
+                            
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-xs">Success</button>
+                          </td>
+                          <td>
+                           100
+                          </td>
+                        </tr>
+                       <tr>
+                          <td>#</td>
+                          <td>
+                            <a>Ms Mary Jane</a>
+                            
+                          </td>
+                          <td>
+                            1111
+                          </td>
+                          <td class="project_progress">
+                            
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-xs">Success</button>
+                          </td>
+                          <td>
+                           100
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>#</td>
+                          <td>
+                            <a>Ms Mary Jane</a>
+                            
+                          </td>
+                          <td>
+                            1111
+                          </td>
+                          <td class="project_progress">
+                            
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-xs">Success</button>
+                          </td>
+                          <td>
+                           100
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>#</td>
+                          <td>
+                            <a>Ms Mary Jane</a>
+                            
+                          </td>
+                          <td>
+                            1111
+                          </td>
+                          <td class="project_progress">
+                            
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-success btn-xs">Success</button>
+                          </td>
+                          <td>
+                           100
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- end creditors list -->
+          </tab>
+        </tabset>
+           
           </div>
         </div>
       </div>

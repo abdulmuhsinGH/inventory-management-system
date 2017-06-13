@@ -18,11 +18,11 @@
     
     <div class="clearfix"></div>
 
-    <div class="row">
+    <div class="row" *ngIf="product">
       <div class="col-md-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>New Partner Contracts Consultancy</h2>
+            <h2 >{{product.name}}</h2>
             
             <div class="clearfix"></div>
           </div>
@@ -33,15 +33,15 @@
 
               <ul class="stats-overview">
                 <li>
-                  <span class="name"> Estimated budget </span>
+                  <span class="name"> Total Sales </span>
                   <span class="value text-success"> 2300 </span>
                 </li>
                 <li>
-                  <span class="name"> Total amount spent </span>
+                  <span class="name"> Total cost</span>
                   <span class="value text-success"> 2000 </span>
                 </li>
                 <li class="hidden-phone">
-                  <span class="name"> Estimated project duration </span>
+                  <span class="name"> Profit </span>
                   <span class="value text-success"> 20 </span>
                 </li>
               </ul>
@@ -51,7 +51,7 @@
 
               <div>
 
-                <h4>Recent Activity</h4>
+                <h4>Recent Transactions</h4>
 
                 <!-- end of user messages -->
                 <ul class="messages">
@@ -118,42 +118,31 @@
               <section class="panel">
 
                 <div class="x_title">
-                  <h2>Project Description</h2>
+                  <h2>Product Description</h2>
                   <div class="clearfix"></div>
                 </div>
                 <div class="panel-body">
-                  <h3 class="green"><i class="fa fa-paint-brush"></i> Gentelella</h3>
+                  <h3> {{product.name}}</h3>
 
                   <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
                   <br />
 
                   <div class="project_detail">
-
-                    <p class="title">Client Company</p>
+                  <p class="title">Unit of Measureument</p>
+                    <p>{{product.unit_of_measurment}}</p>
+                    <p class="title">Quantiy in stock</p>
                     <p>Deveint Inc</p>
-                    <p class="title">Project Leader</p>
+                    <p class="title">Quantity Sold</p>
                     <p>Tony Chicken</p>
+
                   </div>
 
                   <br />
-                  <h5>Project files</h5>
-                  <ul class="list-unstyled project_files">
-                    <li><a href=""><i class="fa fa-file-word-o"></i> Functional-requirements.docx</a>
-                    </li>
-                    <li><a href=""><i class="fa fa-file-pdf-o"></i> UAT.pdf</a>
-                    </li>
-                    <li><a href=""><i class="fa fa-mail-forward"></i> Email-from-flatbal.mln</a>
-                    </li>
-                    <li><a href=""><i class="fa fa-picture-o"></i> Logo.png</a>
-                    </li>
-                    <li><a href=""><i class="fa fa-file-word-o"></i> Contract-10_12_2014.docx</a>
-                    </li>
-                  </ul>
-                  <br />
+                  
 
                   <div class="text-center mtop20">
-                    <a href="#" class="btn btn-sm btn-primary">Add files</a>
-                    <a href="#" class="btn btn-sm btn-warning">Report contact</a>
+                    <set-selling-price-modal [productId]="productId" (onSettingSellingPrice)="onChangeProductDetails()"></set-selling-price-modal>
+                     <set-cost-price-modal [productId]="productId" (onSettingSellingPrice)="onChangeProductDetails()"></set-cost-price-modal>
                   </div>
                 </div>
 
@@ -167,4 +156,3 @@
       </div>
     </div>
   </div>
-</div>

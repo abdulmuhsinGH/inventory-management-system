@@ -8,7 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
+//import { TabsetConfig } from 'ng2-bootstrap';
+//import { PaginationConfig } from 'ng2-bootstrap/pagination';
 var DashboardComponent = (function () {
     function DashboardComponent() {
         this.title = 'Dashboard';
@@ -74,6 +76,10 @@ var DashboardComponent = (function () {
             className: ['table', 'table-striped', 'table-bordered']
         };
         this.data = tableData;
+        this.tabs = [
+            { title: 'Debtors', content: 'Dynamic content 1' },
+            { title: 'Creditors', content: 'Dynamic content 2' },
+        ];
         this.length = this.data.length;
     }
     DashboardComponent.prototype.ngOnInit = function () {
@@ -172,15 +178,24 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.onCellClick = function (data) {
         console.log(data);
     };
-    DashboardComponent = __decorate([
-        core_1.Component({
-            /*selector: 'my-dashboard',*/
-            templateUrl: './app/dashboard/dashboard.component.html',
-        }), 
-        __metadata('design:paramtypes', [])
-    ], DashboardComponent);
+    DashboardComponent.prototype.setActiveTab = function (index) {
+        this.tabs[index].active = true;
+    };
+    ;
+    DashboardComponent.prototype.removeTabHandler = function () {
+        console.log('Remove Tab handler');
+    };
+    ;
     return DashboardComponent;
 }());
+DashboardComponent = __decorate([
+    core_1.Component({
+        /*selector: 'my-dashboard',*/
+        changeDetection: core_1.ChangeDetectionStrategy.OnPush,
+        templateUrl: './app/dashboard/dashboard.component.html',
+    }),
+    __metadata("design:paramtypes", [])
+], DashboardComponent);
 exports.DashboardComponent = DashboardComponent;
 var tableData = [
     {

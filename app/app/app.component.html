@@ -3,7 +3,7 @@
 	<div class="container body">
 		<!-- sidebar -->
 		<div class="main_container">
-		        <div class="col-md-3 left_col">
+		        <div class="col-md-3 left_col menu_fixed">
 		          <div class="left_col scroll-view">
 		            <div class="navbar nav_title" style="border: 0;">
 		              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Shop Name</span></a>
@@ -30,22 +30,22 @@
 		              <div class="menu_section">
 		               
 		                <ul class="nav side-menu">
-		                  <li><a routerLink="/dashboard"><i class="fa fa-home"></i> Dashboard </a>
+		                  <li  routerLinkActive="active"><a routerLink="/dashboard" ><i class="fa fa-home"></i> Dashboard </a>
 		                    
 		                  </li>
-		                  <li><a routerLink="/product"><i class="fa fa-edit"></i> Product</a>
+		                  <!-- <li><a routerLink="/product"><i class="fa fa-edit"></i> Product</a>
+		                    
+		                  </li> -->
+		                  <li routerLinkActive="active"><a routerLink="/inventory" ><i class="fa fa-desktop"></i> Inventories </a>
 		                    
 		                  </li>
-		                  <li><a routerLink="/inventory"><i class="fa fa-desktop"></i> Inventories </a>
-		                    
-		                  </li>
-		                  <li><a routerLink="/supplier"><i class="fa fa-table"></i> Suppliers</a>
+		                  <li routerLinkActive="active"><a routerLink="/supplier" ><i class="fa fa-table"></i> Suppliers</a>
 		                   
 		                  </li>
-		                  <li><a routerLink="/customer"><i class="fa fa-bar-chart-o"></i> Customers</a>
+		                  <li routerLinkActive="active"><a routerLink="/customer" ><i class="fa fa-bar-chart-o"></i> Customers</a>
 		                    
 		                  </li>
-		                  <li><a routerLink="/sale"><i class="fa fa-clone"></i>Sales</a>
+		                  <li routerLinkActive="active"><a routerLink="/sale" ><i class="fa fa-clone"></i>Sales</a>
 		                    
 		                  </li>
 
@@ -55,10 +55,10 @@
 		              <div class="menu_section">
 		               
 		                <ul class="nav side-menu">
-		                  <li><a routerLink="/product"><i class="fa fa-bug"></i> Generate Reports</a>
+		                  <li routerLinkActive="active"><a routerLink="/financial-report" ><i class="fa fa-bug"></i> Generate Reports</a>
 		                    
 		                  </li>
-		                  <li><a routerLink="/product"><i class="fa fa-windows"></i> Users</a>
+		                  <li routerLinkActive="active"><a routerLink="/product" ><i class="fa fa-windows"></i> Users</a>
 		                    
 		                  </li>
 		                  

@@ -5,42 +5,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var dashboard_component_1 = require('../dashboard/dashboard.component');
-var product_component_1 = require('../product/product.component');
-var inventory_component_1 = require('../inventory/inventory.component');
-var customer_component_1 = require('../customer/customer.component');
-var supplier_component_1 = require('../supplier/supplier.component');
-var sale_component_1 = require('../sale/sale.component');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var dashboard_component_1 = require("../dashboard/dashboard.component");
+var financial_report_component_1 = require("../financial-report/financial-report.component");
 var routes = [
     { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
-    { path: 'product', component: product_component_1.ProductComponent },
-    { path: 'inventory', component: inventory_component_1.InventoryComponent },
-    { path: 'customer', component: customer_component_1.CustomerComponent },
-    { path: 'supplier', component: supplier_component_1.SupplierComponent },
-    { path: 'sale', component: sale_component_1.SaleComponent },
+    { path: 'financial-report', component: financial_report_component_1.FinancialReportComponent },
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
     }
-    AppRoutingModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                router_1.RouterModule.forRoot(routes)
-            ],
-            exports: [
-                router_1.RouterModule
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppRoutingModule);
     return AppRoutingModule;
 }());
+AppRoutingModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            router_1.RouterModule.forRoot(routes)
+        ],
+        exports: [
+            router_1.RouterModule
+        ]
+    })
+], AppRoutingModule);
 exports.AppRoutingModule = AppRoutingModule;
-exports.routingComponents = [dashboard_component_1.DashboardComponent];
+exports.routingComponents = [dashboard_component_1.DashboardComponent, financial_report_component_1.FinancialReportComponent];
 //# sourceMappingURL=app.routing.js.map

@@ -1,0 +1,130 @@
+page content -->
+  <div class="">
+
+
+    <!-- top page title -->
+    <div class="page-title">
+      <div class="title_left">
+        <h3>{{title}}</h3>
+      </div>
+
+      <div class="title_right">
+        <div class="col-md-5 col-sm-5 col-xs-12 form-group top_search">
+          <div class="input-group">
+            <input placeholder="Search Inventory" #inventorySearchBox (keyup)="search(inventorySearchBox.value)"
+           class="form-control"/>
+          </div>
+        </div>
+        <add-inventory-modal [suppliers]="suppliers" [products]="products" (onInventoryAdd)="onSaveInventory()"></add-inventory-modal>
+        <a class="btn btn-round btn-primary" routerLink="/product">View Product List</a>
+      </div>
+
+
+    </div>
+    <!-- /top page title -->
+
+    
+
+      <!-- Inventory Details -->
+      <div class="modal fade" bsModal #inventoryDetailsModal="bs-modal" [config]="{backdrop: 'static'}"
+           tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" aria-label="Close" (click)="inventoryDetailsModal.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">Inventory Details</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="x_panel">
+                    <div class="x_content">
+                      <br/>
+                      <ul class="messages">
+                          <li>
+                            <div class="message_wrapper">
+                              <h4 class="heading">Rice</h4>
+                              <blockquote class="message">
+                                <ul>
+                                  <li>Supplier Name - </li>
+                                  <li>Cost Price - </li>
+                                  <li>Unit Ordered - </li>
+                                  <li>Expiry Date - </li>
+                                  <li>Order Date - </li>
+                                  <li>Status - </li>
+                                </ul>
+                              </blockquote>
+                              <br />
+                              
+                            </div>
+                          </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+       <!-- /Inventory Details -->
+    <!--/modals -->
+
+    <div class="clearfix"></div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2></h2>
+             
+              <div class="clearfix"></div>
+            </div>
+            <div *ngIf="inventories" class="x_content">
+              <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Inventory List</h2>
+                    
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Product Name</th>
+                          <th>Selling Price</th>
+                          <th>Cost Price</th>
+                          <th>Quantity Added</th>
+                          <th>Total Quantity</th>
+                           <th>Date created</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let inventory of inventories; let i = index">
+                          <th scope="row">{{i+1}}</th>
+                          <td>{{inventory.name}}</td>
+                          <td>{{inventory.selling_price}}</td>
+                          <td>{{inventory.cost_price}}</td>
+                          <td>{{inventory.quantity}}</td>
+                          <td>{{inventory.total_quantity}}</td>
+                          <td>{{inventory.created_at}}</td>
+                           <td></td>
+                        </tr>
+                       
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- /page content -->

@@ -1,12 +1,15 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
+
+
 /*import { MyDateRangePickerModule } from 'mydaterangepicker/dist/my-date-range-picker.module';*/
 
 
 import { PaginationModule } from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap';
+import { TabsModule } from 'ng2-bootstrap';
 
 import { TypeaheadModule } from 'ng2-bootstrap';
 
@@ -18,11 +21,14 @@ import { AppRoutingModule,routingComponents } from './app.routing';
 
 
 import { DashboardComponent }   from '../dashboard/dashboard.component';
-import { ProductComponent }   from '../product/product.component';
-import { InventoryComponent }   from '../inventory/inventory.component';
-import { CustomerComponent }   from '../customer/customer.component';
-import { SupplierComponent }   from '../supplier/supplier.component';
-import { SaleComponent }   from '../sale/sale.component';
+import { FinancialReportComponent }   from '../financial-report/financial-report.component';
+
+import { ProductModule }   from '../product/product.module';
+import { InventoryModule }   from '../inventory/inventory.module';
+import { CustomerModule }   from '../customer/customer.module';
+import { SupplierModule }   from '../supplier/supplier.module';
+import { SaleModule }   from '../sale/sale.module';
+
 
 
 
@@ -31,25 +37,33 @@ import { SaleComponent }   from '../sale/sale.component';
 @NgModule({
   imports:      [ 
   				  BrowserModule,
+            FormsModule,
+            HttpModule,
+            /*JsonpModule,*/
   				  AppRoutingModule,
             FormsModule,
             HttpModule,
             ReactiveFormsModule,
             ChartsModule,
             Ng2TableModule,
-            PaginationModule,
+            PaginationModule.forRoot(),
             ModalModule,
-            TypeaheadModule
+            TypeaheadModule,
+            ProductModule,
+            SupplierModule,
+            CustomerModule,
+            SaleModule,
+            InventoryModule,
+            TabsModule.forRoot(),
+           
             
   				],
   declarations: [ AppComponent,
   				  DashboardComponent,
-  				  routingComponents,
-            ProductComponent,
-            InventoryComponent,
-            CustomerComponent,
-            SupplierComponent,
-            SaleComponent,
+            FinancialReportComponent,
+  				  routingComponents,            
+            
+            
             
   				    ],
   bootstrap:    [ AppComponent ]

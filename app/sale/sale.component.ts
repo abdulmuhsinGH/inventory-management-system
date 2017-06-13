@@ -1,11 +1,12 @@
 import { NgModule, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators} from '@angular/forms';
 
 
 import * as moment from 'moment';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { PaginationModule } from 'ng2-bootstrap';
 import { ModalDirective } from   'ng2-bootstrap';
+import { RecordSaleDatas } from './record-sale.interface';
 
 
 @Component({
@@ -17,16 +18,6 @@ import { ModalDirective } from   'ng2-bootstrap';
 export class SaleComponent { 
 
 title = 'Sales';
-
-@ViewChild('childModal') public childModal:ModalDirective;
- 
-  public showChildModal():void {
-    this.childModal.show();
-  }
- 
-  public hideChildModal():void {
-    this.childModal.hide();
-  }
 
  // lineChart
   public lineChartData:Array<any> = [
@@ -56,6 +47,18 @@ title = 'Sales';
 
   public lineChartLegend:boolean = true;
   public lineChartType:string = 'line';
+
+  // Formbuilder will be used to simplify syntax and validation
+  constructor() { 
+      
+  }
+  //initialize form
+  ngOnInit(){
+     
+      
+  }
+
+ 
 
 
 }
