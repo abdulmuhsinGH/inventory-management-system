@@ -58,20 +58,19 @@
                         </div>
 
                         <!-- start of recent sales -->
-                        <ul class="messages">
+                        <ul *ngFor="let sale of salesList" class="messages">
                           <li>
-                            <img src="images/img.jpg" class="avatar" alt="Avatar">
+                           
                             <div class="message_date">
-                              <h3 class="date text-info">24</h3>
-                              <p class="month">May</p>
+                              <h3 class="date text-info">{{sale.created_at | date:'d'}}</h3>
+                              <p class="month">{{sale.created_at | date:'MMM'}}</p>
                             </div>
                             <div class="message_wrapper">
-                              <h4 class="heading">Ms Jane</h4>
+                              <h4 class="heading">{{sale.customer_name}}</h4>
                               <blockquote class="message">
                                 <ul>
-                                  <li>Rice</li>
-                                  <li> Cement</li>
-                                 
+                                  <li *ngFor="let productDetails of sale.transaction_details">{{productDetails.product}}</li>
+                                                                  
                                 </ul>
 
                               </blockquote>
@@ -81,68 +80,13 @@
                             </div>
                             <div class="col-xs-12 bottom text-left">
                                 <div class="col-xs-12 col-sm-6 emphasis">  
-                                  <a routerLink="/sale-invoice"  class="btn btn-primary btn-xs">
+                                  <a (click)=viewInvoice(sale) class="btn btn-primary btn-xs">
                                     View Invoice
                                   </a>
                                 </div>
                               </div>
                           </li>
-                          <li>
-                            <img src="images/img.jpg" class="avatar" alt="Avatar">
-                            <div class="message_date">
-                              <h3 class="date text-info">24</h3>
-                              <p class="month">May</p>
-                            </div>
-                            <div class="message_wrapper">
-                              <h4 class="heading">Ms Jane</h4>
-                              <blockquote class="message">
-                                <ul>
-                                  <li>Rice</li>
-                                  <li> Cement</li>
-                                 
-                                </ul>
-
-                              </blockquote>
-                              <br/>
-                              
-                             
-                            </div>
-                            <div class="col-xs-12 bottom text-left">
-                                <div class="col-xs-12 col-sm-6 emphasis">  
-                                  <a routerLink="/sale-invoice"  class="btn btn-primary btn-xs">
-                                     View Invoice
-                                  </a>
-                                </div>
-                              </div>
-                          </li>
-                          <li>
-                            <img src="images/img.jpg" class="avatar" alt="Avatar">
-                            <div class="message_date">
-                              <h3 class="date text-info">24</h3>
-                              <p class="month">May</p>
-                            </div>
-                            <div class="message_wrapper">
-                              <h4 class="heading">Ms Jane</h4>
-                              <blockquote class="message">
-                                <ul>
-                                  <li>Rice</li>
-                                  <li>Cement</li>
-                                 
-                                </ul>
-
-                              </blockquote>
-                              <br />
-                              
-                              
-                            </div>
-                            <div class="col-xs-12 bottom text-left">
-                                <div class="col-xs-12 col-sm-6 emphasis">  
-                                  <a routerLink="/sale-invoice"  class="btn btn-primary btn-xs">
-                                     View Invoice
-                                  </a>
-                                </div>
-                              </div>
-                          </li>
+                         
                         </ul>
                         <!-- end of recent sales -->
 

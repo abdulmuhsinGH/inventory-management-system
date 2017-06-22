@@ -10,9 +10,9 @@ router
 
 router
 	.route('/view')
-	.get(SaleController.viewSale);
+	.get(SaleController.viewAllSales);
 
-router
+/*router
 	.route('/view/:supplierId')
 	.get(SaleController.viewOneSale);
 
@@ -23,7 +23,7 @@ router
 router
 	.route('/delete/:supplierId')
 	.put(SaleController.deleteSale);
-
+*/
 
 
 module.exports = router;

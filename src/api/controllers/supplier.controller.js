@@ -1,6 +1,7 @@
 var sqlite3 = require('sqlite3').verbose(),
 	db = new sqlite3.Database('./inventory_db.db')
 
+var moment = require('moment');
 
 module.exports.addSupplier =function(req, res){
 
@@ -8,8 +9,9 @@ module.exports.addSupplier =function(req, res){
 	console.log(supplier.name);
 	db.serialize(function () {
 	  var stmt = db.prepare('INSERT INTO suppliers(name, phone_number, email, description, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)');
-	  var date = new Date();  
-  	  var currentDateTime = date.toLocaleString();
+	  
+	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	  var currentDateTime = formattedDate.toLocaleString();
 
 
 	    stmt.run(supplier.name, supplier.phone_number, supplier.email, supplier.description, currentDateTime, currentDateTime);
@@ -120,8 +122,8 @@ module.exports.updateSupplier = function(req, res){
 	var supplier = req.body;
 	db.serialize(function () {
 	  var stmt = db.prepare('UPDATE suppliers SET name = ?, phone_number = ?, email = ?, description = ?, updated_at = ? where id='+supplierId);
-	  var date = new Date();  
-  	  var currentDateTime = date.toLocaleString();
+	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	  var currentDateTime = formattedDate.toLocaleString();
   	  	console.log(currentDateTime);
 	    stmt.run(supplier.name, supplier.phone_number, supplier.email, supplier.description, currentDateTime);
 
@@ -151,8 +153,8 @@ module.exports.deleteSupplier = function(req, res){
 	var supplierId = req.params.supplierId;
 	db.serialize(function () {
 	  var stmt = db.prepare('UPDATE suppliers SET  deleted_at = ? where id='+supplierId);
-	  var date = new Date();  
-  	  var currentDateTime = date.toLocaleString();
+	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	  var currentDateTime = formattedDate.toLocaleString();
   	  	console.log(currentDateTime);
 	    stmt.run(currentDateTime);
 

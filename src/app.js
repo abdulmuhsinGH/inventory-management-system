@@ -18,6 +18,7 @@ var product = require('./api/routes/product');
 var supplier = require('./api/routes/supplier');
 var customer = require('./api/routes/customer');
 var inventory = require('./api/routes/inventory');
+var sale = require('./api/routes/sale');
 
 var app = express();
 
@@ -62,6 +63,8 @@ app.use('/product', product);
 app.use('/supplier', supplier);
 app.use('/customer', customer);
 app.use('/inventory', inventory);
+app.use('/sale', sale);
+// app.use('/api', api);
 // app.use('/api', api);
 //app.use('/auth', authenticate);
 //

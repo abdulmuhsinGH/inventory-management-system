@@ -11,8 +11,13 @@ import { ModalModule } from 'ng2-bootstrap';
 import { TypeaheadModule } from 'ng2-bootstrap';
 
 import { Ng2TableModule } from 'ng2-table/ng2-table';
+<<<<<<< HEAD
 import { ChartsModule } from 'ng2-charts';
 
+=======
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+import {SimpleNotificationsModule} from 'angular2-notifications';
+>>>>>>> recordsales
 
 
 import { SaleComponent }   from './sale.component';
@@ -35,7 +40,8 @@ import { SaleRoutingModule,routingComponents } from './sale.routing';
             PaginationModule,
             ModalModule,
             TypeaheadModule,
-            SaleRoutingModule
+            SaleRoutingModule,
+            SimpleNotificationsModule
             
   				],
   declarations: [

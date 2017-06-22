@@ -13,11 +13,21 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var sale_service_1 = require("../sale.service");
+var angular2_notifications_1 = require("angular2-notifications");
 var SaleInvoiceComponent = (function () {
-    function SaleInvoiceComponent(saleService, route) {
+    function SaleInvoiceComponent(saleService, route, notificationService) {
         this.saleService = saleService;
         this.route = route;
+        this.notificationService = notificationService;
         this.title = 'Invoice';
+        this.totalSalesAmountBeforeTax = 0;
+        this.currentDate = new Date();
+        this.notificationsOptions = {
+            position: ["top", "right"],
+            timeOut: 5000,
+            lastOnBottom: true,
+            clickToClose: true
+        };
     }
     SaleInvoiceComponent.prototype.showChildModal = function () {
         this.childModal.show();
@@ -26,9 +36,33 @@ var SaleInvoiceComponent = (function () {
         this.childModal.hide();
     };
     SaleInvoiceComponent.prototype.ngOnInit = function () {
-        console.log(this.route.snapshot.queryParams);
-        this.recordSaleFormData = JSON.parse(this.route.snapshot.queryParams['form-data']);
-        console.log(this.recordSaleFormData);
+        this.recordSaleParamData = JSON.parse(this.route.snapshot.queryParams['form-data']);
+        console.log(this.recordSaleParamData);
+        this.calculateTotalSales(this.recordSaleParamData.transaction_details);
+        this.calculateExtraCost();
+    };
+    SaleInvoiceComponent.prototype.calculateTotalSales = function (salesData) {
+        for (var _i = 0, salesData_1 = salesData; _i < salesData_1.length; _i++) {
+            var entry = salesData_1[_i];
+            this.totalSalesAmountBeforeTax += (entry.price * entry.quantity);
+        }
+    };
+    SaleInvoiceComponent.prototype.calculateExtraCost = function () {
+        var taxRate = 0.093;
+        this.tax = taxRate * this.totalSalesAmountBeforeTax;
+        this.totalSalesAmountAftertax = this.tax + this.totalSalesAmountBeforeTax;
+    };
+    SaleInvoiceComponent.prototype.saveInvoice = function () {
+        var _this = this;
+        var invoice = this.recordSaleParamData;
+        invoice.total_sales_amount = this.totalSalesAmountBeforeTax;
+        invoice.sales_type = 2;
+        invoice.payment_type = 3;
+        console.log(invoice);
+        this.saleService.addSales(invoice)
+            .subscribe(function (status) {
+            _this.notificationService.success(status.state, status.message);
+        }, function (error) { return console.log(error); });
     };
     return SaleInvoiceComponent;
 }());
@@ -46,7 +80,7 @@ SaleInvoiceComponent = __decorate([
         templateUrl: 'app/sale/invoice/sale-invoice.component.html',
         providers: [sale_service_1.SaleService]
     }),
-    __metadata("design:paramtypes", [sale_service_1.SaleService, router_1.ActivatedRoute])
+    __metadata("design:paramtypes", [sale_service_1.SaleService, router_1.ActivatedRoute, angular2_notifications_1.NotificationsService])
 ], SaleInvoiceComponent);
 exports.SaleInvoiceComponent = SaleInvoiceComponent;
 //# sourceMappingURL=sale-invoice.component.js.map

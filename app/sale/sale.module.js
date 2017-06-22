@@ -37,7 +37,8 @@ SaleModule = __decorate([
             ng2_bootstrap_1.PaginationModule,
             ng2_bootstrap_2.ModalModule,
             ng2_bootstrap_3.TypeaheadModule,
-            sale_routing_1.SaleRoutingModule
+            sale_routing_1.SaleRoutingModule,
+            SimpleNotificationsModule
         ],
         declarations: [
             sale_component_1.SaleComponent,
