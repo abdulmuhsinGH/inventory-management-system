@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators} from '@angular/forms';
 
 
 import * as moment from 'moment';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 import { PaginationModule } from 'ng2-bootstrap';
 import { ModalDirective } from   'ng2-bootstrap';
 import { RecordSaleDatas } from './record-sale.interface';

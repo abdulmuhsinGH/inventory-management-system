@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 
 
 export class SaleService {
-	private saleURLAPI = 'http://localhost:5000/sale/';
+	private saleURLAPI = 'http://localhost:5001/sale/';
 
 	salesData:any;
 

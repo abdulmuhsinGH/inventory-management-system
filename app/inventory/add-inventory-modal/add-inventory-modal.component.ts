@@ -16,6 +16,7 @@ import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'add-inventory-modal',
   templateUrl: './app/inventory/add-inventory-modal/add-inventory-modal.component.html',
+  providers: [InventoryService,NotificationsService]
 })
 
 

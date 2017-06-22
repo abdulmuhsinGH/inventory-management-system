@@ -17,7 +17,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 
 
 /*import * as moment from 'moment';
-import { ChartsModule } from 'ng2-charts/ng2-charts';*/
+import { ChartsModule } from 'ng2-charts';*/
 import { PaginationModule } from 'ng2-bootstrap';
 import { ModalDirective } from   'ng2-bootstrap';
 import { TypeaheadMatch } from 'ng2-bootstrap';
@@ -35,7 +35,7 @@ import { NotificationsService } from 'angular2-notifications';
 @Component({
   /*selector: 'my-dashboard',*/
   templateUrl: './app/inventory/inventory-main-component/inventory.component.html',
-  providers: [InventoryService, SupplierService, ProductService]
+  providers: [InventoryService, SupplierService, ProductService,NotificationsService]
 })
 
 export class InventoryComponent implements OnInit{ 

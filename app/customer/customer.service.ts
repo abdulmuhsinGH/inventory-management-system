@@ -15,7 +15,7 @@ import { Customer } from './customer.interface';
 
 
 export class CustomerService {
-	private customerURLAPI = 'http://localhost:5000/customer/';
+	private customerURLAPI = 'http://localhost:5001/customer/';
 
 	constructor (private http: Http){
 

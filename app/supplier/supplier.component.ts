@@ -13,7 +13,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
 import * as moment from 'moment';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 import { PaginationModule } from 'ng2-bootstrap';
 import { ModalDirective } from   'ng2-bootstrap';
 import { SupplierService } from './supplier.service';
@@ -25,7 +25,7 @@ import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'my-app',
   templateUrl: 'app/supplier/supplier.component.html',
-  providers: [SupplierService],
+  providers: [SupplierService,NotificationsService],
 })
 
 

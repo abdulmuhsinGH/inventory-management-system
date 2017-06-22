@@ -9,7 +9,7 @@ import { Supplier } from './supplier.interface';
 
 
 export class SupplierService {
-	private supplierURLAPI = 'http://localhost:5000/supplier/';
+	private supplierURLAPI = 'http://localhost:5001/supplier/';
 
 	constructor (private http: Http){
 

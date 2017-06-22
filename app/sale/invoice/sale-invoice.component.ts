@@ -2,7 +2,7 @@ import { Component,ViewChild, Input, Output, EventEmitter, OnInit } from '@angul
 import {ActivatedRoute} from '@angular/router'
 
 import * as moment from 'moment';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 import { PaginationModule } from 'ng2-bootstrap';
 import { ModalDirective } from   'ng2-bootstrap';
 import {RecordSaleModalComponent} from '../record-sale-modal/record-sale-modal.component';

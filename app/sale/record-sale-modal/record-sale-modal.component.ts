@@ -19,7 +19,7 @@ import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'record-sale-modal',
   templateUrl: 'app/sale/record-sale-modal/record-sale-modal.component.html',
-  providers:[ProductService,CustomerService,SaleService]
+  providers:[ProductService,CustomerService,SaleService,NotificationsService]
 })
 
 

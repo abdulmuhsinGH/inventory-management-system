@@ -11,7 +11,7 @@ import { ModalModule } from 'ng2-bootstrap';
 import { TypeaheadModule } from 'ng2-bootstrap';
 
 import { Ng2TableModule } from 'ng2-table/ng2-table';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 
 
 

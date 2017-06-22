@@ -9,7 +9,7 @@ import { Inventory } from '../inventory-main-interface/inventory.interface';
 
 
 export class InventoryService {
-	private inventoryURLAPI = 'http://localhost:5000/inventory/';
+	private inventoryURLAPI = 'http://localhost:5001/inventory/';
 
 	constructor (private http: Http){
 

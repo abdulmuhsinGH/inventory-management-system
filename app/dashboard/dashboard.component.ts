@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup} from '@angular/forms';
 
 
 import * as moment from 'moment';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 //import { TabsetConfig } from 'ng2-bootstrap';
 //import { PaginationConfig } from 'ng2-bootstrap/pagination';
 
