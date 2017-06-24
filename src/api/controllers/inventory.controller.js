@@ -8,7 +8,7 @@ var moment = require('moment');
 
 module.exports.viewInventories = function(req, res){
 
-	db.all("select products.id, products.name, inventory_details.selling_price, inventory_details.cost_price, inventory_details.quantity, inventory_details.total_quantity,inventory_details.created_at from inventory_details left outer join products, suppliers on ( inventory_details.product_id = products.id and inventory_details.supplier_id = suppliers.id) where inventory_details.deleted_at is null and products.deleted_at is null order by  inventory_details.created_at desc", function(err, rows) {  
+	db.all("select products.id, products.name, inventory_details.selling_price, inventory_details.cost_price, inventory_details.quantity, inventory_details.total_quantity,inventory_details.created_at from inventory_details left outer join products, suppliers on ( inventory_details.product_id = products.id and inventory_details.supplier_id = suppliers.id) where inventory_details.deleted_at is null and products.deleted_at is null group by products.id order by  inventory_details.created_at desc", function(err, rows) {  
         
 		if(err){
 	  			res
@@ -170,7 +170,7 @@ var _addOneInventory = function(req, res, inventory){
 				  .status(500)
 				  .json(err);
 	  		}
-  		else if(row.length===0){
+  		else if(!row){
   				console.log("hello, no rows");
   			_insertInventory(req, res, inventory, {total_quantity:0});
   		}

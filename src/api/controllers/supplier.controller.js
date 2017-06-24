@@ -120,10 +120,12 @@ module.exports.searchSuppliers = function(req, res){
 module.exports.updateSupplier = function(req, res){
 	var supplierId = req.params.supplierId;
 	var supplier = req.body;
+	log(supplierId);
+	log(supplier);
 	db.serialize(function () {
 	  var stmt = db.prepare('UPDATE suppliers SET name = ?, phone_number = ?, email = ?, description = ?, updated_at = ? where id='+supplierId);
-	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
-  	  var currentDateTime = formattedDate.toLocaleString();
+	  var formatedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	  var currentDateTime = formatedDate.toLocaleString();
   	  	console.log(currentDateTime);
 	    stmt.run(supplier.name, supplier.phone_number, supplier.email, supplier.description, currentDateTime);
 

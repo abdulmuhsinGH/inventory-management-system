@@ -14,7 +14,7 @@ import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'my-app',
   templateUrl: 'app/sale/invoice/sale-invoice.component.html',
-  providers:[SaleService]
+  providers:[SaleService, NotificationsService]
 })
 
 

@@ -78,7 +78,7 @@ SaleInvoiceComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
         templateUrl: 'app/sale/invoice/sale-invoice.component.html',
-        providers: [sale_service_1.SaleService]
+        providers: [sale_service_1.SaleService, angular2_notifications_1.NotificationsService]
     }),
     __metadata("design:paramtypes", [sale_service_1.SaleService, router_1.ActivatedRoute, angular2_notifications_1.NotificationsService])
 ], SaleInvoiceComponent);
