@@ -3,74 +3,71 @@ var sqlite3 = require('sqlite3').verbose(),
 var moment = require('moment');
 
 var startDate = '2017-03-01';
-var endDate = '2017-06-30'
+var endDate = '2017-06-30';
+//var 
 
-var getTotalSalesAmount = function(startDate, endDate){
-	var totalSalesAmountquery =`select  sum(transaction_logs.total_sales_amount) as total_sales_amount from transaction_logs, sales where transaction_logs.sales_id = sales.id and transaction_logs.created_at between '${startDate}' and '${endDate}'`;
+//var IncomeStatementClass = class IncomeStatement
 
-	db.all(totalSalesAmountquery, function(err, rows) {  
-        
-		if(err){
-	  			return err;
-	  		}
-		else{
-				console.log(rows);
-	  			return rows ;
-	  		}
-  		
-         
+var getTotalSalesAmount = (startDate, endDate) => {
+    var result = {};
+    var totalSalesAmountQuery = `select sum(transaction_logs.total_sales_amount) as total_sales_amount 
+                                 from transaction_logs, sales
+                                 where transaction_logs.sales_id = sales.id and transaction_logs.created_at between '${startDate}' and '${endDate}'`;
+    return new Promise((resolve, reject) => {
+        db.all(totalSalesAmountQuery, function (err, rows) {
+            if (err) {
+                reject("Unable to fetch data");
+            }
+            else {
+                resolve(rows)
+            }
+
+        });
+
     });
+   
+    
+
+    	
 };
 
 
-var getTotalPurchasesAmount = function(startDate, endDate){
-	var totalPurchasesAmountQuery =`select sum(inventory_details.cost_price * inventory_details.quantity) as total_purchase_amount from inventory_details where inventory_details.created_at between '${startDate}' and '${endDate}'`;
+var getTotalPurchasesAmount = (startDate, endDate)=>{
+    var totalPurchasesAmountQuery = `select sum(inventory_details.cost_price * inventory_details.quantity) as total_purchase_amount 
+                                     from inventory_details
+                                     where inventory_details.created_at between '${startDate}' and '${endDate}'`;
 
+    var result = {};
+    return new Promise((resolve, reject) => {
+        db.all(totalPurchasesAmountQuery, function (err, rows) {
+            if (err) {
+                reject("Unable to fetch data");
+            }
+            else {
+                resolve(rows)
+            }
 
-	db.all(totalPurchasesAmountQuery, function(err, rows) {  
-        
-		if(err){
-	  			return err;
-	  		}
-		else{
-				console.log(rows);
-	  			return rows ;
-	  		}
-  		
-         
+        });
+
     });
+
+   	
 
 };
 
-var calculateGrossProfit = function(startDate, endDate){
-	var totalSalesAmount = getTotalSalesAmount(startDate, endDate);
-	var totalPurchasesAmount = getTotalPurchasesAmount(startDate, endDate);
+var calculateGrossProfit = function (startDate, endDate) {
+    var grossProfit = 0;
 
-	var grossProfit = totalSalesAmount - totalPurchasesAmount;
-	console.log(grossProfit);
+
+    getTotalSalesAmount(startDate, endDate).then((totalSalesAmount) => {
+        grossProfit += Number(totalSalesAmount[0].total_sales_amount);
+        return getTotalPurchasesAmount(startDate, endDate)
+    }).then((totalPurchasesAmount) => {
+        grossProfit = grossProfit - Number(totalPurchasesAmount[0].total_purchase_amount);
+
+        })
+    return grossProfit; 
 }
   
-calculateGrossProfit(startDate, endDate);
-/*
-console.log('Total Sales Amount:', totalSalesAmount);
-console.log('Total Purchases Amount:', totalPurchasesAmount);*/
-
-/*module.exports.getTotalSales = () => {
-	// body...
-	db.all("select  sum(transaction_logs.total_sales_amount) as total_sales_amount from transaction_logs, sales where transaction_logs.sales_id = sales.id and transaction_logs.created_at between '2017-03-01' and $`, function(err, rows) {  
-        
-		if(err){
-	  			console.log(err);
-	  		}
-  		
-         console.log(rows[0].total_sales_amount);
-    });  
-};
-*/
-
-
-/*var calculateGrossProfit = function (startDate, endDate) {
-	// body...
-
-
-}*/
+var currentProfit = calculateGrossProfit(startDate, endDate);
+console.log(currentProfit);
