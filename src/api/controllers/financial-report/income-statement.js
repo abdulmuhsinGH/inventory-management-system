@@ -48,7 +48,7 @@ var calculateTotalSalesAmount = (startDate, endDate) => {
             incomeStatementJSON["sales"] = totalSales.message[0].total_sales_amount;
  
         }
-        else {//if not log the message "no records were found"
+        else {//if not, log the message "no records were found"
             console.log(totalSales.message);
             return;
         }
@@ -78,7 +78,7 @@ var calculateTotalPurchasesAmount = (startDate, endDate) => {
             incomeStatementJSON["cost_of_goods_sold"] = totalPurchases.message[0].total_purchase_amount;
             calculateGrossProfit();
         }
-        else {//if not log the message "no records were found"
+        else {//if not, log the message "no records were found"
             console.log(totalPurchases.message);
             return;
         }
@@ -98,28 +98,33 @@ var calculateTotalPurchasesAmount = (startDate, endDate) => {
 //         recordTypeId:income or expense 
 //@return Promise
 var calculateTotalIncomeOrExpenseAfterGrossProfit = (startDate, endDate, recordTypeId) => {
+    //query to get total income or expense 
     var totalAdditionalRecordQuery = `select sum(additional_record_logs.amount) as total_amount, additional_record_type.name from additional_record_logs 
                                       join additional_record_type on additional_record_logs.record_type_id_fk = additional_record_type.id
                                       where additional_record_logs.record_type_id_fk = ${recordTypeId} and additional_record_logs.created_at between '${startDate}' and '${endDate}' group by additional_record_type.name`;
 
+    //return a promise after calcultating total income or expense
     return getQueryDataPromise(totalAdditionalRecordQuery).then((totalAdditionalRecord) => {
-       // console.log(totalAdditionalRecord);
+
+        //check if records were returned from the DB
         if (totalAdditionalRecord.status) {
             var recordTypeName = totalAdditionalRecord.message[0].name;
-            if (totalAdditionalRecord.message[0].name === "operating_income")
+            //check the record type is income or expense
+            if (recordTypeName === "operating_income")
                 incomeStatementJSON["operating_income"] = totalAdditionalRecord.message[0].total_amount;
-            else if (totalAdditionalRecord.message[0].type === "operating_expense")
+            else if (recordTypeName === "operating_expense")
                 incomeStatementJSON["operating_expense"] = totalAdditionalRecord.message[0].total_amount;    
 
+            //calculate net profit
             calculateNetProfit();
 
         }
-        else {
+        else {//if not, log the message "no records were found"
             console.log(totalAdditionalRecord.message);
             return;
         }
         
-    }).catch((error) => {
+    }).catch((error) => {//catch and log any errors encountered
         console.log(error)
     });
 };
@@ -210,7 +215,7 @@ var createIncomeStatement = (startDate, endDate, recordTypeId) => {
         return calculateAdditionalDeductionAfterNetProfit();
     }).then(() => {
        return incomeStatementJSON
-    });
+    }).catch((error) => { console.log(error); });
 
 };
 
