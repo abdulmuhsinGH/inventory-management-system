@@ -6,6 +6,9 @@ var startDate = '2017-03-01';
 var endDate = '2017-06-30';
 var incomeStatementJSON = {};
 
+//helper promise function get records from the DB
+//@param:query
+//@return Promise
 var getQueryDataPromise = (query) => {
 
     return new Promise((resolve, reject) => {
@@ -26,51 +29,62 @@ var getQueryDataPromise = (query) => {
     });
 
 }
+
+//calculate total sales
+// @param: startDate
+//         endDate
+//@return Promise
 var calculateTotalSalesAmount = (startDate, endDate) => {
-    var result = {};
+    //query to get total sales bewtween startDate and endDate
     var totalSalesAmountQuery = `select sum(transaction_logs.total_sales_amount) as total_sales_amount 
                                  from transaction_logs, sales
                                  where transaction_logs.sales_id = sales.id and transaction_logs.created_at between '${startDate}' and '${endDate}'`;   
-   
-    getQueryDataPromise(totalSalesAmountQuery).then((totalSales) => {
-         //console.log(totalSales);
-        result = totalSales;
+
+    //return promise after calculating sales and storing it in the incomeStatementJSON
+    return getQueryDataPromise(totalSalesAmountQuery).then((totalSales) => {
+
+        //check if records were returned from the DB
         if (totalSales.status) {
             incomeStatementJSON["sales"] = totalSales.message[0].total_sales_amount;
+ 
         }
-        else
+        else {//if not log the message "no records were found"
             console.log(totalSales.message);
+            return;
+        }
+           
         
-    }).catch((error) => {
+    }).catch((error) => {//catch and log any errors encountered
         console.log(error);
     });
-
-    return new Promise((resolve, reject) => {
-        if (result.status)
-            resolve(result);
-        else
-            reject(result.message);
-    });
-    	
+        	
 };
 
-var calculateTotalPurchasesAmount = (startDate, endDate)=>{
+//calculate total cost of goods sold
+// @param: startDate
+//         endDate
+//@return Promise
+var calculateTotalPurchasesAmount = (startDate, endDate) => {
+    //query to get total cost of goods sold bewtween startDate and endDate
     var totalPurchasesAmountQuery = `select sum(inventory_details.cost_price * inventory_details.quantity) as total_purchase_amount 
                                      from inventory_details
                                      where inventory_details.created_at between '${startDate}' and '${endDate}'`;
 
-    var result = {};
-    getQueryDataPromise(totalPurchasesAmountQuery).then((totalPurchases) => {
-       // console.log(totalPurchases);
+    //return promise after calculating costo of goods sold and storing it in the incomeStatementJSON
+    return getQueryDataPromise(totalPurchasesAmountQuery).then((totalPurchases) => {
+
+        //check if records were returned from the DB
         if (totalPurchases.status) {
             incomeStatementJSON["cost_of_goods_sold"] = totalPurchases.message[0].total_purchase_amount;
             calculateGrossProfit();
-           // console.log(incomeStatementJSON);
         }
-        else
-            totalPurchases.message;
+        else {//if not log the message "no records were found"
+            console.log(totalPurchases.message);
+            return;
+        }
+            
         
-    }).catch((error) => {
+    }).catch((error) => {//catch and log any errors encountered
         console.log(error);
     });
 
@@ -78,12 +92,17 @@ var calculateTotalPurchasesAmount = (startDate, endDate)=>{
 
 };
 
+//calculate operating income and expenses 
+// @param: startDate
+//         endDate
+//         recordTypeId:income or expense 
+//@return Promise
 var calculateTotalIncomeOrExpenseAfterGrossProfit = (startDate, endDate, recordTypeId) => {
     var totalAdditionalRecordQuery = `select sum(additional_record_logs.amount) as total_amount, additional_record_type.name from additional_record_logs 
                                       join additional_record_type on additional_record_logs.record_type_id_fk = additional_record_type.id
                                       where additional_record_logs.record_type_id_fk = ${recordTypeId} and additional_record_logs.created_at between '${startDate}' and '${endDate}' group by additional_record_type.name`;
 
-    getQueryDataPromise(totalAdditionalRecordQuery).then((totalAdditionalRecord) => {
+    return getQueryDataPromise(totalAdditionalRecordQuery).then((totalAdditionalRecord) => {
        // console.log(totalAdditionalRecord);
         if (totalAdditionalRecord.status) {
             var recordTypeName = totalAdditionalRecord.message[0].name;
@@ -93,11 +112,11 @@ var calculateTotalIncomeOrExpenseAfterGrossProfit = (startDate, endDate, recordT
                 incomeStatementJSON["operating_expense"] = totalAdditionalRecord.message[0].total_amount;    
 
             calculateNetProfit();
-            
 
         }
         else {
             console.log(totalAdditionalRecord.message);
+            return;
         }
         
     }).catch((error) => {
@@ -105,25 +124,36 @@ var calculateTotalIncomeOrExpenseAfterGrossProfit = (startDate, endDate, recordT
     });
 };
 
+//calculate gross profit
+//@return void
 var calculateGrossProfit = () => {
     var grossProfit = 0;
+    //substract cost of good sold from sales 
     grossProfit = incomeStatementJSON.sales - incomeStatementJSON.cost_of_goods_sold;
+    //store gross profit into incomeStatementJSON
     incomeStatementJSON["gross_profit"] = grossProfit;
-
+    
 };
 
+//calculate net profit
+//@return void
 var calculateNetProfit = () => {
-
+    //check if operating income exist in the incomeStatementJSON
     var operatingIncome = (incomeStatementJSON.operating_income ? incomeStatementJSON.operating_income : 0);
+    //check if operating expense exist in the incomeStatementJSON
     var operatingExpense = (incomeStatementJSON.operating_expense ? incomeStatementJSON.operating_expemse : 0);
-    incomeStatementJSON.net_profit = incomeStatementJSON.gross_profit + (operatingIncome - operatingExpense);
+    //subcract operating expense from operating income then add results to gross profit
+    incomeStatementJSON["net_profit"] = incomeStatementJSON.gross_profit + (operatingIncome - operatingExpense);
+    
 };
 
+//calculate deduction after net profit
 var calculateAdditionalDeductionAfterNetProfit = () => {
+    //query DB for all deduction after net profit
     deductionsAfterProfitQuery = "select additional_deduction.name, rate, amount, deduction_method.name as deduction_method from additional_deduction join deduction_method on additional_deduction.deduction_method_fk = deduction_method.id where deleted_at is null";
 
     //get rates 
-    getQueryDataPromise(deductionsAfterProfitQuery).then((data) => {
+    return getQueryDataPromise(deductionsAfterProfitQuery).then((data) => {
 
         if (data.status) {
             var totalAmountToDeduct = 0;
@@ -136,8 +166,10 @@ var calculateAdditionalDeductionAfterNetProfit = () => {
                // incomeStatementJSON.net_profit = 1000;
                 var amount = (currentValue.amount ? currentValue.amount : (currentValue.rate * incomeStatementJSON.net_profit));
                 //save rate amount into incomeStatementJSON
-                var amountLabel = currentValue.name;
-                incomeStatementJSON["deduction_after_net_profit"] = { amountLabel:amount };
+                var amountAndLabel = {};
+                amountAndLabel[currentValue.name] = amount;
+                console.log(amountAndLabel);
+                incomeStatementJSON["deduction_after_net_profit"] = [amountAndLabel];
                 //sum up the calculated rate 
                 totalAmountToDeduct += amount;
             });
@@ -146,11 +178,12 @@ var calculateAdditionalDeductionAfterNetProfit = () => {
             //save net profit after deduction into incomeStatementJSON
             incomeStatementJSON["profit_after_deduction"] = incomeStatementJSON.net_profit - totalAmountToDeduct;
             //save total amount into incomeStatementJSON
-            incomeStatementJSON["deduction_after_net_profit"] = { total_deduction: totalAmountToDeduct };
-            console.log(incomeStatementJSON);
+            incomeStatementJSON["deduction_after_net_profit"].push({ total_deduction: totalAmountToDeduct });
+            return incomeStatementJSON;
         }
         else {
             console.log(data.message);
+            return;
         }
             
         
@@ -162,11 +195,26 @@ var calculateAdditionalDeductionAfterNetProfit = () => {
 
 };
 
-module.exports.generateIncomeStatement = (req, res) => {
+//calculate income statemment
+// @param: startDate
+//         endDate
+//         recordTypeId:income or expense 
+//@return Promise
+var createIncomeStatement = (startDate, endDate, recordTypeId) => {
 
-}
+    return calculateTotalSalesAmount(startDate, endDate).then(() => {
+        return calculateTotalPurchasesAmount(startDate, endDate);
+    }).then(() => {
+        return calculateTotalIncomeOrExpenseAfterGrossProfit(startDate, endDate, recordTypeId);
+    }).then(() => {
+        return calculateAdditionalDeductionAfterNetProfit();
+    }).then(() => {
+       return incomeStatementJSON
+    });
 
-calculateTotalSalesAmount(startDate, endDate);
-calculateTotalPurchasesAmount(startDate, endDate);
-calculateTotalIncomeOrExpenseAfterGrossProfit(startDate,endDate,1);
-calculateAdditionalDeductionAfterNetProfit();
+};
+
+//module.exports.generateIncomeStatement = createIncomeStatement(startDate, endDate, recordTypeId)
+//createIncomeStatement(startDate, endDate, 1).then((incomeStatement) => {
+//    console.log(incomeStatement);
+//});
