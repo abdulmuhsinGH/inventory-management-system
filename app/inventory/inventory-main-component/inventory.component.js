@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 //import {Control} from '@angular/common';
 require("../../rxjs-extensions");
@@ -71,7 +72,7 @@ InventoryComponent = __decorate([
     core_1.Component({
         /*selector: 'my-dashboard',*/
         templateUrl: './app/inventory/inventory-main-component/inventory.component.html',
-        providers: [inventory_service_1.InventoryService, supplier_service_1.SupplierService, product_service_1.ProductService]
+        providers: [inventory_service_1.InventoryService, supplier_service_1.SupplierService, product_service_1.ProductService, angular2_notifications_1.NotificationsService]
     }),
     __metadata("design:paramtypes", [inventory_service_1.InventoryService, product_service_1.ProductService, supplier_service_1.SupplierService, angular2_notifications_1.NotificationsService])
 ], InventoryComponent);

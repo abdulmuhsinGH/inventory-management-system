@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Table = (function () {
     function Table(configLocal, rowsLocal, columnsLocal) {
         this.data = [];

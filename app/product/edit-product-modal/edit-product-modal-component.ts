@@ -13,6 +13,7 @@ import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'edit-product-modal',
   templateUrl: './app/product/edit-product-modal/edit-product-modal-component.html',
+  providers: [ProductService, NotificationsService],
 })
 
 

@@ -5,7 +5,7 @@ import "../../rxjs-extensions";
 import { Observable } from 'rxjs/Observable';
 
 import * as moment from 'moment';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { ChartsModule } from 'ng2-charts';
 import { PaginationModule } from 'ng2-bootstrap';
 import { ModalDirective } from   'ng2-bootstrap';
 import { CustomerService } from '../customer.service';
@@ -16,7 +16,7 @@ import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'add-customer-modal',
   templateUrl: 'app/customer/add-customer-modal/add-customer-modal.component.html',
-  providers:[CustomerService],
+  providers:[CustomerService,NotificationsService],
 })
 
 

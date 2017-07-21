@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
@@ -76,6 +77,7 @@ EditSupplierModalComponent = __decorate([
     core_1.Component({
         selector: 'edit-supplier-modal',
         templateUrl: './app/supplier/edit-supplier-modal/edit-supplier-modal.component.html',
+        providers: [angular2_notifications_1.NotificationsService]
     }),
     __metadata("design:paramtypes", [supplier_service_1.SupplierService, angular2_notifications_1.NotificationsService])
 ], EditSupplierModalComponent);

@@ -14,6 +14,7 @@ import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'edit-supplier-modal',
   templateUrl: './app/supplier/edit-supplier-modal/edit-supplier-modal.component.html',
+  providers:[NotificationsService]
 })
 
 

@@ -8,7 +8,7 @@ var moment = require('moment');
 
 module.exports.viewInventories = function(req, res){
 
-	db.all("select products.id, products.name, inventory_details.selling_price, inventory_details.cost_price, inventory_details.quantity, inventory_details.total_quantity,inventory_details.created_at from inventory_details left outer join products, suppliers on ( inventory_details.product_id = products.id and inventory_details.supplier_id = suppliers.id) where inventory_details.deleted_at is null and products.deleted_at is null order by  inventory_details.created_at desc", function(err, rows) {  
+	db.all("select products.id, products.name, inventory_details.selling_price, inventory_details.cost_price, inventory_details.quantity, inventory_details.total_quantity,inventory_details.created_at from inventory_details left outer join products, suppliers on ( inventory_details.product_id = products.id and inventory_details.supplier_id = suppliers.id) where inventory_details.deleted_at is null and products.deleted_at is null group by products.id order by  inventory_details.created_at desc", function(err, rows) {  
         
 		if(err){
 	  			res
@@ -101,8 +101,8 @@ module.exports.updateInventory = function (req, res) {
 	var total_quantity =  inventory.quantity + inventory.prev_total_quantity;
 	db.serialize(function () {
 	  var stmt = db.prepare('UPDATE inventory_details SET product_id = ?, supplier_id = ?, cost_price = ?, selling_price = ?, quantity = ?, cost_price = ?, selling_price = ?, total_quantity = ?, updated_at = ? where id='+inventoryId);
-	  var date = new Date('YYYY-MM-DD HH:MM:SS');  
-  	  var currentDateTime = date.toLocaleString();
+	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	  var currentDateTime = formattedDate.toLocaleString();
   	  	console.log(currentDateTime);
 	    stmt.run(inventory.product_id, inventory.supplier_id, inventory.cost_price, inventory.selling_price, inventory.quantity, inventory.cost_price, inventory.selling_price, total_quantity, currentDateTime);
 
@@ -131,8 +131,8 @@ module.exports.deleteInventory = function(req, res){
 	var inventoryId = req.params.inventoryId;
 	db.serialize(function () {
 	  var stmt = db.prepare('UPDATE inventory_details SET  deleted_at = ? where id='+inventoryId);
-	  var date = new Date();  
-  	  var currentDateTime = date.toLocaleString();
+	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	  var currentDateTime = formattedDate.toLocaleString();
   	  	console.log(currentDateTime);
 	    stmt.run(currentDateTime);
 
@@ -170,7 +170,7 @@ var _addOneInventory = function(req, res, inventory){
 				  .status(500)
 				  .json(err);
 	  		}
-  		else if(row.length===0){
+  		else if(!row){
   				console.log("hello, no rows");
   			_insertInventory(req, res, inventory, {total_quantity:0});
   		}
@@ -187,7 +187,7 @@ var _addOneInventory = function(req, res, inventory){
 var _insertInventory = function(req, res, inventory, product){
 	
 	db.serialize(function () {
-	  var stmt = db.prepare('INSERT INTO inventory_details(product_id, supplier_id, cost_price, selling_price, quantity, cost_price, selling_price, total_quantity, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+	  var stmt = db.prepare('INSERT INTO inventory_details(product_id, supplier_id, quantity, cost_price, selling_price, total_quantity, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
 	  var date = new Date(); 
 	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
   	  var currentDateTime = formattedDate.toLocaleString();
@@ -198,7 +198,7 @@ var _insertInventory = function(req, res, inventory, product){
   	  productTotalQuantity = parseInt(inventory.quantity) + parseInt(product.total_quantity);
 			
 
-	    stmt.run(inventory.product_id, inventory.supplier_id, inventory.cost_price, inventory.selling_price, inventory.quantity, inventory.cost_price, inventory.selling_price, productTotalQuantity, currentDateTime, currentDateTime);
+	    stmt.run(inventory.product_id, inventory.supplier_id,  inventory.quantity, inventory.cost_price, inventory.selling_price, productTotalQuantity, currentDateTime, currentDateTime);
 
 	  	stmt.finalize(function(err){
 	  		console.log(err);
@@ -225,7 +225,7 @@ var _createReorderLevel = function(req, res, reorderLevel){
 	db.serialize(function () {
 	  var stmt = db.prepare('INSERT INTO reorder_levels(product_id,  reorder_level, created_at, updated_at) VALUES (?, ?, ?, ?)');
 	  var date = new Date();  
-  	  moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
   	  var currentDateTime = formattedDate.toLocaleString();
 
 	    stmt.run(reorderLevel.product_id, reorderLevel.reorder_level, currentDateTime, currentDateTime);

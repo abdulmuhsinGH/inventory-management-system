@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 import { ModalDirective } from   'ng2-bootstrap';
 import { TypeaheadMatch } from 'ng2-bootstrap';
-import { RecordSaleDatas } from '../record-sale.interface';
+//import { RecordSaleDatas } from '../record-sale.interface';
 import { SaleService } from '../sale.service';
 import { CustomerService } from '../../customer/customer.service';
 import { Customer } from '../../customer/customer.interface';
@@ -19,7 +19,7 @@ import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'record-sale-modal',
   templateUrl: 'app/sale/record-sale-modal/record-sale-modal.component.html',
-  providers:[ProductService,CustomerService,SaleService]
+  providers:[ProductService,CustomerService,SaleService,NotificationsService]
 })
 
 
@@ -88,10 +88,10 @@ public onChangeSalesList = new EventEmitter<boolean>();
                              error =>  this.errorMessage = <any>error);
 
       this.recordSaleForm = this._formBuilder.group({
-        customer:this.customerNameFormControl,
+        customer_name:this.customerNameFormControl,
         customerId:this.customerIdFormControl,
         
-        sales: this._formBuilder.array([
+        transaction_details: this._formBuilder.array([
           this.initSaleForm(),
           ])
       });
@@ -108,17 +108,17 @@ public onChangeSalesList = new EventEmitter<boolean>();
   }
 
   addRecordSaleRow(){
-    const control = <FormArray>this.recordSaleForm.controls['sales'];
+    const control = <FormArray>this.recordSaleForm.controls['transaction_details'];
     control.push(this.initSaleForm());
 
   }
 
   removeRecordSaleRow(rowNumber: number){
-    const control = <FormArray>this.recordSaleForm.controls['sales'];
+    const control = <FormArray>this.recordSaleForm.controls['transaction_details'];
     control.removeAt(rowNumber);
   }
 
-  recordSale(model: RecordSaleDatas){
+  recordSale(model: any){
     console.log(model);
     this.recordsaleFormData = model
     this.router.navigateByUrl("/sale-invoice?form-data="+JSON.stringify(model));

@@ -13,6 +13,7 @@ import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'set-cost-price-modal',
   templateUrl: './app/product/set-cost-price-modal/set-cost-price-modal.component.html',
+  providers: [ProductService, NotificationsService],
 })
 
 

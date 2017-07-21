@@ -24,7 +24,7 @@ import { NotificationsService } from 'angular2-notifications'
 @Component({
   /*selector: 'my-dashboard',*/
   templateUrl: './app/product/product.component.html',
-  providers: [ProductService],
+  providers: [ProductService, NotificationsService],
 })
 
 export class ProductComponent implements OnInit{ 

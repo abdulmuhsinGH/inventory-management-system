@@ -1,15 +1,17 @@
 var sqlite3 = require('sqlite3').verbose(),
 	db = new sqlite3.Database('./inventory_db.db')
 
+var moment = require('moment');
 
 module.exports.addSupplier =function(req, res){
 
 	var supplier = req.body;
-	console.log(supplier.name);
+	console.log(supplier);
 	db.serialize(function () {
 	  var stmt = db.prepare('INSERT INTO suppliers(name, phone_number, email, description, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)');
-	  var date = new Date();  
-  	  var currentDateTime = date.toLocaleString();
+	  var date = new Date();
+	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	  var currentDateTime = formattedDate.toLocaleString();
 
 
 	    stmt.run(supplier.name, supplier.phone_number, supplier.email, supplier.description, currentDateTime, currentDateTime);
@@ -100,7 +102,7 @@ module.exports.searchSuppliers = function(req, res){
 				  .status(500)
 				  .json(err);
 	  		}
-  		else if(rows.length===0){
+  		else if(!rows){
   			res
 			  .status(200)
 			  .json({state: 'success', user: null, result: rows});
@@ -118,14 +120,17 @@ module.exports.searchSuppliers = function(req, res){
 module.exports.updateSupplier = function(req, res){
 	var supplierId = req.params.supplierId;
 	var supplier = req.body;
+	
 	db.serialize(function () {
 	  var stmt = db.prepare('UPDATE suppliers SET name = ?, phone_number = ?, email = ?, description = ?, updated_at = ? where id='+supplierId);
-	  var date = new Date();  
-  	  var currentDateTime = date.toLocaleString();
+	  var date = new Date();
+	  var formatedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	  var currentDateTime = formatedDate.toLocaleString();
   	  	console.log(currentDateTime);
 	    stmt.run(supplier.name, supplier.phone_number, supplier.email, supplier.description, currentDateTime);
 
 	  	stmt.finalize(function(err){
+	  		
 
 	  		if(err){
 	  			res
@@ -151,8 +156,9 @@ module.exports.deleteSupplier = function(req, res){
 	var supplierId = req.params.supplierId;
 	db.serialize(function () {
 	  var stmt = db.prepare('UPDATE suppliers SET  deleted_at = ? where id='+supplierId);
-	  var date = new Date();  
-  	  var currentDateTime = date.toLocaleString();
+	  var date = new Date();
+	  var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+  	  var currentDateTime = formattedDate.toLocaleString();
   	  	console.log(currentDateTime);
 	    stmt.run(currentDateTime);
 

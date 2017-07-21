@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Observable_1 = require("rxjs/Observable");
@@ -20,7 +21,7 @@ require("rxjs/add/operator/distinctUntilChanged");
 var CustomerService = (function () {
     function CustomerService(http) {
         this.http = http;
-        this.customerURLAPI = 'http://localhost:5000/customer/';
+        this.customerURLAPI = 'http://localhost:5001/customer/';
     }
     CustomerService.prototype.getCustomerList = function () {
         return this.http.get(this.customerURLAPI + 'view/')

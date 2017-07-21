@@ -8,11 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var Observable_1 = require("rxjs/Observable");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
+//import { RecordSaleDatas } from '../record-sale.interface';
 var sale_service_1 = require("../sale.service");
 var customer_service_1 = require("../../customer/customer.service");
 var product_service_1 = require("../../product/product.service");
@@ -61,9 +63,9 @@ var RecordSaleModalComponent = (function () {
         this.productService.getProductList()
             .subscribe(function (products) { return _this.products = products; }, function (error) { return _this.errorMessage = error; });
         this.recordSaleForm = this._formBuilder.group({
-            customer: this.customerNameFormControl,
+            customer_name: this.customerNameFormControl,
             customerId: this.customerIdFormControl,
-            sales: this._formBuilder.array([
+            transaction_details: this._formBuilder.array([
                 this.initSaleForm(),
             ])
         });
@@ -77,11 +79,11 @@ var RecordSaleModalComponent = (function () {
         });
     };
     RecordSaleModalComponent.prototype.addRecordSaleRow = function () {
-        var control = this.recordSaleForm.controls['sales'];
+        var control = this.recordSaleForm.controls['transaction_details'];
         control.push(this.initSaleForm());
     };
     RecordSaleModalComponent.prototype.removeRecordSaleRow = function (rowNumber) {
-        var control = this.recordSaleForm.controls['sales'];
+        var control = this.recordSaleForm.controls['transaction_details'];
         control.removeAt(rowNumber);
     };
     RecordSaleModalComponent.prototype.recordSale = function (model) {
@@ -125,7 +127,7 @@ RecordSaleModalComponent = __decorate([
     core_1.Component({
         selector: 'record-sale-modal',
         templateUrl: 'app/sale/record-sale-modal/record-sale-modal.component.html',
-        providers: [product_service_1.ProductService, customer_service_1.CustomerService, sale_service_1.SaleService]
+        providers: [product_service_1.ProductService, customer_service_1.CustomerService, sale_service_1.SaleService, angular2_notifications_1.NotificationsService]
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder, router_1.Router, customer_service_1.CustomerService, product_service_1.ProductService, angular2_notifications_1.NotificationsService])
 ], RecordSaleModalComponent);

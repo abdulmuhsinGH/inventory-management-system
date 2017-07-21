@@ -5,6 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
@@ -15,7 +16,7 @@ var ng2_bootstrap_2 = require("ng2-bootstrap");
 var ng2_bootstrap_3 = require("ng2-bootstrap");
 var ng2_bootstrap_4 = require("ng2-bootstrap");
 var ng2_table_1 = require("ng2-table/ng2-table");
-var ng2_charts_1 = require("ng2-charts/ng2-charts");
+var ng2_charts_1 = require("ng2-charts");
 var app_component_1 = require("./app.component");
 var app_routing_1 = require("./app.routing");
 var dashboard_component_1 = require("../dashboard/dashboard.component");

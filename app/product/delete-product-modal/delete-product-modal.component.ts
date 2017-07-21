@@ -13,6 +13,7 @@ import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'delete-product-modal',
   templateUrl: './app/product/delete-product-modal/delete-product-modal.component.html',
+  providers: [ProductService, NotificationsService],
 })
 
 

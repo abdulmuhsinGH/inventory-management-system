@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 require("../rxjs-extensions");
 var Observable_1 = require("rxjs/Observable");
@@ -67,7 +68,7 @@ ProductComponent = __decorate([
     core_1.Component({
         /*selector: 'my-dashboard',*/
         templateUrl: './app/product/product.component.html',
-        providers: [product_service_1.ProductService],
+        providers: [product_service_1.ProductService, angular2_notifications_1.NotificationsService],
     }),
     __metadata("design:paramtypes", [product_service_1.ProductService, angular2_notifications_1.NotificationsService])
 ], ProductComponent);
