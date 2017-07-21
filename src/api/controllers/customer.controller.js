@@ -102,7 +102,7 @@ module.exports.searchCustomers = function(req, res){
 				  .status(500)
 				  .json(err);
 	  		}
-  		else if(rows.length===0){
+  		else if(!rows){
   			res
 			  .status(200)
 			  .json({state: 'success', user: null, result: rows});
