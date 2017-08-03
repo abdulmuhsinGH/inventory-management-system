@@ -29,82 +29,86 @@ var getQueryDataPromise = (query) => {
 
 //calculate cash from operating activities
 
-    //calculate cash collection from sales
+//calculate cash collection from sales
 var calculateCashCollectionFromSales = (startDate, endDate) => {
     //get total cash sales for the period between startDate and endDate
     var totalCashSalesAmountQuery = `select sum(transaction_logs.total_sales_amount) as total_cash_sales_amount 
                                  from transaction_logs, sales
-                                 where sales.sales_type_fk = 2 and transaction_logs.sales_id = sales.id and transaction_logs.created_at between '${startDate}' and '${endDate}'`;   
+                                 where sales.sales_type_fk = 2 and transaction_logs.sales_id = sales.id and transaction_logs.created_at between '${startDate}' and '${endDate}'`;
 
-        //get increase/decrease in debtors for the period between  startDate and endDate:
-        getQueryDataPromise(totalCashSalesAmountQuery).then((totalCashSales) => {
-            //check if records were returned from the DB
-            if (totalCashSales.status) {
-                operatingActivitiesJSON["Cash_Sales"] = totalCashSales.message[0].total_cash_sales_amount;
+    //get the number of days between start date and end date
+    var currentStartDate = moment(startDate);
+    var currentEndDate = moment(endDate);
+    var numOfDaysBtwnStartEnd = currentStartDate.diff(currentEndDate);
+    var previousPeriodStartDate = currentStartDate.subtract(numOfDaysBtwnStartEnd, 'days');
+    var previousPeriodEndDate = currentEndDate.subtract(numOfDaysBtwnStartEnd, 'days')
 
-            }
-            else {//if not, log the message "no records were found"
-                console.log(totalCashSales.message);
-                return;
-            }
+    //query for the total debtors for the current period 
+    var currentPeriodTotalDebtorsQuery = `select sum(transaction_logs.total_sales_amount) as total_current_debtors 
+                                from transaction_logs, sales
+                                where sales.sales_type_fk = 1 and (sales.payment_status_fk = 1 or sales.payment_status_fk = 2) and transaction_logs.sales_id = sales.id and transaction_logs.created_at between '${startDate}' and '${endDate}'`;
+    //query for the total debtors for the previous period
+    var previousPeriodTotalDebtorsQuery = `select sum(transaction_logs.total_sales_amount) as total_previous_debtors 
+                                from transaction_logs, sales
+                                where sales.sales_type_fk = 1 and (sales.payment_status_fk = 1 or sales.payment_status_fk = 2) and transaction_logs.sales_id = sales.id and transaction_logs.created_at between '${previousPeriodStartDate}' and '${previousPeriodEndDate}'`;
 
+    //get increase/decrease in debtors for the period between  startDate and endDate:
+    getQueryDataPromise(totalCashSalesAmountQuery).then((totalCashSales) => {
+        //check if records were returned from the DB
+        if (totalCashSales.status) {
+            operatingActivitiesJSON["Cash_Sales"] = totalCashSales.message[0].total_cash_sales_amount;
 
-
-        }).catch((error) => {//catch and log any errors encountered
-            console.log(error);
-        });
-        //use moment for this
-        //get the number of days between start date and end date
-        var momentStarDate = moment(startDate);
-        var momentEndDate = moment(endDate);
-        var numOfDaysBtwnStartEnd = momentStarDate.diff(momentEndDate);
-        var previousStartDate = momentStarDate.subtract(numOfDaysBtwnStartEnd, 'days');
-        var previousEndDate = momentEndDate.subtract(numOfDaysBtwnStartEnd, 'days')
+        }
+        else {//if not, log the message "no records were found"
+            console.log(totalCashSales.message);
+            return;
+        }
         //get the total debtors between the start date and end date 
-        var currentTotalDebtorsQuery = `select sum(transaction_logs.total_sales_amount) as total_current_debtors 
-                                 from transaction_logs, sales
-                                 where sales.sales_type_fk = 1 and (sales.payment_status_fk = 1 or sales.payment_status_fk = 2) and transaction_logs.sales_id = sales.id and transaction_logs.created_at between '${startDate}' and '${endDate}'`; 
-        //get the total debtors between the previous start date(this is derived using the number of days between the current start date and current end date) and previous end date
-        var previousTotalDebtorsQuery = `select sum(transaction_logs.total_sales_amount) as total_previous_debtors 
-                                 from transaction_logs, sales
-                                 where sales.sales_type_fk = 1 and (sales.payment_status_fk = 1 or sales.payment_status_fk = 2) and transaction_logs.sales_id = sales.id and transaction_logs.created_at between '${previousStartDate}' and '${previousEndDate}'`;
-            getQueryDataPromise(currentTotalDebtorsQuery).then((totalDebtorsCurrent) => {
-            //check if records were returned from the DB
-            if (totalDebtors) {   
-                console.log(totalDebtorsCurrent);
-            }
-            else {//if not, log the message "no records were found"
-                console.log(totalDebtorsCurrent.message);
-                return;
-                }
+        return getQueryDataPromise(currentPeriodTotalDebtorsQuery)
 
-            return getQueryDataPromise(previousTotalDebtorsQuery);
+    }).then((totalDebtorsCurrentPeriod) => {
+        //check if records were returned from the DB
+        if (totalDebtors) {
+            console.log(totalDebtorsCurrentPeriod);
+        }
+        else {//if not, log the message "no records were found"
+            console.log(totalDebtorsCurrentPeriod.message);
+            return;
+        }
 
-            }).then((previousTotalDebtors) => {
+        return getQueryDataPromise(previousPeriodTotalDebtorsQuery);
 
-                //subtract the previous period total debtors from the current period total debtors
-                var changeInDebtors = totalDebtorsCurrent.message[0].total_current_debtors - previousTotalDebtors.message[0].total_previous_debtors;
-                //if the amount is a positive number 
-                if (changeInDebtors >= 0) {
-                    operatingActivitiesJSON["change_in_debtors"] = numeral(-changeInDebtors).format('(0,0.00)');
-                    //then subtract the amount from the total cash sales
-                    var netCashProvidedFByOperations = operatingActivitiesJSON["Cash_Sales"] - changeInDebtors;
+    }).then((totalDebtorsPreviousPeriod) => {
+        var cashSalesAfterChangeInDebtors;
+        //subtract the previous period total debtors from the current period total debtors
+        var changeInDebtors = totalDebtorsCurrentPeriod.message[0].total_current_debtors - totalDebtorsPreviousPeriod.message[0].total_previous_debtors;
+        //if the amount is a positive number 
+        if (changeInDebtors >= 0) {
+            operatingActivitiesJSON["change_in_debtors"] = numeral(-changeInDebtors).format('(0,0.00)');
+            //then subtract the absolute value of the amount from the total cash sales
+            cashSalesAfterChangeInDebtors = operatingActivitiesJSON["Cash_Sales"] - changeInDebtors;
 
-                }
-                //else if it is a negative number 
-                else {
-                    operatingActivitiesJSON["change_in_debtors"] = numeral(changeInDebtors).format('(0,0.00)');
-                    //add the absolute value of the amount to the total cash sales
-                    var netCashProvidedFByOperations = operatingActivitiesJSON["Cash_Sales"] - changeInDebtors;
-                }
+            //store the final amount as cash collection from sales 
+            operatingActivitiesJSON["cash_collection_from_sales"] = cashSalesAfterChangeInDebtors;
+        }
+        //else if it is a negative number 
+        else {
+            operatingActivitiesJSON["change_in_debtors"] = numeral(changeInDebtors).format('(0,0.00)');
+            //add the absolute value of the amount to the total cash sales
+            cashSalesAfterChangeInDebtors = operatingActivitiesJSON["Cash_Sales"] + Math.abs(changeInDebtors);
 
-            })
+            //store the final amount as cash collection from sales 
+            operatingActivitiesJSON["cash_collection_from_sales"] = cashSalesAfterChangeInDebtors;
+        }
+    }).catch((error) => {//catch and log any errors encountered
+        console.log(error);
+    });
+
+}       
         
             
             
-                 
-            //check for bad debts and substract them from the total cash sales
-        //store the final amount as cash collection from sales 
+            
 
 
     //calculate cash payment to suppliers
