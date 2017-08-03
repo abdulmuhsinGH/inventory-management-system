@@ -30,10 +30,11 @@ var getQueryDataPromise = (query) => {
 
 }
 
-//calculate total sales
-// @param: startDate
-//         endDate
-//@return Promise
+/**calculate total sales
+ @param: startDate
+         endDate
+ @return Promise
+*/
 var calculateTotalSalesAmount = (startDate, endDate) => {
     //query to get total sales bewtween startDate and endDate
     var totalSalesAmountQuery = `select sum(transaction_logs.total_sales_amount) as total_sales_amount 
@@ -219,7 +220,7 @@ var createIncomeStatement = (startDate, endDate, recordTypeId) => {
 
 };
 
-//module.exports.generateIncomeStatement = createIncomeStatement(startDate, endDate, recordTypeId)
+module.exports.generateIncomeStatement = createIncomeStatement(startDate, endDate, recordTypeId);
 //createIncomeStatement(startDate, endDate, 1).then((incomeStatement) => {
 //    console.log(incomeStatement);
 //});
