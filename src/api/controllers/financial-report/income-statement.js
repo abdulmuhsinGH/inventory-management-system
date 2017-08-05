@@ -206,12 +206,14 @@ var calculateAdditionalDeductionAfterNetProfit = () => {
 //         endDate
 //         recordTypeId:income or expense 
 //@return Promise
-var createIncomeStatement = (startDate, endDate, recordTypeId) => {
+var createIncomeStatement = (startDate, endDate) => {
 
     return calculateTotalSalesAmount(startDate, endDate).then(() => {
         return calculateTotalPurchasesAmount(startDate, endDate);
     }).then(() => {
-        return calculateTotalIncomeOrExpenseAfterGrossProfit(startDate, endDate, recordTypeId);
+        return calculateTotalIncomeOrExpenseAfterGrossProfit(startDate, endDate, 1);
+    }).then(() => {
+        return calculateTotalIncomeOrExpenseAfterGrossProfit(startDate, endDate, 2);
     }).then(() => {
         return calculateAdditionalDeductionAfterNetProfit();
     }).then(() => {
