@@ -17,7 +17,6 @@ var common_1 = require("@angular/common");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var ng2_bootstrap_2 = require("ng2-bootstrap");
 var ng2_bootstrap_3 = require("ng2-bootstrap");
-var ng2_table_1 = require("ng2-table/ng2-table");
 var angular2_notifications_1 = require("angular2-notifications");
 var inventory_routing_1 = require("./inventory-routing/inventory.routing");
 var inventory_component_1 = require("./inventory-main-component/inventory.component");
@@ -35,7 +34,6 @@ InventoryModule = __decorate([
             http_1.HttpModule,
             forms_1.ReactiveFormsModule,
             common_1.CommonModule,
-            ng2_table_1.Ng2TableModule,
             ng2_bootstrap_1.PaginationModule,
             ng2_bootstrap_2.ModalModule.forRoot(),
             ng2_bootstrap_3.TypeaheadModule.forRoot(),

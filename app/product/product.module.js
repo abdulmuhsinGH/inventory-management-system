@@ -14,7 +14,6 @@ var http_1 = require("@angular/http");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var ng2_bootstrap_2 = require("ng2-bootstrap");
 var ng2_bootstrap_3 = require("ng2-bootstrap");
-var ng2_table_1 = require("ng2-table/ng2-table");
 var angular2_notifications_1 = require("angular2-notifications");
 var product_component_1 = require("./product.component");
 var product_details_component_1 = require("./product-details/product-details.component");
@@ -37,7 +36,6 @@ ProductModule = __decorate([
             http_1.HttpModule,
             forms_1.ReactiveFormsModule,
             //ChartsModule,
-            ng2_table_1.Ng2TableModule,
             ng2_bootstrap_1.PaginationModule,
             ng2_bootstrap_2.ModalModule,
             ng2_bootstrap_3.TypeaheadModule,

@@ -1,7 +1,12 @@
+var sqlite3 = require('sqlite3').verbose(),
+    db = new sqlite3.Database('./inventory_db.db')
 var moment = require('moment');
 var numeral = require('numeral');
 var operatingActivitiesJSON = {};
 
+
+var startDate = '2017-03-01';
+var endDate = '2017-06-30';
 //helper function get data from DB
 var getQueryDataPromise = (query) => {
 
@@ -24,10 +29,16 @@ var getQueryDataPromise = (query) => {
 
 }
 
-//Generate a Cash flow statement
+var getpreviousDates = (currentStartDate, currentEndDate) => {
+    //get the previous period start and end dates using the current start and end dates 
+    var startDate = moment(currentStartDate);
+    var endDate = moment(currentEndDate);
+    var numOfDaysBtwnStartEnd = startDate.diff(endDate);
+    var previousPeriodStartDate = startDate.subtract(numOfDaysBtwnStartEnd, 'days');
+    var previousPeriodEndDate = endDate.subtract(numOfDaysBtwnStartEnd, 'days');
 
-
-//calculate cash from operating activities
+    return { previousPeriodStartDate, previousPeriodEndDate}
+}
 
 //calculate cash collection from sales
 var calculateCashCollectionFromSales = (startDate, endDate) => {
@@ -36,7 +47,7 @@ var calculateCashCollectionFromSales = (startDate, endDate) => {
                                  from transaction_logs, sales
                                  where sales.sales_type_fk = 2 and transaction_logs.sales_id = sales.id and transaction_logs.created_at between '${startDate}' and '${endDate}'`;
 
-    //get the number of days between start date and end date
+    //get the previous period start and end dates using the current start and end dates 
     var currentStartDate = moment(startDate);
     var currentEndDate = moment(endDate);
     var numOfDaysBtwnStartEnd = currentStartDate.diff(currentEndDate);
@@ -53,7 +64,7 @@ var calculateCashCollectionFromSales = (startDate, endDate) => {
                                 where sales.sales_type_fk = 1 and (sales.payment_status_fk = 1 or sales.payment_status_fk = 2) and transaction_logs.sales_id = sales.id and transaction_logs.created_at between '${previousPeriodStartDate}' and '${previousPeriodEndDate}'`;
 
     //get cash collection from sales for the period between  startDate and endDate:
-    getQueryDataPromise(totalCashSalesAmountQuery).then((totalCashSales) => {
+   return getQueryDataPromise(totalCashSalesAmountQuery).then((totalCashSales) => {
         //check if records were returned from the DB
         if (totalCashSales.status) {
             operatingActivitiesJSON["Cash_Sales"] = totalCashSales.message[0].total_cash_sales_amount;
@@ -106,14 +117,10 @@ var calculateCashCollectionFromSales = (startDate, endDate) => {
     });
 
 }       
-        
-            
-            
-            
 
 
-    //calculate cash payment to suppliers
-var cashPaymentToSuppliers = (startDate, endDate) => {
+//calculate cash payment to suppliers
+var calculateCashPaymentToSuppliers = (startDate, endDate) => {
     //current total creditors -- local variable
     var totalAmountCurrentCreditors;
     //previous total creditors -- local variable
@@ -144,7 +151,7 @@ var cashPaymentToSuppliers = (startDate, endDate) => {
                                 where inventory_details.inventory_purchase_type_fk = 1 and inventory_details.created_at between '${previousPeriodStartDate}' and '${previousPeriodEndDate}'`;
 
     //get increase/decrease in debtors for the period between  startDate and endDate:
-    getQueryDataPromise(totalCashPurchasesQuery).then((totalCashPurchases) => {
+    return getQueryDataPromise(totalCashPurchasesQuery).then((totalCashPurchases) => {
 
         if (totalCashPurchases.status) {
             operatingActivitiesJSON["Cash_Purchases"] = totalCashSales.message[0].total_cash_sales_amount;
@@ -208,50 +215,147 @@ var cashPaymentToSuppliers = (startDate, endDate) => {
 }
         
 
-
-    //calculateOtherIncomeAndExpenses
-var calcualteOtherIncomeAndExpenses = (startDate, endDate, calculationType) => {
-    //check the the calculation to do
+//calculateOtherIncomeAndExpenses
+var calculateOtherIncomeAndExpenses = (startDate, endDate, calculationTypeId) => {
+    //currentPeriodTotalIncomeAmount -- local variable
+    var currentPeriodTotalIncomeAmount = 0;
+    //previousPeriodTotalIncomeAmount -- local variable
+    var previousPeriodTotalIncomeAmount = 0;
+    //currentPeriodTotalExpenseAmount -- local variable
+    var currentPeriodTotalExpenseAmount = 0;
+    //previousPeriodTotalExpenseAmount -- local variable
+    var previousPeriodTotalExpenseAmount = 0;
     
-    //query for total income for current period
-    var totalIncomeOrExpenseCurrentperiodQuery 
+    //query for total income/expense for current period
+    var totalIncomeOrExpenseCurrentPeriodQuery = `select sum(additional_record_logs.amount) as total_amount, additional_record_type.name from additional_record_logs 
+    join additional_record_type on additional_record_logs.record_type_id_fk = additional_record_type.id
+    where additional_record_logs.record_type_id_fk = ${calculationTypeId} and additional_record_logs.created_at between '${startDate}' and '${endDate}' group by additional_record_type.name`;
 
+    //get the previous period dates using the current start date and end date
+    var currentStartDate = moment(startDate);
+    var currentEndDate = moment(endDate);
+    var numOfDaysBtwnStartEnd = currentStartDate.diff(currentEndDate);
+    var previousPeriodStartDate = currentStartDate.subtract(numOfDaysBtwnStartEnd, 'days');
+    var previousPeriodEndDate = currentEndDate.subtract(numOfDaysBtwnStartEnd, 'days');
+
+
+    //query for total income/expense for previous period
+    var totalIncomeOrExpensePreviousPeriodQuery = `select sum(additional_record_logs.amount) as total_amount, additional_record_type.name from additional_record_logs 
+    join additional_record_type on additional_record_logs.record_type_id_fk = additional_record_type.id
+    where additional_record_logs.record_type_id_fk = ${calculationTypeId} and additional_record_logs.created_at between '${previousPeriodStartDate}' and '${previousPeriodEndDate}' group by additional_record_type.name`;
     //if it is income then
-    if (calculationType === "income") {
-
-         
-        //query for total income for previous period
-
+    if (calculationTypeId === 1) {
         //get increase/decrease in income between startDate and endDate
-        //get total income between the period of startDate and endDate
+        //get total income for the current period
+       return getQueryDataPromise(totalIncomeOrExpenseCurrentPeriodQuery).then((totalCurrentIncomeAmount) => {
+            if (totalCurrentIncomeAmount.status) {
+                currentPeriodTotalIncomeAmount = totalCurrentIncomeAmount[0].message.total_amount;
+            }
+            else {
+                console.log(totalCurrentIncomeAmount.message);
+            }
 
-        //
+            //get total income for the current period
+            return getQueryDataPromise(totalIncomeOrExpensePreviousPeriodQuery);
+        }).then((totalPreviousIncomeAmount) => {
 
+            if (totalPreviousIncomeAmount.status) {
+                previousPeriodTotalIncomeAmount = totalPreviousIncomeAmount[0].message.total_amount;
+
+                //substract the previous period total income from the current period total income
+                var changeInIncome = currentPeriodTotalIncomeAmount - previousPeriodTotalIncomeAmount;
+                //if the amount is a positive number
+                if (changeInIncome >= 0) {
+                    //then store as income inflow (positive)
+                    operatingActivitiesJSON["other_income"] = numeral(changeInIncome).format('(0,0.00)');
+
+                }
+                //if the amount is a negative number 
+                else {
+                    //then store it as income outflow(negative)
+                    operatingActivitiesJSON["other_income"] = numeral(changeInIncome).format('(0,0.00)');
+                }  
+                
+                
+            }
+            else {
+                console.log(totalPreviousIncomeAmount.message);
+            }
+
+        }).catch((error) => {
+            console.log(error);             
+        })
+        
     }
-     
-      //get increase/decrease in income between startDate and endDate
-      //get total income between the period of startDate and endDate
-      //get total income between the previous start date(this is derived using the number of days between the current start date and current end date) and previous end date
-      //substract the previous total incomefro mthe current income
-      //if the amount is a positive number
-         //then store as income inflow (positive)
-      //if the amount is a negative number 
-        //.then store it as income outflow(negative)
-    //else if it is expense
-      //get increase/decrease in expense between startDate and endDate
-      //get total expense between the period of startDate and endDate
-      //get total expense between the previous start date(this is derived using the number of days between the current start date and current end date) and previous end date
-      //substract the previous total expense from the current expense
-      //if the amount is a positive number
-         //then store as expense outflow (negative)
-      //if the amount is a negative number 
-        //then store it as expense inflow(positive)
+    //if it is expense then
+    else if (calculationTypeId === 2) {
+        //get the total expense for the current period
+        return getQueryDataPromise(totalIncomeOrExpenseCurrentPeriodQuery).then((totalCurrentExpenseAmount) => {
+            if(totalCurrentExpenseAmount.status) {
+                currentPeriodTotalExpenseAmount = totalCurrentExpenseAmount[0].message.total_amount;
+            }
+            else {
+                console.log(totalCurrentExpenseAmount.message);
+            }
+
+            //get the total expense for the previous period
+            return getQueryDataPromise(totalIncomeOrExpensePreviousPeriodQuery);
+        }).then((totalPreviousExpenseAmount) => {
+
+            if (totalPreviousExpenseAmount.status) {
+                previousPeriodTotalExpenseAmount = totalPreviousExpenseAmount[0].message.total_amount;
+                 //substract the previous period total expense from the current period expense
+                changeInExpense = currentPeriodTotalExpenseAmount - previousPeriodTotalExpenseAmount;
+
+                //if the amount is a positive number
+         
+                if (changeInExpense >= 0) {
+                    //then store as expense outflow (negative)
+                    operatingActivitiesJSON["other_expense"] = numeral(-Math.abs(changeInExpense)).format('(0,0.00)');
+                }
+                 //else if the amount is a negative number 
+                else {
+                    //then store it as expense inflow(positive)
+                    operatingActivitiesJSON["other_expense"] = numeral(Math.abs(changeInExpense)).format('(0,0.00)');
+                }
+            }
+            else {
+                console.log(totalPreviousExpenseAmount.message);
+            }
+        })
+    }
+      
 }
 
 
+//calculate net cash from operating activities
+var calculateNetCashFromOperatingActivites = () => {
+    var cashFromTradingActivities = operatingActivitiesJSON.cash_collection_from_sales - operatingActivitiesJSON.cash_payment_to_suppliers;
+    var netCashFromOperatingActivites = cashFromTradingActivities + operatingActivitiesJSON.other_income + operatingActivitiesJSON.other_expense;
+    operatingActivitiesJSON["net_cash_from_operating_income"] = netCashFromOperatingActivites;
+}
+
+//calculate cash from operating activities
+//Generate a Cash flow statement
+var generateCashFlowStatemment = async (startDate, endDate) => {
+    try {
+        await calculateCashCollectionFromSales(startDate, endDate);
+        await calculateCashPaymentToSuppliers(startDate, endDate);
+        await calculateOtherIncomeAndExpenses(startDate, endDate, 1);
+        await calculateOtherIncomeAndExpenses(startDate, endDate, 2);
+        await calculateNetCashFromOperatingActivites();
+
+        console.log(operatingActivitiesJSON);
+    }
+    catch (error) {
+        console.log(error);
+    }
+    
+    
+}
 
 
-
+generateCashFlowStatemment(startDate, endDate);
 //On Hiatus   
  //calculate investing activities
    //how to determine an inflow or outflow in investing activities
