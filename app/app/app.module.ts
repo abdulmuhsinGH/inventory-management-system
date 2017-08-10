@@ -13,7 +13,6 @@ import { TabsModule } from 'ng2-bootstrap';
 
 import { TypeaheadModule } from 'ng2-bootstrap';
 
-import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent }   from './app.component';
@@ -45,7 +44,6 @@ import { SaleModule }   from '../sale/sale.module';
             HttpModule,
             ReactiveFormsModule,
             ChartsModule,
-            Ng2TableModule,
             PaginationModule.forRoot(),
             ModalModule,
             TypeaheadModule,
