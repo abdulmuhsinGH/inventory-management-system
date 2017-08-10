@@ -46,7 +46,7 @@ module.exports.viewCustomer = function(req, res){
 				  .status(500)
 				  .json(err);
 	  		}
-  		else if(!rows){
+  		else if(rows.length<1){
   			res
 			  .status(200)
 			  .json({state: 'success', user: null, result: "No Customer Found"});
@@ -72,7 +72,7 @@ module.exports.viewOneCustomer = function(req, res){
 				  .status(500)
 				  .json(err);
 	  		}
-  		else if(!row){
+  		else if(row.length<1){
   			res
 			  .status(200)
 			  .json({state: 'success', user: null, result: "No Customer Found"});
@@ -102,7 +102,7 @@ module.exports.searchCustomers = function(req, res){
 				  .status(500)
 				  .json(err);
 	  		}
-  		else if(!rows){
+  		else if(rows.length<1){
   			res
 			  .status(200)
 			  .json({state: 'success', user: null, result: rows});
