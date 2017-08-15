@@ -1,6 +1,7 @@
-var sqlite3 = require('sqlite3').verbose(),
-	db = new sqlite3.Database('./inventory_db.db')
+var sqlite3 = require('sqlite3').verbose();
+db = new sqlite3.Database('../../../../inventory_db.db');
 var moment = require('moment');
+var numeral = require('numeral');
 
 var startDate = '2017-03-01';
 var endDate = '2017-06-30';
@@ -30,10 +31,11 @@ var getQueryDataPromise = (query) => {
 
 }
 
-//calculate total sales
-// @param: startDate
-//         endDate
-//@return Promise
+/**calculate total sales
+ @param: startDate
+         endDate
+ @return Promise
+*/
 var calculateTotalSalesAmount = (startDate, endDate) => {
     //query to get total sales bewtween startDate and endDate
     var totalSalesAmountQuery = `select sum(transaction_logs.total_sales_amount) as total_sales_amount 
@@ -200,26 +202,110 @@ var calculateAdditionalDeductionAfterNetProfit = () => {
 
 };
 
-//calculate income statemment
-// @param: startDate
-//         endDate
-//         recordTypeId:income or expense 
-//@return Promise
-var createIncomeStatement = (startDate, endDate, recordTypeId) => {
-
-    return calculateTotalSalesAmount(startDate, endDate).then(() => {
-        return calculateTotalPurchasesAmount(startDate, endDate);
-    }).then(() => {
-        return calculateTotalIncomeOrExpenseAfterGrossProfit(startDate, endDate, recordTypeId);
-    }).then(() => {
-        return calculateAdditionalDeductionAfterNetProfit();
-    }).then(() => {
-       return incomeStatementJSON
-    }).catch((error) => { console.log(error); });
+/*calculate income statemment
+ @param: startDate
+         endDate
+         recordTypeId:income or expense 
+@return JSON income statement*/
+var createIncomeStatement = async (startDate, endDate) => {
+    try{
+        await calculateTotalSalesAmount(startDate, endDate)
+        await calculateTotalIncomeOrExpenseAfterGrossProfit(startDate, endDate, 1);
+        await calculateTotalIncomeOrExpenseAfterGrossProfit(startDate, endDate, 2);
+        await calculateAdditionalDeductionAfterNetProfit();
+   
+        return incomeStatementJSON;
+    }
+    
+   catch(error){
+        console.log(error); 
+    };
 
 };
 
-//module.exports.generateIncomeStatement = createIncomeStatement(startDate, endDate, recordTypeId)
+module.exports.generateIncomeStatement = (body)=>{
+    var incomeStatement = createIncomeStatement(body.startDate, body.endDate);
+
+    db.serialize(function () {
+      var stmt = db.prepare('INSERT INTO income_statements(title, income_statement, created_at, updated_at) VALUES (?, ?, ?, ?)');
+      var date = new Date(); 
+      var formattedDate = moment(date).format('YYYY-MM-DD HH:mm:ss'); 
+      var currentDateTime = formattedDate.toLocaleString();
+
+
+        stmt.run(body.title, incomeStatement, currentDateTime, currentDateTime);
+
+        stmt.finalize(function(err){
+            console.log(err);
+            if(err){
+               return {status:500, message:err}
+            }
+            else{
+                return {status:201, message:{state: 'success', user: null, message: "Income Statement Saved", statement:incomeStatement}}                
+            }
+        } )
+
+      
+    });
+}
+
+
+
+
+module.exports.getAllIncomeStatements = () =>{
+
+    db.all("SELECT id, title FROM income_statements", function(err, rows) {  
+        
+        if(err){
+            return {status:500, message:err}
+        }
+        else if(!rows){
+            return {status:200, message:{state: 'success', user: null, result: "No Income Statements Found"}};
+
+        }
+        else{
+            
+            return {status:200,message:{state: 'success', user: null, result: rows}};
+        }
+       
+    });  
+    
+}
+module.exports.getAIncomeStatement = (incomeStatementId) =>{
+    db.get(`SELECT title, income_statement FROM income_statements WHERE id = ${incomeStatementId}` , function(err, row) {  
+        
+        if(err){
+            return {status: 500, message:err};
+        }
+        else if(row.length<1){
+            return {status: 200, message:{state: 'success', user: null, result: "No Income Statement Found"}};
+
+        }
+        else{
+            
+            return {status: 200, message:{state: 'success', user: null, result: row}};
+        }
+        
+    }); 
+}
+
+module.exports.filterIncomeStatement = (searchTerm) =>{
+     db.all(`SELECT id, title FROM income_statements where income_statements.title like '%${searchTerm}%'`, function(err, rows) {  
+        
+        if(err){
+            return {status:500, message:err}
+        }
+        else if(rows.lenght<1){
+            return {status:200, message:{state: 'success', user: null, result: "No Income Statements Found"}};
+
+        }
+        else{
+            
+            return {status:200, message:{state: 'success', user: null, result: rows}};
+        }
+       
+    });
+}
 //createIncomeStatement(startDate, endDate, 1).then((incomeStatement) => {
 //    console.log(incomeStatement);
 //});

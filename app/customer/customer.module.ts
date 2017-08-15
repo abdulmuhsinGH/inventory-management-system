@@ -9,8 +9,6 @@ import { PaginationModule } from 'ng2-bootstrap';
 import { ModalModule } from 'ng2-bootstrap';
 
 import { TypeaheadModule } from 'ng2-bootstrap';
-
-import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { ChartsModule } from 'ng2-charts';
 import {SimpleNotificationsModule} from 'angular2-notifications';
 
@@ -33,7 +31,6 @@ import { CustomerRoutingModule,routingComponents } from './customer.routing';
             HttpModule,
             ReactiveFormsModule,
             //ChartsModule,
-            Ng2TableModule,
             PaginationModule.forRoot(),
             ModalModule.forRoot(),
             TypeaheadModule.forRoot(),

@@ -14,7 +14,6 @@ var http_1 = require("@angular/http");
 var ng2_bootstrap_1 = require("ng2-bootstrap");
 var ng2_bootstrap_2 = require("ng2-bootstrap");
 var ng2_bootstrap_3 = require("ng2-bootstrap");
-var ng2_table_1 = require("ng2-table/ng2-table");
 var ng2_charts_1 = require("ng2-charts");
 var angular2_notifications_1 = require("angular2-notifications");
 var supplier_component_1 = require("./supplier.component");
@@ -35,7 +34,6 @@ SupplierModule = __decorate([
             http_1.HttpModule,
             forms_1.ReactiveFormsModule,
             ng2_charts_1.ChartsModule,
-            ng2_table_1.Ng2TableModule,
             ng2_bootstrap_1.PaginationModule.forRoot(),
             ng2_bootstrap_2.ModalModule.forRoot(),
             ng2_bootstrap_3.TypeaheadModule.forRoot(),

@@ -13,14 +13,13 @@ import { TabsModule } from 'ng2-bootstrap';
 
 import { TypeaheadModule } from 'ng2-bootstrap';
 
-import { Ng2TableModule } from 'ng2-table/ng2-table';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent }   from './app.component';
 import { AppRoutingModule,routingComponents } from './app.routing';
 
 
-import { DashboardComponent }   from '../dashboard/dashboard.component';
+//import { DashboardComponent }   from '../dashboard/dashboard.component';
 import { FinancialReportComponent }   from '../financial-report/financial-report.component';
 
 import { ProductModule }   from '../product/product.module';
@@ -28,6 +27,7 @@ import { InventoryModule }   from '../inventory/inventory.module';
 import { CustomerModule }   from '../customer/customer.module';
 import { SupplierModule }   from '../supplier/supplier.module';
 import { SaleModule }   from '../sale/sale.module';
+import { DashboardModule} from '../dashboard/dashboard.module';
 
 
 
@@ -45,7 +45,6 @@ import { SaleModule }   from '../sale/sale.module';
             HttpModule,
             ReactiveFormsModule,
             ChartsModule,
-            Ng2TableModule,
             PaginationModule.forRoot(),
             ModalModule,
             TypeaheadModule,
@@ -54,12 +53,12 @@ import { SaleModule }   from '../sale/sale.module';
             CustomerModule,
             SaleModule,
             InventoryModule,
+            DashboardModule,
             TabsModule.forRoot(),
            
             
   				],
   declarations: [ AppComponent,
-  				  DashboardComponent,
             FinancialReportComponent,
   				  routingComponents,            
             

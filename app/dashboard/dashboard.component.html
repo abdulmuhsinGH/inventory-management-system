@@ -20,9 +20,10 @@
           <div class="x_title">
             <h2>Transaction Summary <small>Weekly progress</small></h2>
             <div class="filter">
-              <!-- <form [formGroup]="dataForm">
-                <datepicker formControlName="date" [expanded]="true"></datepicker>
-              </form> -->
+              Date Filter:
+              <form #myForm="ngForm" novalidate>
+                  <my-date-range-picker name="mydaterange" [options]="dashboardDateRangePickerOptions" required></my-date-range-picker>
+              </form>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -156,7 +157,7 @@
           </div>
           <div class="x_content">
             <div class="card-box table-responsive">
-              <ng-table [config]="config"
+              <!-- <ng-table [config]="config"
                           (tableChanged)="onChangeTable(config)"
                           (cellClicked)="onCellClick($event)"
                           [rows]="rows" [columns]="columns">
@@ -172,7 +173,7 @@
                           (pageChanged)="onChangeTable(config, $event)"
                           (numPages)="numPages = $event">
               </pagination>
-              <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>
+              <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre> -->
               </div>
           </div>
         </div>
