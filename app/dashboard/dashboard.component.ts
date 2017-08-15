@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup} from '@angular/forms';
 
 import * as moment from 'moment';
 import { ChartsModule } from 'ng2-charts';
+import { IMyDrpOptions } from 'mydaterangepicker';
 //import { TabsetConfig } from 'ng2-bootstrap';
 //import { PaginationConfig } from 'ng2-bootstrap/pagination';
 
@@ -225,6 +226,12 @@ public setActiveTab(index:number):void {
   public removeTabHandler(/*tab:any*/):void {
     console.log('Remove Tab handler');
   };
+
+
+  private dashboardDateRangePickerOptions: IMyDrpOptions ={
+    dateFormat: 'yyyy-mm-dd',
+
+  }
 
 
 }

@@ -28,7 +28,7 @@
       'rxjs':                      'npm:rxjs',
       'ng2-bootstrap' : 'npm:ng2-bootstrap/bundles/ngx-bootstrap.umd.js',
       'ng2-charts': 'npm:ng2-charts/bundles/ng2-charts.umd.min.js',
-      'mydaterangepicker': 'npm:mydaterangepicker',
+      'mydaterangepicker': 'npm:mydaterangepicker/bundles/mydaterangepicker.umd.js',
       'ng2-bootstrap/components/typeahead/typeahead-match.class'     :        'npm:ng2-bootstrap/components/typeahead/typeahead-match.class.js',
       'angular2-notifications': 'npm:angular2-notifications',
      
@@ -56,10 +56,10 @@
         main: './index.js',
         defaultExtension: 'js'
       },
-      mydaterangepicker: {
+      /*mydaterangepicker: {
         main: './dist/index.js',
         defaultExtension: 'js'
-      },
+      },*/
      /* 'ng2-charts': { 
         main: 'ng2-charts.js', 
         defaultExtension: 'js' 

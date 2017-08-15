@@ -8,17 +8,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var financial_report_component_1 = require("../financial-report/financial-report.component");
+var dashboard_component_1 = require("../dashboard/dashboard.component");
 var routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-    { path: 'financial-report', component: financial_report_component_1.FinancialReportComponent },
+    { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
 ];
-var AppRoutingModule = (function () {
-    function AppRoutingModule() {
+var DashboardRoutingModule = (function () {
+    function DashboardRoutingModule() {
     }
-    return AppRoutingModule;
+    return DashboardRoutingModule;
 }());
-AppRoutingModule = __decorate([
+DashboardRoutingModule = __decorate([
     core_1.NgModule({
         imports: [
             router_1.RouterModule.forRoot(routes)
@@ -27,7 +26,7 @@ AppRoutingModule = __decorate([
             router_1.RouterModule
         ]
     })
-], AppRoutingModule);
-exports.AppRoutingModule = AppRoutingModule;
-exports.routingComponents = [financial_report_component_1.FinancialReportComponent];
-//# sourceMappingURL=app.routing.js.map
+], DashboardRoutingModule);
+exports.DashboardRoutingModule = DashboardRoutingModule;
+exports.routingDashboardComponents = [dashboard_component_1.DashboardComponent];
+//# sourceMappingURL=dashboard.routing.js.map

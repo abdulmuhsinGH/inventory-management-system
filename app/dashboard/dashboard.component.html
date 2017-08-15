@@ -20,9 +20,10 @@
           <div class="x_title">
             <h2>Transaction Summary <small>Weekly progress</small></h2>
             <div class="filter">
-              <!-- <form [formGroup]="dataForm">
-                <datepicker formControlName="date" [expanded]="true"></datepicker>
-              </form> -->
+              Date Filter:
+              <form #myForm="ngForm" novalidate>
+                  <my-date-range-picker name="mydaterange" [options]="dashboardDateRangePickerOptions" required></my-date-range-picker>
+              </form>
             </div>
             <div class="clearfix"></div>
           </div>

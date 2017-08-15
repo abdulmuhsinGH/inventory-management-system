@@ -19,7 +19,7 @@ import { AppComponent }   from './app.component';
 import { AppRoutingModule,routingComponents } from './app.routing';
 
 
-import { DashboardComponent }   from '../dashboard/dashboard.component';
+//import { DashboardComponent }   from '../dashboard/dashboard.component';
 import { FinancialReportComponent }   from '../financial-report/financial-report.component';
 
 import { ProductModule }   from '../product/product.module';
@@ -27,6 +27,7 @@ import { InventoryModule }   from '../inventory/inventory.module';
 import { CustomerModule }   from '../customer/customer.module';
 import { SupplierModule }   from '../supplier/supplier.module';
 import { SaleModule }   from '../sale/sale.module';
+import { DashboardModule} from '../dashboard/dashboard.module';
 
 
 
@@ -52,12 +53,12 @@ import { SaleModule }   from '../sale/sale.module';
             CustomerModule,
             SaleModule,
             InventoryModule,
+            DashboardModule,
             TabsModule.forRoot(),
            
             
   				],
   declarations: [ AppComponent,
-  				  DashboardComponent,
             FinancialReportComponent,
   				  routingComponents,            
             

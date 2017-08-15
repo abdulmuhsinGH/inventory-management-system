@@ -81,6 +81,9 @@ var DashboardComponent = (function () {
             { title: 'Debtors', content: 'Dynamic content 1' },
             { title: 'Creditors', content: 'Dynamic content 2' },
         ];
+        this.dashboardDateRangePickerOptions = {
+            dateFormat: 'yyyy-mm-dd',
+        };
         this.length = this.data.length;
     }
     DashboardComponent.prototype.ngOnInit = function () {
