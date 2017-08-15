@@ -2,17 +2,12 @@ import { NgModule }     from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent }  from '../dashboard/dashboard.component';
-import { FinancialReportComponent }  from '../financial-report/financial-report.component';
-
-
 
 
 
 
 const routes: Routes = [
-   	{ path: '', pathMatch: 'full', redirectTo: 'dashboard'},
-  { path: 'financial-report', component: FinancialReportComponent },
-  
+	{ path: 'dashboard', component: DashboardComponent }, 
  ];
  
  @NgModule({
@@ -27,7 +22,7 @@ const routes: Routes = [
 
 
 
-export class AppRoutingModule {
+export class DashboardRoutingModule {
 }
 
-export const routingComponents = [FinancialReportComponent];
+export const routingDashboardComponents = [DashboardComponent];

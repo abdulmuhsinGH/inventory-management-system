@@ -18,13 +18,14 @@ var ng2_bootstrap_4 = require("ng2-bootstrap");
 var ng2_charts_1 = require("ng2-charts");
 var app_component_1 = require("./app.component");
 var app_routing_1 = require("./app.routing");
-var dashboard_component_1 = require("../dashboard/dashboard.component");
+//import { DashboardComponent }   from '../dashboard/dashboard.component';
 var financial_report_component_1 = require("../financial-report/financial-report.component");
 var product_module_1 = require("../product/product.module");
 var inventory_module_1 = require("../inventory/inventory.module");
 var customer_module_1 = require("../customer/customer.module");
 var supplier_module_1 = require("../supplier/supplier.module");
 var sale_module_1 = require("../sale/sale.module");
+var dashboard_module_1 = require("../dashboard/dashboard.module");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -50,10 +51,10 @@ AppModule = __decorate([
             customer_module_1.CustomerModule,
             sale_module_1.SaleModule,
             inventory_module_1.InventoryModule,
+            dashboard_module_1.DashboardModule,
             ng2_bootstrap_3.TabsModule.forRoot(),
         ],
         declarations: [app_component_1.AppComponent,
-            dashboard_component_1.DashboardComponent,
             financial_report_component_1.FinancialReportComponent,
             app_routing_1.routingComponents,
         ],
