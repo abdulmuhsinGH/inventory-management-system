@@ -3,6 +3,7 @@
 * [Angular](https://angular.io/)
 * [SQLite3](https://www.sqlite.org/about.html)
 * [Electron](https://electron.atom.io/)
+* [Gentelella Admin Dashboard](https://colorlib.com/polygon/gentelella/)
 	
 **This is work in progress**
 
